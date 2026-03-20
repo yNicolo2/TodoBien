@@ -335,7 +335,7 @@
         <div class="contact-list">
           <a href="tel:+51999000000"><div class="contact-icon">📞</div>+51 999 000 000</a>
           <a href="https://wa.me/51999000000" target="_blank" rel="noopener"><div class="contact-icon">💬</div>WhatsApp disponible</a>
-          <a href="mailto:hola@todobien.pe"><div class="contact-icon">📧</div>hola@todobien.pe</a>
+          <a href="/cdn-cgi/l/email-protection#741c1b181534001b101b161d111a5a0411"><div class="contact-icon">📧</div><span class="__cf_email__" data-cfemail="84ecebe8e5c4f0ebe0ebe6ede1eaaaf4e1">[email&#160;protected]</span></a>
           <a href="#"><div class="contact-icon">📍</div>Lima, Perú</a>
         </div>
       </div>
@@ -453,7 +453,7 @@
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function(){
 'use strict';
 
@@ -639,10 +639,39 @@ function resetSlot() {
 document.getElementById('f_fecha').addEventListener('change', resetSlot);
 checkBtn.addEventListener('click', verificar);
 
+// Comprueba solapamiento localmente contra localStorage (90 min)
+function solapaLocal(fecha, hora) {
+  var citas = getCitas();
+  var nuevaInicio = horaAMinJS(hora);
+  var nuevaFin    = nuevaInicio + DURACION;
+  for (var i = 0; i < citas.length; i++) {
+    var c = citas[i];
+    if (!c.fecha_pref || !c.hora_pref) continue;
+    if (c.fecha_pref !== fecha) continue;
+    var citaInicio = horaAMinJS(c.hora_pref);
+    var citaFin    = citaInicio + DURACION;
+    if (nuevaInicio < citaFin && nuevaFin > citaInicio) return true;
+  }
+  return false;
+}
+function horaAMinJS(h) {
+  var p = String(h).split(':');
+  return parseInt(p[0], 10) * 60 + parseInt(p[1] || '0', 10);
+}
+
 async function verificar() {
   var fecha = document.getElementById('f_fecha').value;
   var hora  = document.getElementById('f_hora').value;
   if (!fecha || !hora) { showError('Ingresa una fecha y una hora primero.'); return; }
+
+  // ── Verificación local primero (rápida, sin red) ──
+  if (solapaLocal(fecha, hora)) {
+    slotStatus.className = 'slot-status ocupado';
+    slotMsg.textContent  = '✗ Ya tienes una cita cerca de ese horario. Elige otro.';
+    slotOK = false; submitBtn.disabled = true; btnText.textContent = 'Verifica disponibilidad primero';
+    checkBtn.disabled = false;
+    return;
+  }
 
   slotStatus.className = 'slot-status checking';
   slotMsg.textContent  = 'Verificando...';
@@ -752,13 +781,4 @@ function renderSaved(){
   sec.style.display='block';
   ul.innerHTML=list.map(function(c){
     return '<div class="saved-item"><div><div class="saved-name">'+esc(c.nombre)+'</div>'
-          +'<div class="saved-detail">'+esc(c.servicio)+' · '+esc(c.fecha_pref)+' · '+esc(formatH(c.hora_pref||'00:00'))+'</div>'
-          +'</div><span class="saved-badge">Confirmada</span></div>';
-  }).join('');
-}
-renderSaved();
-
-})(); // fin IIFE
-</script>
-</body>
-</html>
+          +'<div class="saved-detail">'+es
