@@ -397,7 +397,7 @@
         <div class="contact-list">
           <a href="tel:+51999000000"><div class="contact-icon">📞</div>+51 999 000 000</a>
           <a href="https://wa.me/51999000000" target="_blank" rel="noopener"><div class="contact-icon">💬</div>WhatsApp disponible</a>
-          <a href="mailto:hola@todobien.pe"><div class="contact-icon">📧</div>hola@todobien.pe</a>
+          <a href="/cdn-cgi/l/email-protection#adc5c2c1ccedd9c2c9c2cfc4c8c383ddc8"><div class="contact-icon">📧</div><span class="__cf_email__" data-cfemail="e981868588a99d868d868b808c87c7998c">[email&#160;protected]</span></a>
           <a href="#"><div class="contact-icon">📍</div>Lima, Perú</a>
         </div>
       </div>
@@ -529,7 +529,7 @@
   <p>© 2026 <strong>Todo Bien Clínica Dental</strong> · Lima, Perú<br>Todos los derechos reservados</p>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // ── CONFIGURACIÓN ──────────────────────────────────────────────
   // ⚠️ Reemplaza con la URL de tu Apps Script publicado
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0f1Hk4q0xzNbbsNV2lLW3XuHF2AcMJoHKhxjx-K3CnWVraUVMSIqJv6J8MFgdO9LZ/exec";
@@ -829,30 +829,57 @@
     };
 
     try {
-      // Apps Script requiere no-cors para POST, la respuesta será opaca (esperado)
-      await fetch(SCRIPT_URL, {
-        method : 'POST',
-        mode   : 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body   : JSON.stringify(data)
+      // ✅ GET con parámetros en la URL — única forma confiable con Apps Script.
+      // El POST con no-cors llega al servidor pero Apps Script NO puede leer el body,
+      // por eso los datos nunca se guardaban en la hoja.
+      const params = new URLSearchParams({
+        action:      'save',
+        nombre:      data.nombre,
+        telefono:    data.telefono,
+        correo:      data.correo,
+        servicio:    data.servicio,
+        fecha_pref:  data.fecha_pref,
+        hora_pref:   data.hora_pref,
+        comentario:  data.comentario,
+        fecha_envio: data.fecha_envio,
+        t:           Date.now()
       });
 
-      // Con no-cors no podemos leer la respuesta, pero si llegó hasta aquí sin
-      // excepción es porque la petición salió correctamente al servidor.
-      saveLocal(data);
-      successMsg.style.display = 'block';
-      slotStatus.className = 'slot-status';
-      slotOK = false;
-      form.reset();
-      timeDisplayText.textContent = 'Seleccionar hora';
-      timeDisplayText.classList.add('td-placeholder');
-      document.getElementById('f_fecha').min = new Date().toISOString().split('T')[0];
-      renderSaved();
+      const controller = new AbortController();
+      const timeout    = setTimeout(() => controller.abort(), 15000);
+
+      const res = await fetch(SCRIPT_URL + '?' + params.toString(), {
+        method:   'GET',
+        redirect: 'follow',
+        signal:   controller.signal
+      });
+      clearTimeout(timeout);
+
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+
+      const result = await res.json();
+
+      if (result.success) {
+        saveLocal(data);
+        successMsg.style.display = 'block';
+        slotStatus.className = 'slot-status';
+        slotOK = false;
+        form.reset();
+        timeDisplayText.textContent = 'Seleccionar hora';
+        timeDisplayText.classList.add('td-placeholder');
+        document.getElementById('f_fecha').min = new Date().toISOString().split('T')[0];
+        renderSaved();
+      } else {
+        showError(result.error || 'No se pudo guardar la cita. Intenta de nuevo.');
+      }
 
     } catch (err) {
-      // Un error aquí significa falla de red real (sin conexión a internet)
       console.error('Error al enviar:', err);
-      showError('Error de red al enviar. Verifica tu conexión a internet e intenta de nuevo.');
+      if (err.name === 'AbortError') {
+        showError('El servidor tardó demasiado. Intenta de nuevo.');
+      } else {
+        showError('Error de red. Verifica tu conexión e intenta de nuevo.');
+      }
     } finally {
       spinner.style.display = 'none';
       btn.disabled = true;
@@ -908,15 +935,4 @@
           <div class="saved-name">${esc(c.nombre)}</div>
           <div class="saved-detail">${esc(c.servicio)} · ${esc(c.fecha_pref)} · ${esc(formatHora(c.hora_pref||'00:00'))}</div>
         </div>
-        <span class="saved-badge">Confirmada ✓</span>
-      </div>`).join('');
-  }
-
-  function esc(s) {
-    return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  }
-
-  renderSaved();
-</script>
-</body>
-</html>
+        <span class="saved-badge">C
