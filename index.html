@@ -7,13 +7,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--sage:#e8efe8;--mint:#c8ddd0;--teal:#2d7d6f;--teal2:#1a5c52;--cream:#faf8f4;--ink:#1c2b28;--muted:#7a9690;--border:#d4e4df;--success:#2d7d6f;--error:#c0392b}
+:root{--sage:#e8f0fb;--mint:#bdd4f5;--teal:#1a56c4;--teal2:#0f3a8a;--cream:#f5f8ff;--ink:#0d1f3c;--muted:#5b7aaa;--border:#c5d8f5;--success:#1a56c4;--error:#c0392b}
 html{scroll-behavior:smooth}
 body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden}
 nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:.9rem 1.5rem;display:flex;align-items:center;justify-content:space-between;background:rgba(250,248,244,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);transition:box-shadow .3s}
-nav.scrolled{box-shadow:0 4px 30px rgba(45,125,111,.1)}
+nav.scrolled{box-shadow:0 4px 30px rgba(26,86,196,.1)}
 .nav-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;flex-shrink:0}
-.logo-svg-wrap{width:40px;height:40px;background:var(--teal);border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(45,125,111,.35);flex-shrink:0}
+.logo-svg-wrap{width:40px;height:40px;background:white;border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(26,86,196,.25);flex-shrink:0;padding:2px}
 .logo-svg-wrap svg{width:26px;height:26px;display:block}
 .nav-brand{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;color:var(--ink);line-height:1}
 .nav-brand em{font-style:normal;color:var(--teal)}
@@ -33,9 +33,9 @@ nav.scrolled{box-shadow:0 4px 30px rgba(45,125,111,.1)}
 .mobile-menu a:last-child{border-bottom:none}
 .mobile-menu a:hover{color:var(--teal)}
 .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:7rem 4rem 4rem;gap:3rem;position:relative;overflow:hidden;max-width:1200px;margin:0 auto}
-.hero::before{content:'';position:fixed;top:-150px;right:-150px;width:700px;height:700px;background:radial-gradient(circle,rgba(200,221,208,.35) 0%,transparent 65%);pointer-events:none;z-index:0}
+.hero::before{content:'';position:fixed;top:-150px;right:-150px;width:700px;height:700px;background:radial-gradient(circle,rgba(189,212,245,.35) 0%,transparent 65%);pointer-events:none;z-index:0}
 .hero-text{position:relative;z-index:1}
-.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(45,125,111,.1);border:1px solid rgba(45,125,111,.2);color:var(--teal);font-size:.73rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:.38rem 1rem;border-radius:100px;margin-bottom:1.4rem;animation:fadeUp .6s ease both}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(26,86,196,.1);border:1px solid rgba(26,86,196,.2);color:var(--teal);font-size:.73rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:.38rem 1rem;border-radius:100px;margin-bottom:1.4rem;animation:fadeUp .6s ease both}
 .hero-badge::before{content:'';width:6px;height:6px;background:var(--teal);border-radius:50%;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.4)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
@@ -43,12 +43,12 @@ nav.scrolled{box-shadow:0 4px 30px rgba(45,125,111,.1)}
 .hero h1 em{font-style:italic;color:var(--teal)}
 .hero-desc{color:var(--muted);font-size:.97rem;line-height:1.8;max-width:400px;margin-bottom:2.2rem;animation:fadeUp .6s .2s ease both}
 .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp .6s .3s ease both}
-.btn-primary{background:var(--teal);color:white;text-decoration:none;padding:.85rem 1.8rem;border-radius:100px;font-weight:600;font-size:.9rem;transition:background .2s,transform .15s;box-shadow:0 4px 18px rgba(45,125,111,.3);display:inline-block}
+.btn-primary{background:var(--teal);color:white;text-decoration:none;padding:.85rem 1.8rem;border-radius:100px;font-weight:600;font-size:.9rem;transition:background .2s,transform .15s;box-shadow:0 4px 18px rgba(26,86,196,.3);display:inline-block}
 .btn-primary:hover{background:var(--teal2);transform:translateY(-2px)}
 .btn-outline{border:1.5px solid var(--border);color:var(--ink);text-decoration:none;padding:.85rem 1.8rem;border-radius:100px;font-weight:500;font-size:.9rem;transition:border-color .2s,color .2s;display:inline-block}
 .btn-outline:hover{border-color:var(--teal);color:var(--teal)}
 .hero-visual{position:relative;z-index:1;animation:fadeUp .7s .25s ease both}
-.hero-card{background:white;border-radius:22px;padding:2rem;box-shadow:0 20px 60px rgba(45,125,111,.11),0 0 0 1px var(--border);position:relative}
+.hero-card{background:white;border-radius:22px;padding:2rem;box-shadow:0 20px 60px rgba(26,86,196,.11),0 0 0 1px var(--border);position:relative}
 .hero-card::before{content:'';position:absolute;top:-2px;left:25px;right:25px;height:2px;background:linear-gradient(90deg,transparent,var(--teal),transparent)}
 .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-bottom:1.6rem}
 .stat{text-align:center;padding:1rem .4rem;background:var(--sage);border-radius:12px}
@@ -69,19 +69,19 @@ section{padding:5rem 1.5rem}
 .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem;max-width:1100px;margin:0 auto}
 .service-card{background:white;border:1px solid var(--border);border-radius:18px;padding:1.8rem;transition:transform .25s,box-shadow .25s,border-color .25s;position:relative;overflow:hidden}
 .service-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal),var(--mint));transform:scaleX(0);transition:transform .3s;transform-origin:left}
-.service-card:hover{transform:translateY(-5px);box-shadow:0 16px 45px rgba(45,125,111,.11);border-color:var(--mint)}
+.service-card:hover{transform:translateY(-5px);box-shadow:0 16px 45px rgba(26,86,196,.11);border-color:var(--mint)}
 .service-card:hover::after{transform:scaleX(1)}
 .service-icon{width:48px;height:48px;background:var(--sage);border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;font-size:1.4rem}
 .service-card h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;margin-bottom:.5rem}
 .service-card p{color:var(--muted);font-size:.83rem;line-height:1.7}
 #cita{background:white;position:relative;overflow:hidden}
-#cita::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 0% 50%,rgba(200,221,208,.25) 0%,transparent 60%),radial-gradient(ellipse 40% 50% at 100% 50%,rgba(45,125,111,.05) 0%,transparent 60%);pointer-events:none}
+#cita::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 0% 50%,rgba(189,212,245,.25) 0%,transparent 60%),radial-gradient(ellipse 40% 50% at 100% 50%,rgba(26,86,196,.05) 0%,transparent 60%);pointer-events:none}
 .cita-inner{max-width:980px;margin:0 auto;position:relative;z-index:1}
 .cita-grid{display:grid;grid-template-columns:1fr 1.45fr;gap:3.5rem;align-items:start}
 .cita-info h2{font-family:'Cormorant Garamond',serif;font-size:2.3rem;font-weight:300;line-height:1.2;margin-bottom:.9rem}
 .cita-info h2 em{font-style:italic;color:var(--teal)}
 .cita-info p{color:var(--muted);font-size:.88rem;line-height:1.8;margin-bottom:1.8rem}
-.years-badge{display:inline-flex;align-items:center;gap:.6rem;background:linear-gradient(135deg,var(--teal),var(--teal2));color:white;border-radius:14px;padding:1rem 1.4rem;margin-bottom:1.5rem;box-shadow:0 6px 20px rgba(45,125,111,.25)}
+.years-badge{display:inline-flex;align-items:center;gap:.6rem;background:linear-gradient(135deg,var(--teal),var(--teal2));color:white;border-radius:14px;padding:1rem 1.4rem;margin-bottom:1.5rem;box-shadow:0 6px 20px rgba(26,86,196,.25)}
 .years-num{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:600;line-height:1}
 .years-text{font-size:.8rem;font-weight:500;line-height:1.35;opacity:.9}
 .contact-list{display:flex;flex-direction:column;gap:.8rem}
@@ -96,18 +96,18 @@ section{padding:5rem 1.5rem}
 .fld label{font-size:.7rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
 .fld label .req{color:var(--teal)}
 .fld input,.fld select,.fld textarea{font-family:'Outfit',sans-serif;font-size:.9rem;color:var(--ink);background:white;border:1.5px solid var(--border);border-radius:10px;padding:.7rem .9rem;outline:none;transition:border-color .2s,box-shadow .2s;width:100%;-webkit-appearance:none;appearance:none}
-.fld input::placeholder,.fld textarea::placeholder{color:rgba(122,150,144,.45)}
-.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(45,125,111,.1)}
+.fld input::placeholder,.fld textarea::placeholder{color:rgba(91,122,170,.45)}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(26,86,196,.1)}
 .fld input.err,.fld select.err{border-color:var(--error)!important;box-shadow:0 0 0 3px rgba(192,57,43,.1)!important}
-.fld select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a9690' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .9rem center;padding-right:2.2rem}
+.fld select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235b7aaa' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .9rem center;padding-right:2.2rem}
 .fld textarea{resize:vertical;min-height:85px}
 .field-err{font-size:.72rem;color:var(--error);margin-top:.2rem;display:none}
 .field-err.show{display:block}
 .slot-row{display:grid;grid-template-columns:1fr auto;gap:.6rem;align-items:end;margin-bottom:.9rem}
 .slot-status{display:none;align-items:center;gap:.5rem;padding:.6rem .9rem;border-radius:8px;font-size:.82rem;font-weight:600;margin-top:.5rem}
-.slot-status.libre{display:flex;background:rgba(45,125,111,.09);border:1px solid rgba(45,125,111,.25);color:var(--success)}
+.slot-status.libre{display:flex;background:rgba(26,86,196,.09);border:1px solid rgba(26,86,196,.25);color:var(--success)}
 .slot-status.ocupado{display:flex;background:rgba(192,57,43,.07);border:1px solid rgba(192,57,43,.25);color:var(--error)}
-.slot-status.checking{display:flex;background:rgba(122,150,144,.08);border:1px solid var(--border);color:var(--muted)}
+.slot-status.checking{display:flex;background:rgba(91,122,170,.08);border:1px solid var(--border);color:var(--muted)}
 .slot-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 .libre .slot-dot{background:var(--success)}
 .ocupado .slot-dot{background:var(--error)}
@@ -115,13 +115,13 @@ section{padding:5rem 1.5rem}
 .check-btn{background:var(--teal);color:white;border:none;border-radius:10px;padding:.7rem 1rem;font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:background .2s,transform .15s;white-space:nowrap}
 .check-btn:hover{background:var(--teal2);transform:translateY(-1px)}
 .check-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.form-submit{width:100%;background:var(--teal);color:white;border:none;border-radius:100px;padding:.95rem;font-family:'Outfit',sans-serif;font-size:.93rem;font-weight:600;cursor:pointer;transition:background .2s,transform .15s;display:flex;align-items:center;justify-content:center;gap:.5rem;box-shadow:0 4px 18px rgba(45,125,111,.25);margin-top:.3rem}
+.form-submit{width:100%;background:var(--teal);color:white;border:none;border-radius:100px;padding:.95rem;font-family:'Outfit',sans-serif;font-size:.93rem;font-weight:600;cursor:pointer;transition:background .2s,transform .15s;display:flex;align-items:center;justify-content:center;gap:.5rem;box-shadow:0 4px 18px rgba(26,86,196,.25);margin-top:.3rem}
 .form-submit:hover:not(:disabled){background:var(--teal2);transform:translateY(-2px)}
 .form-submit:disabled{opacity:.45;cursor:not-allowed;transform:none!important;box-shadow:none}
 .spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .6s linear infinite;display:none;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
 .form-msg{display:none;padding:.85rem 1rem;border-radius:10px;font-size:.84rem;font-weight:500;margin-top:.9rem;text-align:center}
-.form-msg.success{background:rgba(45,125,111,.08);border:1px solid rgba(45,125,111,.25);color:var(--success)}
+.form-msg.success{background:rgba(26,86,196,.08);border:1px solid rgba(26,86,196,.25);color:var(--success)}
 .form-msg.error{background:rgba(192,57,43,.06);border:1px solid rgba(192,57,43,.2);color:var(--error)}
 .saved-section{margin-top:1.4rem;display:none;border-top:1px solid var(--border);padding-top:1.2rem}
 .saved-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem}
@@ -132,7 +132,7 @@ section{padding:5rem 1.5rem}
 .saved-item{background:white;border:1px solid var(--border);border-radius:10px;padding:.75rem 1rem;display:flex;justify-content:space-between;align-items:center;gap:.5rem}
 .saved-name{font-size:.83rem;font-weight:600;color:var(--ink)}
 .saved-detail{font-size:.74rem;color:var(--muted);margin-top:2px}
-.saved-badge{background:rgba(45,125,111,.1);color:var(--teal);font-size:.68rem;font-weight:600;padding:.22rem .65rem;border-radius:100px;white-space:nowrap;flex-shrink:0}
+.saved-badge{background:rgba(26,86,196,.1);color:var(--teal);font-size:.68rem;font-weight:600;padding:.22rem .65rem;border-radius:100px;white-space:nowrap;flex-shrink:0}
 footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;padding:2.2rem 1.5rem;font-size:.8rem;line-height:1.7}
 footer strong{color:rgba(255,255,255,.85)}
 @media(max-width:960px){.hero{grid-template-columns:1fr;padding:6.5rem 1.5rem 3rem;gap:2.5rem;min-height:auto}.cita-grid{grid-template-columns:1fr;gap:2.5rem}}
@@ -144,10 +144,7 @@ footer strong{color:rgba(255,255,255,.85)}
 <nav id="navbar">
   <a href="#" class="nav-logo">
     <div class="logo-svg-wrap">
-      <svg viewBox="0 0 32 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 4 C8 2 10 1 12 1.5 C13.5 2 14.5 3 16 3 C17.5 3 18.5 2 20 1.5 C22 1 24 2 24 4 C25 6 25 9 24 11 C23 13 22 14 22 16 C22 22 21 28 20 31 C19.5 32.5 18.5 33 17.5 32 C17 31 16.5 29 16 29 C15.5 29 15 31 14.5 32 C13.5 33 12.5 32.5 12 31 C11 28 10 22 10 16 C10 14 9 13 8 11 C7 9 7 6 8 4Z" fill="white" stroke="rgba(255,255,255,0.3)" stroke-width="0.4"/>
-        <line x1="16" y1="4" x2="16" y2="10" stroke="rgba(45,125,111,0.4)" stroke-width="1.2" stroke-linecap="round"/>
-      </svg>
+      <img src="logo.png" alt="Todo Bien logo" style="width:36px;height:36px;object-fit:contain;"/>
     </div>
     <span class="nav-brand">Todo <em>Bien</em></span>
   </a>
@@ -184,7 +181,7 @@ footer strong{color:rgba(255,255,255,.85)}
         <div class="service-item"><div class="service-dot"></div><span class="service-name">Limpieza dental</span><span class="service-price">Desde S/. 80</span></div>
         <div class="service-item"><div class="service-dot"></div><span class="service-name">Blanqueamiento</span><span class="service-price">Desde S/. 250</span></div>
         <div class="service-item"><div class="service-dot"></div><span class="service-name">Ortodoncia</span><span class="service-price">Desde S/. 1,200</span></div>
-        <div class="service-item"><div class="service-dot"></div><span class="service-name">Implantes</span><span class="service-price">Desde S/. 1,800</span></div>
+        <div class="service-item"><div class="service-dot"></div><span class="service-name">Endodoncia</span><span class="service-price">Desde S/. 350</span></div>
       </div>
     </div>
   </div>
@@ -198,10 +195,10 @@ footer strong{color:rgba(255,255,255,.85)}
   <div class="services-grid">
     <div class="service-card"><div class="service-icon">&#129463;</div><h3>Limpieza y Prevencion</h3><p>Profilaxis, detartraje y fluorizacion para mantener tus dientes sanos y brillantes.</p></div>
     <div class="service-card"><div class="service-icon">&#10024;</div><h3>Blanqueamiento</h3><p>Blanqueamiento profesional con laser para una sonrisa radiante desde la primera sesion.</p></div>
-    <div class="service-card"><div class="service-icon">&#128513;</div><h3>Ortodoncia</h3><p>Brackets, ceramicos y alineadores invisibles para una sonrisa perfectamente alineada.</p></div>
-    <div class="service-card"><div class="service-icon">&#128302;</div><h3>Implantes Dentales</h3><p>Implantes de titanio de alta calidad para recuperar tu sonrisa completa de forma permanente.</p></div>
-    <div class="service-card"><div class="service-icon">&#128118;</div><h3>Odontopediatria</h3><p>Atencion especializada para ninos en un ambiente calido que elimina el miedo al dentista.</p></div>
-    <div class="service-card"><div class="service-icon">&#128142;</div><h3>Estetica Dental</h3><p>Carillas, coronas y diseno de sonrisa para lograr la apariencia que siempre sonaste.</p></div>
+    <div class="service-card"><div class="service-icon">&#128513;</div><h3>Ortodoncia y Brackets</h3><p>Brackets metalicos, ceramicos y alineadores invisibles para una sonrisa perfectamente alineada.</p></div>
+    <div class="service-card"><div class="service-icon">&#129442;</div><h3>Endodoncia</h3><p>Tratamiento de conductos para eliminar el dolor y salvar tu diente de forma segura y definitiva.</p></div>
+    <div class="service-card"><div class="service-icon">&#128142;</div><h3>Rehabilitacion Oral y Protesis</h3><p>Coronas, puentes, protesis fijas y removibles para recuperar la funcion y estetica de tu sonrisa.</p></div>
+    <div class="service-card"><div class="service-icon">&#127775;</div><h3>Estetica Dental</h3><p>Carillas, diseno de sonrisa y tratamientos cosmeticos para la apariencia que siempre sonaste.</p></div>
   </div>
 </section>
 <section id="cita">
@@ -215,7 +212,7 @@ footer strong{color:rgba(255,255,255,.85)}
         <div class="contact-list">
           <a href="tel:+51999000000"><div class="contact-icon">&#128222;</div>+51 999 000 000</a>
           <a href="https://wa.me/51999000000" target="_blank" rel="noopener"><div class="contact-icon">&#128172;</div>WhatsApp disponible</a>
-          <a href="mailto:hola@todobien.pe"><div class="contact-icon">&#128231;</div>hola@todobien.pe</a>
+          <a href="/cdn-cgi/l/email-protection#1a3060575a7b4f545f5459525e55154b5e"><div class="contact-icon">&#128231;</div><span class="__cf_email__" data-cfemail="761e191a173602191219141f1318580613">[email&#160;protected]</span></a>
           <a href="#"><div class="contact-icon">&#128205;</div>Lima, Peru</a>
         </div>
       </div>
@@ -245,9 +242,9 @@ footer strong{color:rgba(255,255,255,.85)}
               <option value="" disabled selected>Selecciona un servicio...</option>
               <option>Limpieza y Prevencion</option>
               <option>Blanqueamiento</option>
-              <option>Ortodoncia</option>
-              <option>Implantes Dentales</option>
-              <option>Odontopediatria</option>
+              <option>Ortodoncia y Brackets</option>
+              <option>Endodoncia</option>
+              <option>Rehabilitacion Oral y Protesis</option>
               <option>Estetica Dental</option>
               <option>Consulta general</option>
             </select>
@@ -323,7 +320,7 @@ footer strong{color:rgba(255,255,255,.85)}
   </div>
 </section>
 <footer><p>&copy; 2026 <strong>Todo Bien Clinica Dental</strong> &middot; Lima, Peru<br>Todos los derechos reservados</p></footer>
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwOysSv718AaTLAoberNee_Z9bUgfhNPHNvBH8h0UgzK0_R4NX8LXemN8-bWiCtbFLS/exec";
 var DURACION = 90;
 var slotOK = false;
@@ -563,11 +560,4 @@ function renderSaved() {
   ul.innerHTML = list.map(function(c){
     return '<div class="saved-item"><div>' +
            '<div class="saved-name">' + esc(c.nombre) + '</div>' +
-           '<div class="saved-detail">' + esc(c.servicio) + ' &middot; ' + esc(c.fecha_pref) + ' &middot; ' + esc(formatH(c.hora_pref||'00:00')) + '</div>' +
-           '</div><span class="saved-badge">Confirmada</span></div>';
-  }).join('');
-}
-renderSaved();
-</script>
-</body>
-</html>
+           '<div class="saved-detail">' + esc(c.
