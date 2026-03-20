@@ -664,38 +664,67 @@ footer strong{color:rgba(255,255,255,.85)}
   </div>
 </section>
 <footer><p>&copy; 2026 <strong>Todo Bien Clinica Dental</strong> &middot; Lima, Peru<br>Todos los derechos reservados</p></footer>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// Global scope — llamadas desde onclick en HTML
+
+<!-- LIGHTBOX -->
+<div id="lightbox" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.9);align-items:center;justify-content:center;cursor:zoom-out">
+  <div id="lbClose" onclick="closeLB()" style="position:fixed;top:18px;right:22px;color:white;font-size:2rem;cursor:pointer;background:rgba(0,0,0,.5);border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;z-index:100000">&times;</div>
+  <img id="lbImg" src="" alt="" style="max-width:92vw;max-height:88vh;border-radius:12px;cursor:default;animation:lbIn .2s ease"/>
+</div>
+
+<!-- MODAL CONFIRMACION -->
+<div id="confirmModal" style="display:none;position:fixed;inset:0;z-index:99998;background:rgba(13,31,60,.55);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:1rem">
+  <div style="background:white;border-radius:22px;padding:2rem;max-width:400px;width:100%;box-shadow:0 20px 60px rgba(13,31,60,.25);animation:modalIn .25s ease both">
+    <div style="width:56px;height:56px;background:rgba(26,86,196,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 1rem">&#128197;</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;text-align:center;color:var(--ink);margin-bottom:.3rem">&#191;Confirmas tu cita?</div>
+    <div style="text-align:center;color:var(--muted);font-size:.84rem;margin-bottom:1.3rem">Revisa los datos antes de reservar</div>
+    <div style="background:var(--cream);border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.3rem;display:flex;flex-direction:column;gap:.7rem;margin-bottom:1.3rem">
+      <div style="display:flex;align-items:center;gap:.7rem;font-size:.88rem"><div style="width:30px;height:30px;background:rgba(26,86,196,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0">&#128100;</div><div><div style="color:var(--muted);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px">Paciente</div><div style="color:var(--ink);font-weight:700" id="md_nombre"></div></div></div>
+      <div style="display:flex;align-items:center;gap:.7rem;font-size:.88rem"><div style="width:30px;height:30px;background:rgba(26,86,196,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0">&#129463;</div><div><div style="color:var(--muted);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px">Servicio</div><div style="color:var(--ink);font-weight:700" id="md_servicio"></div></div></div>
+      <div style="display:flex;align-items:center;gap:.7rem;font-size:.88rem"><div style="width:30px;height:30px;background:rgba(26,86,196,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0">&#128197;</div><div><div style="color:var(--muted);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px">Fecha</div><div style="color:var(--ink);font-weight:700" id="md_fecha"></div></div></div>
+      <div style="display:flex;align-items:center;gap:.7rem;font-size:.88rem"><div style="width:30px;height:30px;background:rgba(26,86,196,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0">&#128336;</div><div><div style="color:var(--muted);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px">Hora</div><div style="color:var(--ink);font-weight:700" id="md_hora"></div></div></div>
+      <div style="display:flex;align-items:center;gap:.7rem;font-size:.88rem"><div style="width:30px;height:30px;background:rgba(26,86,196,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0">&#128222;</div><div><div style="color:var(--muted);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px">Telefono</div><div style="color:var(--ink);font-weight:700" id="md_telefono"></div></div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem">
+      <button id="modalCancelBtn" style="background:var(--cream);color:var(--ink);border:1.5px solid var(--border);border-radius:100px;padding:.8rem;font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer">&#8592; Corregir</button>
+      <button id="modalConfirmBtn" style="background:var(--teal);color:white;border:none;border-radius:100px;padding:.8rem;font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer">&#9989; Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// FUNCIONES GLOBALES
 function openLB(src){
+  var lb = document.getElementById('lightbox');
   document.getElementById('lbImg').src = src;
-  document.getElementById('lightbox').classList.add('open');
+  lb.style.display = 'flex';
   document.body.style.overflow = 'hidden';
 }
-
-function closeModal(){
-  document.getElementById('confirmModal').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
 function closeLB(){
-  document.getElementById('lightbox').classList.remove('open');
+  document.getElementById('lightbox').style.display = 'none';
   document.body.style.overflow = '';
 }
-
-// FAQ ACCORDION
 function toggleFaq(el) {
   var item = el.parentElement;
   var isOpen = item.classList.contains('open');
   document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
   if (!isOpen) item.classList.add('open');
 }
+function openModal(){
+  document.getElementById('confirmModal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(){
+  document.getElementById('confirmModal').style.display = 'none';
+  document.body.style.overflow = '';
+}
 </script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
 
+<script>
 var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwOysSv718AaTLAoberNee_Z9bUgfhNPHNvBH8h0UgzK0_R4NX8LXemN8-bWiCtbFLS/exec";
 var DURACION = 90;
 var slotOK = false;
+
+document.addEventListener('DOMContentLoaded', function() {
 
 // NAV
 window.addEventListener('scroll', function(){
@@ -711,14 +740,9 @@ document.querySelectorAll('#mobileMenu a').forEach(function(a){
     document.getElementById('mobileMenu').classList.remove('open');
   });
 });
-
-// Fecha minima hoy
 document.getElementById('f_fecha').min = new Date().toISOString().split('T')[0];
 
-// Reset slot cuando cambia fecha u hora
-document.getElementById('f_fecha').addEventListener('change', resetSlot);
-document.getElementById('f_hora').addEventListener('change', resetSlot);
-
+// RESET SLOT
 function resetSlot() {
   slotOK = false;
   document.getElementById('slotStatus').className = 'slot-status';
@@ -727,17 +751,17 @@ function resetSlot() {
   document.getElementById('successMsg').style.display = 'none';
   document.getElementById('errorMsg').style.display = 'none';
 }
+document.getElementById('f_fecha').addEventListener('change', resetSlot);
+document.getElementById('f_hora').addEventListener('change', resetSlot);
 
-// Mostrar error en campo individual
+// VALIDACION
 function fieldErr(id, show) {
   var input = document.getElementById('f_' + id);
   var err   = document.getElementById('err_' + id);
   if (!input || !err) return;
   if (show) { input.classList.add('err'); err.classList.add('show'); }
-  else       { input.classList.remove('err'); err.classList.remove('show'); }
+  else      { input.classList.remove('err'); err.classList.remove('show'); }
 }
-
-// Validar todos los campos y mostrar errores
 function validarCampos() {
   var nombre   = document.getElementById('f_nombre').value.trim();
   var telefono = document.getElementById('f_telefono').value.trim();
@@ -745,49 +769,30 @@ function validarCampos() {
   var servicio = document.getElementById('f_servicio').value;
   var fecha    = document.getElementById('f_fecha').value;
   var hora     = document.getElementById('f_hora').value;
-
   var ok = true;
-  fieldErr('nombre',   !nombre);         if (!nombre)   ok = false;
-  fieldErr('telefono', !telefono);       if (!telefono) ok = false;
+  fieldErr('nombre',   !nombre);             if (!nombre)              ok = false;
+  fieldErr('telefono', !telefono);           if (!telefono)            ok = false;
   fieldErr('dni',      !/^\d{8}$/.test(dni)); if (!/^\d{8}$/.test(dni)) ok = false;
-  fieldErr('servicio', !servicio);       if (!servicio) ok = false;
-  fieldErr('fecha',    !fecha);          if (!fecha)    ok = false;
-  fieldErr('hora',     !hora);           if (!hora)     ok = false;
+  fieldErr('servicio', !servicio);           if (!servicio)            ok = false;
+  fieldErr('fecha',    !fecha);              if (!fecha)               ok = false;
+  fieldErr('hora',     !hora);               if (!hora)                ok = false;
   return ok;
 }
-
-// Limpiar errores al escribir
 ['nombre','telefono','dni'].forEach(function(id){
-  document.getElementById('f_' + id).addEventListener('input', function(){
-    fieldErr(id, false);
-  });
+  document.getElementById('f_' + id).addEventListener('input', function(){ fieldErr(id, false); });
 });
 ['servicio','hora','fecha'].forEach(function(id){
-  document.getElementById('f_' + id).addEventListener('change', function(){
-    fieldErr(id, false);
-  });
+  document.getElementById('f_' + id).addEventListener('change', function(){ fieldErr(id, false); });
 });
 
-// Verificar disponibilidad
+// VERIFICAR
 document.getElementById('checkBtn').addEventListener('click', async function(){
-  // Primero validar que TODOS los campos esten llenos
-  if (!validarCampos()) {
-    showMsg('Completa todos los campos antes de verificar', 'error');
-    return;
-  }
-
+  if (!validarCampos()) { showMsg('Completa todos los campos antes de verificar', 'error'); return; }
   var fecha = document.getElementById('f_fecha').value;
   var hora  = document.getElementById('f_hora').value;
-
-  // Verificar contra citas locales
-  if (solapaLocal(fecha, hora)) {
-    setSlot('ocupado', 'Ya tienes una cita en ese horario. Elige otro.');
-    return;
-  }
-
+  if (solapaLocal(fecha, hora)) { setSlot('ocupado', 'Ya tienes una cita en ese horario. Elige otro.'); return; }
   setSlot('checking', 'Verificando...');
   document.getElementById('checkBtn').disabled = true;
-
   try {
     var url = SCRIPT_URL + '?action=check&fecha=' + encodeURIComponent(fecha) +
               '&hora=' + encodeURIComponent(hora) + '&duracion=' + DURACION + '&t=' + Date.now();
@@ -797,9 +802,8 @@ document.getElementById('checkBtn').addEventListener('click', async function(){
     clearTimeout(timer);
     if (!res.ok) throw new Error('HTTP ' + res.status);
     var data = await res.json();
-
     if (data.disponible) {
-      setSlot('libre', '✓ ' + formatH(hora) + ' del ' + formatF(fecha) + ' esta disponible');
+      setSlot('libre', '✓ ' + formatH(hora) + ' del ' + formatF(fecha) + ' disponible');
       slotOK = true;
       document.getElementById('submitBtn').disabled = false;
       document.getElementById('btnText').textContent = 'Reservar mi cita';
@@ -809,10 +813,7 @@ document.getElementById('checkBtn').addEventListener('click', async function(){
       setSlot('ocupado', msg);
     }
   } catch(err) {
-    var msg = err.name === 'AbortError'
-      ? 'El servidor tardo demasiado. Intenta de nuevo.'
-      : 'No se pudo verificar. Revisa tu conexion o que el script este publicado.';
-    setSlot('ocupado', msg);
+    setSlot('ocupado', err.name === 'AbortError' ? 'Servidor tardo. Intenta de nuevo.' : 'No se pudo verificar.');
   } finally {
     document.getElementById('checkBtn').disabled = false;
   }
@@ -829,113 +830,51 @@ function setSlot(type, msg) {
   }
 }
 
-// Submit
-// Pending submit data
-var pendingSubmit = false;
-
-function showConfirmModal() {
-  if (!validarCampos()) {
-    showMsg('Completa todos los campos obligatorios', 'error');
-    return;
-  }
-  if (!slotOK) {
-    showMsg('Verifica la disponibilidad del horario primero', 'error');
-    return;
-  }
-  var nombre   = document.getElementById('f_nombre').value.trim();
-  var telefono = document.getElementById('f_telefono').value.trim();
-  var servicio = document.getElementById('f_servicio').value;
-  var fecha    = document.getElementById('f_fecha').value;
-  var hora     = document.getElementById('f_hora').value;
-
-  // Fill modal details
-  document.getElementById('mNombre').textContent   = nombre;
-  document.getElementById('mServicio').textContent = servicio;
-  document.getElementById('mFecha').textContent    = formatF(fecha);
-  document.getElementById('mHora').textContent     = formatH(hora);
-  document.getElementById('mTelefono').textContent = telefono;
-
-  document.getElementById('modalConfirm').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeModal() {
-  document.getElementById('modalConfirm').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-document.getElementById('modalCancel').addEventListener('click', closeModal);
-document.getElementById('modalConfirm').addEventListener('click', function(e){
-  if (e.target === this) closeModal();
-});
-
-document.getElementById('modalOk').addEventListener('click', function(){
-  closeModal();
-  doSubmit();
-});
-
-// Override submit button to show modal
-document.getElementById('submitBtn').addEventListener('click', function(e){
-  e.preventDefault();
-  showConfirmModal();
-});
-
-document.getElementById('citaForm').addEventListener('submit', function(e){
-  e.preventDefault();
+// BOTON RESERVAR — abre modal con resumen
+document.getElementById('submitBtn').addEventListener('click', function(){
   if (!validarCampos()) { showMsg('Completa todos los campos obligatorios', 'error'); return; }
   if (!slotOK) { showMsg('Verifica la disponibilidad del horario primero', 'error'); return; }
+  document.getElementById('md_nombre').textContent   = document.getElementById('f_nombre').value.trim();
+  document.getElementById('md_servicio').textContent = document.getElementById('f_servicio').value;
+  document.getElementById('md_fecha').textContent    = formatF(document.getElementById('f_fecha').value);
+  document.getElementById('md_hora').textContent     = formatH(document.getElementById('f_hora').value);
+  document.getElementById('md_telefono').textContent = document.getElementById('f_telefono').value.trim();
+  openModal();
+});
 
-  // Mostrar modal de confirmacion con los datos
+// MODAL BOTONES
+document.getElementById('modalCancelBtn').addEventListener('click', closeModal);
+document.getElementById('confirmModal').addEventListener('click', function(e){ if (e.target===this) closeModal(); });
+document.addEventListener('keydown', function(e){ if (e.key==='Escape') closeModal(); });
+
+// CONFIRMAR — enviar cita
+document.getElementById('modalConfirmBtn').addEventListener('click', async function(){
+  closeModal();
   var nombre   = document.getElementById('f_nombre').value.trim();
   var telefono = document.getElementById('f_telefono').value.trim();
+  var dni      = document.getElementById('f_dni').value.trim();
   var servicio = document.getElementById('f_servicio').value;
   var fecha    = document.getElementById('f_fecha').value;
   var hora     = document.getElementById('f_hora').value;
-
-  document.getElementById('md_nombre').textContent   = nombre;
-  document.getElementById('md_servicio').textContent = servicio;
-  document.getElementById('md_fecha').textContent    = formatF(fecha);
-  document.getElementById('md_hora').textContent     = formatH(hora);
-  document.getElementById('md_telefono').textContent = telefono;
-  document.getElementById('confirmModal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-});
-
-// Se llama cuando el usuario pulsa Confirmar en el modal
-async function confirmarCita() {
-  var nombre    = document.getElementById('f_nombre').value.trim();
-  var telefono  = document.getElementById('f_telefono').value.trim();
-  var dni       = document.getElementById('f_dni').value.trim();
-  var servicio  = document.getElementById('f_servicio').value;
-  var fecha     = document.getElementById('f_fecha').value;
-  var hora      = document.getElementById('f_hora').value;
-
-  closeModal();
   document.getElementById('submitBtn').disabled = true;
   document.getElementById('submitSpinner').style.display = 'block';
   document.getElementById('btnText').textContent = 'Reservando...';
   document.getElementById('successMsg').style.display = 'none';
   document.getElementById('errorMsg').style.display = 'none';
-
   var n  = new Date();
   var fe = n.getDate()+'/'+(n.getMonth()+1)+'/'+n.getFullYear()+' '+n.getHours()+':'+String(n.getMinutes()).padStart(2,'0');
-
-  var p = new URLSearchParams({
-    action:'save', nombre:nombre, telefono:telefono, dni:dni,
-    servicio:servicio, fecha_pref:fecha, hora_pref:hora,
-    comentario:document.getElementById('f_comentario').value.trim(),
-    fecha_envio:fe, t:Date.now()
-  });
-
+  var p  = new URLSearchParams({action:'save',nombre:nombre,telefono:telefono,dni:dni,
+    servicio:servicio,fecha_pref:fecha,hora_pref:hora,
+    comentario:document.getElementById('f_comentario').value.trim(),fecha_envio:fe,t:Date.now()});
   try {
     var ctrl  = new AbortController();
     var timer = setTimeout(function(){ ctrl.abort(); }, 15000);
-    var res   = await fetch(SCRIPT_URL + '?' + p.toString(), {method:'GET', redirect:'follow', signal:ctrl.signal});
+    var res   = await fetch(SCRIPT_URL+'?'+p.toString(), {method:'GET',redirect:'follow',signal:ctrl.signal});
     clearTimeout(timer);
-    if (!res.ok) throw new Error('HTTP ' + res.status);
+    if (!res.ok) throw new Error('HTTP '+res.status);
     var r = await res.json();
     if (r.success) {
-      saveLocal({nombre:nombre, telefono:telefono, dni:dni, servicio:servicio, fecha_pref:fecha, hora_pref:hora});
+      saveLocal({nombre:nombre,telefono:telefono,dni:dni,servicio:servicio,fecha_pref:fecha,hora_pref:hora});
       document.getElementById('successMsg').style.display = 'block';
       document.getElementById('slotStatus').className = 'slot-status';
       slotOK = false;
@@ -943,203 +882,64 @@ async function confirmarCita() {
       document.getElementById('f_fecha').min = new Date().toISOString().split('T')[0];
       renderSaved();
     } else {
-      showMsg(r.error || 'No se pudo guardar. Intenta de nuevo.', 'error');
+      showMsg(r.error||'No se pudo guardar. Intenta de nuevo.','error');
       document.getElementById('submitBtn').disabled = false;
     }
   } catch(err) {
-    showMsg(err.name === 'AbortError' ? 'Servidor tardo. Intenta de nuevo.' : 'Error de red.', 'error');
+    showMsg(err.name==='AbortError'?'Servidor tardo. Intenta de nuevo.':'Error de red. Verifica tu conexion.','error');
     document.getElementById('submitBtn').disabled = false;
   } finally {
     document.getElementById('submitSpinner').style.display = 'none';
     document.getElementById('btnText').textContent = 'Verifica disponibilidad primero';
   }
-}
+});
 
-// Helpers
-function showMsg(msg, type) {
-  var el = document.getElementById('errorMsg');
-  el.textContent = msg;
-  el.className = 'form-msg ' + (type || 'error');
-  el.style.display = 'block';
-  setTimeout(function(){ el.style.display = 'none'; }, 5000);
-}
-function formatF(iso) { var p = iso.split('-'); return p[2]+'/'+p[1]+'/'+p[0]; }
-function formatH(h24) {
-  var p = String(h24).split(':').map(Number);
-  return (p[0]%12||12) + ':' + String(p[1]).padStart(2,'0') + ' ' + (p[0]>=12?'PM':'AM');
-}
-function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function horaAMin(h){ var p=String(h).split(':'); return parseInt(p[0],10)*60+parseInt(p[1]||0,10); }
-function solapaLocal(fecha, hora) {
-  var citas = getCitas();
-  var ni = horaAMin(hora), nf = ni + DURACION;
-  for (var i = 0; i < citas.length; i++) {
-    var c = citas[i];
-    if (c.fecha_pref !== fecha || !c.hora_pref) continue;
-    var ci = horaAMin(c.hora_pref), cf = ci + DURACION;
-    if (ni < cf && nf > ci) return true;
-  }
-  return false;
-}
-function getCitas(){ try{ return JSON.parse(localStorage.getItem('todobien_citas')||'[]'); }catch{ return []; } }
-function saveLocal(d){ var l=getCitas(); l.unshift(d); localStorage.setItem('todobien_citas', JSON.stringify(l.slice(0,10))); }
-document.getElementById('clearBtn').addEventListener('click', function(){ localStorage.removeItem('todobien_citas'); renderSaved(); });
-function renderSaved() {
-  var list = getCitas();
-  var sec  = document.getElementById('savedSection');
-  var ul   = document.getElementById('savedList');
-  if (!list.length) { sec.style.display = 'none'; return; }
-  sec.style.display = 'block';
-  ul.innerHTML = list.map(function(c){
-    return '<div class="saved-item"><div>' +
-           '<div class="saved-name">' + esc(c.nombre) + '</div>' +
-           '<div class="saved-detail">' + esc(c.servicio) + ' &middot; ' + esc(c.fecha_pref) + ' &middot; ' + esc(formatH(c.hora_pref||'00:00')) + '</div>' +
-           '</div><span class="saved-badge">Confirmada</span></div>';
-  }).join('');
+// HELPERS
+function showMsg(msg,type){var el=document.getElementById('errorMsg');el.textContent=msg;el.className='form-msg '+(type||'error');el.style.display='block';setTimeout(function(){el.style.display='none';},5000);}
+function formatF(iso){var p=iso.split('-');return p[2]+'/'+p[1]+'/'+p[0];}
+function formatH(h24){var p=String(h24).split(':').map(Number);return(p[0]%12||12)+':'+String(p[1]).padStart(2,'0')+' '+(p[0]>=12?'PM':'AM');}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function horaAMin(h){var p=String(h).split(':');return parseInt(p[0],10)*60+parseInt(p[1]||0,10);}
+function solapaLocal(fecha,hora){var citas=getCitas(),ni=horaAMin(hora),nf=ni+DURACION;for(var i=0;i<citas.length;i++){var c=citas[i];if(c.fecha_pref!==fecha||!c.hora_pref)continue;var ci=horaAMin(c.hora_pref),cf=ci+DURACION;if(ni<cf&&nf>ci)return true;}return false;}
+function getCitas(){try{return JSON.parse(localStorage.getItem('todobien_citas')||'[]');}catch{return[];}}
+function saveLocal(d){var l=getCitas();l.unshift(d);localStorage.setItem('todobien_citas',JSON.stringify(l.slice(0,10)));}
+document.getElementById('clearBtn').addEventListener('click',function(){localStorage.removeItem('todobien_citas');renderSaved();});
+function renderSaved(){
+  var list=getCitas(),sec=document.getElementById('savedSection'),ul=document.getElementById('savedList');
+  if(!list.length){sec.style.display='none';return;}
+  sec.style.display='block';
+  ul.innerHTML=list.map(function(c){return '<div class="saved-item"><div><div class="saved-name">'+esc(c.nombre)+'</div><div class="saved-detail">'+esc(c.servicio)+' &middot; '+esc(c.fecha_pref)+' &middot; '+esc(formatH(c.hora_pref||'00:00'))+'</div></div><span class="saved-badge">Confirmada</span></div>';}).join('');
 }
 renderSaved();
 
-// LIGHTBOX events (functions defined globally above)
-document.getElementById('lightbox').addEventListener('click', function(e){
-  if(e.target === this) closeLB();
-});
-document.addEventListener('keydown', function(e){
-  if(e.key === 'Escape') closeLB();
-});
-document.querySelectorAll('.ref-img').forEach(function(img){
-  img.addEventListener('click', function(){ openLB(this.src); });
-});
-
+// LIGHTBOX
+document.getElementById('lightbox').addEventListener('click',function(e){if(e.target===this)closeLB();});
+document.querySelectorAll('.ref-img').forEach(function(img){img.addEventListener('click',function(){openLB(this.src);});});
 
 // CONTADOR ANIMADO
-var countersStarted = false;
-function startCounters() {
-  if (countersStarted) return;
-  var counters = document.querySelectorAll('.counter');
-  if (!counters.length) return;
-  // Check if stat-row is visible
-  var statRow = document.querySelector('.stat-row');
-  if (!statRow) return;
-  var rect = statRow.getBoundingClientRect();
-  if (rect.top > window.innerHeight) return;
-  countersStarted = true;
-  counters.forEach(function(el) {
-    var target  = parseInt(el.dataset.target);
-    var suffix  = el.dataset.suffix || '';
-    var fmt     = el.dataset.format || '';
-    var duration = 1800;
-    var start   = null;
-    function step(ts) {
-      if (!start) start = ts;
-      var progress = Math.min((ts - start) / duration, 1);
-      // Ease out cubic
-      var ease = 1 - Math.pow(1 - progress, 3);
-      var current = Math.floor(ease * target);
-      if (fmt === 'k') {
-        el.textContent = current >= 1000 ? (current/1000).toFixed(current%1000===0?0:1) + 'k' + suffix : current + suffix;
-      } else {
-        el.textContent = current + suffix;
-      }
-      if (progress < 1) requestAnimationFrame(step);
-      else el.textContent = fmt === 'k' ? '4k' + suffix : target + suffix;
+var countersStarted=false;
+function startCounters(){
+  if(countersStarted)return;
+  var statRow=document.querySelector('.stat-row');
+  if(!statRow||statRow.getBoundingClientRect().top>window.innerHeight)return;
+  countersStarted=true;
+  document.querySelectorAll('.counter').forEach(function(el){
+    var target=parseInt(el.dataset.target),suffix=el.dataset.suffix||'',fmt=el.dataset.format||'',start=null;
+    function step(ts){
+      if(!start)start=ts;
+      var ease=1-Math.pow(1-Math.min((ts-start)/1800,1),3);
+      var cur=Math.floor(ease*target);
+      el.textContent=fmt==='k'?(cur>=1000?(cur/1000).toFixed(0)+'k':cur)+suffix:cur+suffix;
+      if(ease<1)requestAnimationFrame(step);
+      else el.textContent=fmt==='k'?'4k'+suffix:target+suffix;
     }
     requestAnimationFrame(step);
   });
 }
-// Trigger on scroll and on load
-window.addEventListener('scroll', startCounters, {passive:true});
-setTimeout(startCounters, 500); // also try after half second in case already visible
-
-
-// FAQ ACCORDION
-function toggleFaq(el) {
-  var item = el.parentElement;
-  var isOpen = item.classList.contains('open');
-  // Close all
-  document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
-  // Open clicked if it was closed
-  if (!isOpen) item.classList.add('open');
-}
+window.addEventListener('scroll',startCounters,{passive:true});
+setTimeout(startCounters,500);
 
 }); // end DOMContentLoaded
 </script>
-
-<!-- LIGHTBOX -->
-<div id="lightbox">
-  <div id="lbClose" onclick="closeLB()">&times;</div>
-  <img id="lbImg" src="" alt=""/>
-</div>
-
-
-<!-- MODAL CONFIRMACION -->
-<div id="modalConfirm">
-  <div class="modal-box">
-    <div class="modal-icon">&#128197;</div>
-    <div class="modal-title">Confirmar cita</div>
-    <div class="modal-sub">Por favor revisa los datos antes de reservar</div>
-    <div class="modal-details">
-      <div class="modal-row">
-        <div class="modal-row-icon">&#128100;</div>
-        <div><div class="modal-row-label">Paciente</div><div class="modal-row-val" id="mNombre">—</div></div>
-      </div>
-      <div class="modal-row">
-        <div class="modal-row-icon">&#129463;</div>
-        <div><div class="modal-row-label">Servicio</div><div class="modal-row-val" id="mServicio">—</div></div>
-      </div>
-      <div class="modal-row">
-        <div class="modal-row-icon">&#128197;</div>
-        <div><div class="modal-row-label">Fecha</div><div class="modal-row-val" id="mFecha">—</div></div>
-      </div>
-      <div class="modal-row">
-        <div class="modal-row-icon">&#128336;</div>
-        <div><div class="modal-row-label">Hora</div><div class="modal-row-val" id="mHora">—</div></div>
-      </div>
-      <div class="modal-row">
-        <div class="modal-row-icon">&#128222;</div>
-        <div><div class="modal-row-label">Telefono</div><div class="modal-row-val" id="mTelefono">—</div></div>
-      </div>
-    </div>
-    <div class="modal-btns">
-      <button class="modal-btn-cancel" id="modalCancel">Corregir datos</button>
-      <button class="modal-btn-confirm" id="modalOk">&#9989; Confirmar</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL CONFIRMACION -->
-<div id="confirmModal">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal()" title="Cerrar">&#10005;</button>
-    <div class="modal-icon">&#129463;</div>
-    <div class="modal-title">&#191;Confirmas tu cita?</div>
-    <div class="modal-sub">Revisa los datos antes de reservar</div>
-    <div class="modal-details">
-      <div class="modal-row">
-        <span class="modal-row-icon">&#128100;</span>
-        <div><span class="modal-row-label">Paciente</span><span class="modal-row-val" id="md_nombre"></span></div>
-      </div>
-      <div class="modal-row">
-        <span class="modal-row-icon">&#129463;</span>
-        <div><span class="modal-row-label">Servicio</span><span class="modal-row-val" id="md_servicio"></span></div>
-      </div>
-      <div class="modal-row">
-        <span class="modal-row-icon">&#128197;</span>
-        <div><span class="modal-row-label">Fecha</span><span class="modal-row-val" id="md_fecha"></span></div>
-      </div>
-      <div class="modal-row">
-        <span class="modal-row-icon">&#128336;</span>
-        <div><span class="modal-row-label">Hora</span><span class="modal-row-val" id="md_hora"></span></div>
-      </div>
-      <div class="modal-row">
-        <span class="modal-row-icon">&#128222;</span>
-        <div><span class="modal-row-label">Telefono</span><span class="modal-row-val" id="md_telefono"></span></div>
-      </div>
-    </div>
-    <div class="modal-btns">
-      <button class="modal-btn-cancel" onclick="closeModal()">&#8592; Corregir</button>
-      <button class="modal-btn-confirm" id="modalConfirmBtn" onclick="confirmarCita()">Confirmar &#10003;</button>
-    </div>
-  </div>
-</div>
 </body>
 </html>
