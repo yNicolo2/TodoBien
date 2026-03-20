@@ -383,7 +383,7 @@
         <div class="contact-list">
           <a href="tel:+51999000000"><div class="contact-icon">📞</div>+51 999 000 000</a>
           <a href="https://wa.me/51999000000" target="_blank" rel="noopener"><div class="contact-icon">💬</div>WhatsApp disponible</a>
-          <a href="mailto:hola@todobien.pe"><div class="contact-icon">📧</div>hola@todobien.pe</a>
+          <a href="/cdn-cgi/l/email-protection#2b4344474a6b5f444f4449424e45055b4e"><div class="contact-icon">📧</div><span class="__cf_email__" data-cfemail="30585f5c5170445f545f5259555e1e4055">[email&#160;protected]</span></a>
           <a href="#"><div class="contact-icon">📍</div>Lima, Perú</a>
         </div>
       </div>
@@ -402,8 +402,8 @@
             </div>
           </div>
           <div class="fld">
-            <label>Correo electrónico</label>
-            <input type="email" id="f_correo" placeholder="tu@correo.com" autocomplete="email"/>
+            <label>DNI <span class="req">*</span></label>
+            <input type="text" id="f_dni" placeholder="12345678" maxlength="8" pattern="[0-9]{8}" required autocomplete="off"/>
           </div>
           <div class="fld">
             <label>Servicio de interés <span class="req">*</span></label>
@@ -498,11 +498,11 @@
   <p>© 2026 <strong>Todo Bien Clínica Dental</strong> · Lima, Perú<br>Todos los derechos reservados</p>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ══════════════════════════════════════════════════
 //  CONFIG
 // ══════════════════════════════════════════════════
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwy_PUKxGgvravYmmcwLql4CXq8kbue4eS0wlJyRZAhEPVvpbLNxczysOGMXiW3DrX7/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0f1Hk4q0xzNbbsNV2lLW3XuHF2AcMJoHKhxjx-K3CnWVraUVMSIqJv6J8MFgdO9LZ/exec";
 const DURACION   = 90;
 const IH         = 46; // item height px
 
@@ -712,10 +712,12 @@ citaForm.addEventListener('submit',async(e)=>{
   if(!slotOK){showError('Verifica la disponibilidad primero.');return;}
   const nombre  =document.getElementById('f_nombre').value.trim();
   const telefono=document.getElementById('f_telefono').value.trim();
+  const dni     =document.getElementById('f_dni').value.trim();
   const servicio=document.getElementById('f_servicio').value;
   const fecha   =document.getElementById('f_fecha').value;
   const hora    =document.getElementById('f_hora').value;
-  if(!nombre||!telefono||!servicio||!fecha||!hora){showError('Completa todos los campos obligatorios.');return;}
+  if(!nombre||!telefono||!dni||!servicio||!fecha||!hora){showError('Completa todos los campos obligatorios.');return;}
+  if(!/^\d{8}$/.test(dni)){showError('El DNI debe tener exactamente 8 dígitos.');return;}
 
   submitBtn.disabled=true;
   submitSpinner.style.display='block';
@@ -728,7 +730,7 @@ citaForm.addEventListener('submit',async(e)=>{
 
   const p=new URLSearchParams({
     action:'save',nombre,telefono,
-    correo:document.getElementById('f_correo').value.trim(),
+    dni:dni,
     servicio,fecha_pref:fecha,hora_pref:hora,
     comentario:document.getElementById('f_comentario').value.trim(),
     fecha_envio:fe,t:Date.now()
@@ -742,7 +744,7 @@ citaForm.addEventListener('submit',async(e)=>{
     if(!res.ok) throw new Error('HTTP '+res.status);
     const r=await res.json();
     if(r.success){
-      saveLocal({nombre,telefono,servicio,fecha_pref:fecha,hora_pref:hora});
+      saveLocal({nombre,telefono,dni,servicio,fecha_pref:fecha,hora_pref:hora});
       successMsg.style.display='block';
       slotStatus.className='slot-status'; slotOK=false;
       citaForm.reset();
@@ -777,9 +779,4 @@ function renderSaved(){
   const list=getCitas(),sec=document.getElementById('savedSection'),ul=document.getElementById('savedList');
   if(!list.length){sec.style.display='none';return;}
   sec.style.display='block';
-  ul.innerHTML=list.map(c=>`<div class="saved-item"><div><div class="saved-name">${esc(c.nombre)}</div><div class="saved-detail">${esc(c.servicio)} · ${esc(c.fecha_pref)} · ${esc(formatH(c.hora_pref||'00:00'))}</div></div><span class="saved-badge">Confirmada</span></div>`).join('');
-}
-renderSaved();
-</script>
-</body>
-</html>
+  ul.innerHTML=list.map(c=>`<div class="saved-item"><div><div class="saved-name">${esc(c.nom
