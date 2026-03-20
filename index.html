@@ -177,6 +177,46 @@ section{padding:5rem 1.5rem}
 .faq-a-inner{padding:0 1.4rem 1.2rem;font-size:.87rem;color:var(--muted);line-height:1.8}
 .faq-item.open .faq-a{max-height:300px}
 
+/* MODAL CONFIRMACION */
+#modalConfirm{display:none;position:fixed;inset:0;z-index:99998;background:rgba(13,31,60,.55);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:1rem}
+#modalConfirm.open{display:flex}
+.modal-box{background:white;border-radius:22px;padding:2rem;max-width:400px;width:100%;box-shadow:0 20px 60px rgba(13,31,60,.25);animation:modalIn .25s ease both;position:relative}
+@keyframes modalIn{from{opacity:0;transform:scale(.93) translateY(16px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-icon{width:56px;height:56px;background:rgba(26,86,196,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 1rem}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;text-align:center;color:var(--ink);margin-bottom:.4rem}
+.modal-sub{text-align:center;color:var(--muted);font-size:.85rem;margin-bottom:1.4rem}
+.modal-details{background:var(--cream);border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.3rem;display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.4rem}
+.modal-row{display:flex;align-items:center;gap:.7rem;font-size:.88rem}
+.modal-row-icon{width:30px;height:30px;background:rgba(26,86,196,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.modal-row-label{color:var(--muted);font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.8px}
+.modal-row-val{color:var(--ink);font-weight:700;font-size:.9rem}
+.modal-btns{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.modal-btn-cancel{background:var(--cream);color:var(--ink);border:1.5px solid var(--border);border-radius:100px;padding:.8rem;font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;transition:border-color .2s}
+.modal-btn-cancel:hover{border-color:var(--teal)}
+.modal-btn-confirm{background:var(--teal);color:white;border:none;border-radius:100px;padding:.8rem;font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;transition:background .2s;display:flex;align-items:center;justify-content:center;gap:.4rem}
+.modal-btn-confirm:hover{background:var(--teal2)}
+
+/* MODAL CONFIRMACION */
+#confirmModal{display:none;position:fixed;inset:0;z-index:99998;background:rgba(13,31,60,.55);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:1rem}
+#confirmModal.open{display:flex}
+.modal-box{background:white;border-radius:22px;padding:2rem;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(13,31,60,.2);animation:modalIn .25s ease both;position:relative}
+@keyframes modalIn{from{opacity:0;transform:scale(.93) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-close{position:absolute;top:1rem;right:1rem;background:var(--sage);border:none;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:var(--muted);transition:background .2s}
+.modal-close:hover{background:var(--mint)}
+.modal-icon{width:56px;height:56px;background:rgba(26,86,196,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 1rem}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;text-align:center;color:var(--ink);margin-bottom:.4rem}
+.modal-sub{font-size:.83rem;color:var(--muted);text-align:center;margin-bottom:1.4rem}
+.modal-details{background:var(--cream);border:1px solid var(--border);border-radius:14px;padding:1rem 1.2rem;margin-bottom:1.4rem;display:flex;flex-direction:column;gap:.6rem}
+.modal-row{display:flex;align-items:center;gap:.7rem;font-size:.86rem}
+.modal-row-icon{font-size:1rem;flex-shrink:0;width:22px;text-align:center}
+.modal-row-label{color:var(--muted);font-size:.78rem;display:block;margin-bottom:1px}
+.modal-row-val{font-weight:700;color:var(--ink)}
+.modal-btns{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.modal-btn-cancel{background:var(--sage);border:none;border-radius:100px;padding:.8rem;font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;color:var(--muted);transition:background .2s}
+.modal-btn-cancel:hover{background:var(--mint)}
+.modal-btn-confirm{background:var(--teal);border:none;border-radius:100px;padding:.8rem;font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;color:white;transition:background .2s}
+.modal-btn-confirm:hover{background:var(--teal2)}
+
 footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;padding:2.2rem 1.5rem;font-size:.8rem;line-height:1.7}
 footer strong{color:rgba(255,255,255,.85)}
 @media(max-width:960px){.hero{grid-template-columns:1fr;padding:6.5rem 1.5rem 3rem;gap:2.5rem;min-height:auto}.cita-grid{grid-template-columns:1fr;gap:2.5rem}}
@@ -345,7 +385,7 @@ footer strong{color:rgba(255,255,255,.85)}
             <label>Comentario o sintoma</label>
             <textarea id="f_comentario" placeholder="Cuentanos brevemente tu consulta o sintoma..."></textarea>
           </div>
-          <button type="submit" class="form-submit" id="submitBtn" disabled>
+          <button type="button" class="form-submit" id="submitBtn" disabled>
             <span class="spinner" id="submitSpinner"></span>
             <span id="btnText">Verifica disponibilidad primero</span>
           </button>
@@ -631,6 +671,12 @@ function openLB(src){
   document.getElementById('lightbox').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
+
+function closeModal(){
+  document.getElementById('confirmModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
 function closeLB(){
   document.getElementById('lightbox').classList.remove('open');
   document.body.style.overflow = '';
@@ -784,8 +830,10 @@ function setSlot(type, msg) {
 }
 
 // Submit
-document.getElementById('citaForm').addEventListener('submit', async function(e){
-  e.preventDefault();
+// Pending submit data
+var pendingSubmit = false;
+
+function showConfirmModal() {
   if (!validarCampos()) {
     showMsg('Completa todos los campos obligatorios', 'error');
     return;
@@ -794,23 +842,83 @@ document.getElementById('citaForm').addEventListener('submit', async function(e)
     showMsg('Verifica la disponibilidad del horario primero', 'error');
     return;
   }
-
   var nombre   = document.getElementById('f_nombre').value.trim();
   var telefono = document.getElementById('f_telefono').value.trim();
-  var dni      = document.getElementById('f_dni').value.trim();
   var servicio = document.getElementById('f_servicio').value;
   var fecha    = document.getElementById('f_fecha').value;
   var hora     = document.getElementById('f_hora').value;
 
+  // Fill modal details
+  document.getElementById('mNombre').textContent   = nombre;
+  document.getElementById('mServicio').textContent = servicio;
+  document.getElementById('mFecha').textContent    = formatF(fecha);
+  document.getElementById('mHora').textContent     = formatH(hora);
+  document.getElementById('mTelefono').textContent = telefono;
+
+  document.getElementById('modalConfirm').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalConfirm').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('modalCancel').addEventListener('click', closeModal);
+document.getElementById('modalConfirm').addEventListener('click', function(e){
+  if (e.target === this) closeModal();
+});
+
+document.getElementById('modalOk').addEventListener('click', function(){
+  closeModal();
+  doSubmit();
+});
+
+// Override submit button to show modal
+document.getElementById('submitBtn').addEventListener('click', function(e){
+  e.preventDefault();
+  showConfirmModal();
+});
+
+document.getElementById('citaForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  if (!validarCampos()) { showMsg('Completa todos los campos obligatorios', 'error'); return; }
+  if (!slotOK) { showMsg('Verifica la disponibilidad del horario primero', 'error'); return; }
+
+  // Mostrar modal de confirmacion con los datos
+  var nombre   = document.getElementById('f_nombre').value.trim();
+  var telefono = document.getElementById('f_telefono').value.trim();
+  var servicio = document.getElementById('f_servicio').value;
+  var fecha    = document.getElementById('f_fecha').value;
+  var hora     = document.getElementById('f_hora').value;
+
+  document.getElementById('md_nombre').textContent   = nombre;
+  document.getElementById('md_servicio').textContent = servicio;
+  document.getElementById('md_fecha').textContent    = formatF(fecha);
+  document.getElementById('md_hora').textContent     = formatH(hora);
+  document.getElementById('md_telefono').textContent = telefono;
+  document.getElementById('confirmModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
+
+// Se llama cuando el usuario pulsa Confirmar en el modal
+async function confirmarCita() {
+  var nombre    = document.getElementById('f_nombre').value.trim();
+  var telefono  = document.getElementById('f_telefono').value.trim();
+  var dni       = document.getElementById('f_dni').value.trim();
+  var servicio  = document.getElementById('f_servicio').value;
+  var fecha     = document.getElementById('f_fecha').value;
+  var hora      = document.getElementById('f_hora').value;
+
+  closeModal();
   document.getElementById('submitBtn').disabled = true;
   document.getElementById('submitSpinner').style.display = 'block';
   document.getElementById('btnText').textContent = 'Reservando...';
   document.getElementById('successMsg').style.display = 'none';
   document.getElementById('errorMsg').style.display = 'none';
 
-  var n = new Date();
-  var fe = n.getDate() + '/' + (n.getMonth()+1) + '/' + n.getFullYear() +
-           ' ' + n.getHours() + ':' + String(n.getMinutes()).padStart(2,'0');
+  var n  = new Date();
+  var fe = n.getDate()+'/'+(n.getMonth()+1)+'/'+n.getFullYear()+' '+n.getHours()+':'+String(n.getMinutes()).padStart(2,'0');
 
   var p = new URLSearchParams({
     action:'save', nombre:nombre, telefono:telefono, dni:dni,
@@ -820,13 +928,12 @@ document.getElementById('citaForm').addEventListener('submit', async function(e)
   });
 
   try {
-    var ctrl = new AbortController();
+    var ctrl  = new AbortController();
     var timer = setTimeout(function(){ ctrl.abort(); }, 15000);
-    var res = await fetch(SCRIPT_URL + '?' + p.toString(), {method:'GET', redirect:'follow', signal:ctrl.signal});
+    var res   = await fetch(SCRIPT_URL + '?' + p.toString(), {method:'GET', redirect:'follow', signal:ctrl.signal});
     clearTimeout(timer);
     if (!res.ok) throw new Error('HTTP ' + res.status);
     var r = await res.json();
-
     if (r.success) {
       saveLocal({nombre:nombre, telefono:telefono, dni:dni, servicio:servicio, fecha_pref:fecha, hora_pref:hora});
       document.getElementById('successMsg').style.display = 'block';
@@ -836,17 +943,17 @@ document.getElementById('citaForm').addEventListener('submit', async function(e)
       document.getElementById('f_fecha').min = new Date().toISOString().split('T')[0];
       renderSaved();
     } else {
-      showMsg(r.error || 'No se pudo guardar la cita. Intenta de nuevo.', 'error');
+      showMsg(r.error || 'No se pudo guardar. Intenta de nuevo.', 'error');
       document.getElementById('submitBtn').disabled = false;
     }
   } catch(err) {
-    showMsg(err.name === 'AbortError' ? 'Servidor tardo. Intenta de nuevo.' : 'Error de red. Verifica tu conexion.', 'error');
+    showMsg(err.name === 'AbortError' ? 'Servidor tardo. Intenta de nuevo.' : 'Error de red.', 'error');
     document.getElementById('submitBtn').disabled = false;
   } finally {
     document.getElementById('submitSpinner').style.display = 'none';
     document.getElementById('btnText').textContent = 'Verifica disponibilidad primero';
   }
-});
+}
 
 // Helpers
 function showMsg(msg, type) {
@@ -963,5 +1070,76 @@ function toggleFaq(el) {
   <img id="lbImg" src="" alt=""/>
 </div>
 
+
+<!-- MODAL CONFIRMACION -->
+<div id="modalConfirm">
+  <div class="modal-box">
+    <div class="modal-icon">&#128197;</div>
+    <div class="modal-title">Confirmar cita</div>
+    <div class="modal-sub">Por favor revisa los datos antes de reservar</div>
+    <div class="modal-details">
+      <div class="modal-row">
+        <div class="modal-row-icon">&#128100;</div>
+        <div><div class="modal-row-label">Paciente</div><div class="modal-row-val" id="mNombre">—</div></div>
+      </div>
+      <div class="modal-row">
+        <div class="modal-row-icon">&#129463;</div>
+        <div><div class="modal-row-label">Servicio</div><div class="modal-row-val" id="mServicio">—</div></div>
+      </div>
+      <div class="modal-row">
+        <div class="modal-row-icon">&#128197;</div>
+        <div><div class="modal-row-label">Fecha</div><div class="modal-row-val" id="mFecha">—</div></div>
+      </div>
+      <div class="modal-row">
+        <div class="modal-row-icon">&#128336;</div>
+        <div><div class="modal-row-label">Hora</div><div class="modal-row-val" id="mHora">—</div></div>
+      </div>
+      <div class="modal-row">
+        <div class="modal-row-icon">&#128222;</div>
+        <div><div class="modal-row-label">Telefono</div><div class="modal-row-val" id="mTelefono">—</div></div>
+      </div>
+    </div>
+    <div class="modal-btns">
+      <button class="modal-btn-cancel" id="modalCancel">Corregir datos</button>
+      <button class="modal-btn-confirm" id="modalOk">&#9989; Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CONFIRMACION -->
+<div id="confirmModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()" title="Cerrar">&#10005;</button>
+    <div class="modal-icon">&#129463;</div>
+    <div class="modal-title">&#191;Confirmas tu cita?</div>
+    <div class="modal-sub">Revisa los datos antes de reservar</div>
+    <div class="modal-details">
+      <div class="modal-row">
+        <span class="modal-row-icon">&#128100;</span>
+        <div><span class="modal-row-label">Paciente</span><span class="modal-row-val" id="md_nombre"></span></div>
+      </div>
+      <div class="modal-row">
+        <span class="modal-row-icon">&#129463;</span>
+        <div><span class="modal-row-label">Servicio</span><span class="modal-row-val" id="md_servicio"></span></div>
+      </div>
+      <div class="modal-row">
+        <span class="modal-row-icon">&#128197;</span>
+        <div><span class="modal-row-label">Fecha</span><span class="modal-row-val" id="md_fecha"></span></div>
+      </div>
+      <div class="modal-row">
+        <span class="modal-row-icon">&#128336;</span>
+        <div><span class="modal-row-label">Hora</span><span class="modal-row-val" id="md_hora"></span></div>
+      </div>
+      <div class="modal-row">
+        <span class="modal-row-icon">&#128222;</span>
+        <div><span class="modal-row-label">Telefono</span><span class="modal-row-val" id="md_telefono"></span></div>
+      </div>
+    </div>
+    <div class="modal-btns">
+      <button class="modal-btn-cancel" onclick="closeModal()">&#8592; Corregir</button>
+      <button class="modal-btn-confirm" id="modalConfirmBtn" onclick="confirmarCita()">Confirmar &#10003;</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
