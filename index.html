@@ -296,7 +296,7 @@ footer strong{color:rgba(255,255,255,.85)}
         <div class="contact-list">
           <a href="tel:+51999000000"><div class="contact-icon">&#128222;</div>+51 999 000 000</a>
           <a href="https://wa.me/51999000000" target="_blank" rel="noopener"><div class="contact-icon">&#128172;</div>WhatsApp disponible</a>
-          <a href="/cdn-cgi/l/email-protection#1a3060575a7b4f545f5459525e55154b5e"><div class="contact-icon">&#128231;</div><span class="__cf_email__" data-cfemail="761e191a173602191219141f1318580613">[email&#160;protected]</span></a>
+          
           <a href="#"><div class="contact-icon">&#128205;</div>Lima, Peru</a>
         </div>
       </div>
@@ -683,6 +683,7 @@ footer strong{color:rgba(255,255,255,.85)}
       <div style="display:flex;align-items:center;gap:.7rem;font-size:.88rem"><div style="width:30px;height:30px;background:rgba(26,86,196,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0">&#128197;</div><div><div style="color:var(--muted);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px">Fecha</div><div style="color:var(--ink);font-weight:700" id="md_fecha"></div></div></div>
       <div style="display:flex;align-items:center;gap:.7rem;font-size:.88rem"><div style="width:30px;height:30px;background:rgba(26,86,196,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0">&#128336;</div><div><div style="color:var(--muted);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px">Hora</div><div style="color:var(--ink);font-weight:700" id="md_hora"></div></div></div>
       <div style="display:flex;align-items:center;gap:.7rem;font-size:.88rem"><div style="width:30px;height:30px;background:rgba(26,86,196,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0">&#128222;</div><div><div style="color:var(--muted);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px">Telefono</div><div style="color:var(--ink);font-weight:700" id="md_telefono"></div></div></div>
+      <div style="display:flex;align-items:center;gap:.7rem;font-size:.88rem"><div style="width:30px;height:30px;background:rgba(26,86,196,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0">&#128100;</div><div><div style="color:var(--muted);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px">DNI</div><div style="color:var(--ink);font-weight:700" id="md_dni"></div></div></div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem">
       <button id="modalCancelBtn" style="background:var(--cream);color:var(--ink);border:1.5px solid var(--border);border-radius:100px;padding:.8rem;font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer">&#8592; Corregir</button>
@@ -839,6 +840,7 @@ document.getElementById('submitBtn').addEventListener('click', function(){
   document.getElementById('md_fecha').textContent    = formatF(document.getElementById('f_fecha').value);
   document.getElementById('md_hora').textContent     = formatH(document.getElementById('f_hora').value);
   document.getElementById('md_telefono').textContent = document.getElementById('f_telefono').value.trim();
+  document.getElementById('md_dni').textContent     = document.getElementById('f_dni').value.trim();
   openModal();
 });
 
