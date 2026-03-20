@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Todo Bien — Clínica Dental</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sage:    #e8efe8;
+      --mint:    #c8ddd0;
+      --teal:    #2d7d6f;
+      --teal2:   #1a5c52;
+      --cream:   #faf8f4;
+      --ink:     #1c2b28;
+      --muted:   #7a9690;
+      --border:  #d4e4df;
+      --success: #2d7d6f;
+      --error:   #c0392b;
+      --warn:    #b45309;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ══ NAV ══ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      padding: 0.9rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(250,248,244,0.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.3s;
+    }
+
+    nav.scrolled { box-shadow: 0 4px 30px rgba(45,125,111,0.1); }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.6rem;
+      text-decoration: none; flex-shrink: 0;
+    }
+
+    .logo-svg-wrap {
+      width: 40px; height: 40px;
+      background: var(--teal);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 3px 12px rgba(45,125,111,0.35);
+      flex-shrink: 0;
+    }
+
+    .logo-svg-wrap svg { width: 26px; height: 26px; display: block; }
+
+    .nav-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem; font-weight: 600; color: var(--ink); line-height: 1;
+    }
+    .nav-brand em { font-style: normal; color: var(--teal); }
+
+    .nav-links { display: flex; align-items: center; gap: 1.8rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-cta { background: var(--teal) !important; color: white !important; padding: 0.55rem 1.3rem !important; border-radius: 100px; font-weight: 600 !important; transition: background 0.2s !important; }
+    .nav-cta:hover { background: var(--teal2) !important; }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; border-radius: 8px; transition: background 0.2s; }
+    .hamburger:hover { background: var(--sage); }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--ink); border-radius: 2px; transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none; position: fixed;
+      top: 62px; left: 0; right: 0;
+      background: white; border-bottom: 1px solid var(--border);
+      padding: 1.2rem 1.5rem; z-index: 199;
+      flex-direction: column; gap: 0;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { text-decoration: none; color: var(--ink); font-size: 1rem; font-weight: 500; padding: 0.9rem 0; border-bottom: 1px solid var(--border); display: block; }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--teal); }
+
+    /* ══ HERO ══ */
+    .hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 7rem 4rem 4rem; gap: 3rem;
+      position: relative; overflow: hidden;
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    .hero::before {
+      content: ''; position: fixed;
+      top: -150px; right: -150px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(200,221,208,0.35) 0%, transparent 65%);
+      pointer-events: none; z-index: 0;
+    }
+
+    .hero-text { position: relative; z-index: 1; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(45,125,111,0.1); border: 1px solid rgba(45,125,111,0.2);
+      color: var(--teal); font-size: 0.73rem; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 0.38rem 1rem; border-radius: 100px; margin-bottom: 1.4rem;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--teal); border-radius: 50%; animation: pulse 2s infinite; }
+
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.4;transform:scale(1.4);} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px);} to{opacity:1;transform:translateY(0);} }
+
+    .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.6rem,4.5vw,4rem); font-weight: 300; line-height: 1.1; margin-bottom: 1.1rem; animation: fadeUp 0.6s 0.1s ease both; }
+    .hero h1 em { font-style: italic; color: var(--teal); }
+    .hero-desc { color: var(--muted); font-size: 0.97rem; line-height: 1.8; max-width: 400px; margin-bottom: 2.2rem; animation: fadeUp 0.6s 0.2s ease both; }
+
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.6s 0.3s ease both; }
+
+    .btn-primary { background: var(--teal); color: white; text-decoration: none; padding: 0.85rem 1.8rem; border-radius: 100px; font-weight: 600; font-size: 0.9rem; transition: background 0.2s, transform 0.15s, box-shadow 0.2s; box-shadow: 0 4px 18px rgba(45,125,111,0.3); display: inline-block; }
+    .btn-primary:hover { background: var(--teal2); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(45,125,111,0.35); }
+    .btn-outline { border: 1.5px solid var(--border); color: var(--ink); text-decoration: none; padding: 0.85rem 1.8rem; border-radius: 100px; font-weight: 500; font-size: 0.9rem; transition: border-color 0.2s, color 0.2s; display: inline-block; }
+    .btn-outline:hover { border-color: var(--teal); color: var(--teal); }
+
+    .hero-visual { position: relative; z-index: 1; animation: fadeUp 0.7s 0.25s ease both; }
+    .hero-card { background: white; border-radius: 22px; padding: 2rem; box-shadow: 0 20px 60px rgba(45,125,111,0.11), 0 0 0 1px var(--border); position: relative; }
+    .hero-card::before { content: ''; position: absolute; top: -2px; left: 25px; right: 25px; height: 2px; background: linear-gradient(90deg, transparent, var(--teal), transparent); }
+
+    .stat-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.8rem; margin-bottom: 1.6rem; }
+    .stat { text-align: center; padding: 1rem 0.4rem; background: var(--sage); border-radius: 12px; }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; font-weight: 600; color: var(--teal); line-height: 1; }
+    .stat-label { font-size: 0.68rem; color: var(--muted); font-weight: 500; margin-top: 0.25rem; }
+
+    .services-mini { display: flex; flex-direction: column; gap: 0.5rem; }
+    .service-item { display: flex; align-items: center; gap: 0.7rem; padding: 0.65rem 0.8rem; border-radius: 10px; transition: background 0.2s; }
+    .service-item:hover { background: var(--sage); }
+    .service-dot { width: 7px; height: 7px; background: var(--teal); border-radius: 50%; flex-shrink: 0; }
+    .service-name { font-size: 0.85rem; font-weight: 500; }
+    .service-price { margin-left: auto; font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
+
+    /* ══ SECTIONS ══ */
+    section { padding: 5rem 1.5rem; }
+    .section-header { text-align: center; margin-bottom: 3rem; }
+    .section-tag { display: inline-block; font-size: 0.7rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 0.7rem; }
+    .section-header h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.9rem,4vw,2.9rem); font-weight: 300; line-height: 1.2; }
+    .section-header h2 em { font-style: italic; color: var(--teal); }
+    .section-header p { color: var(--muted); font-size: 0.93rem; max-width: 480px; margin: 0.8rem auto 0; line-height: 1.7; }
+
+    /* ══ SERVICES ══ */
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap: 1.2rem; max-width: 1100px; margin: 0 auto; }
+    .service-card { background: white; border: 1px solid var(--border); border-radius: 18px; padding: 1.8rem; transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s; position: relative; overflow: hidden; }
+    .service-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--teal), var(--mint)); transform: scaleX(0); transition: transform 0.3s; transform-origin: left; }
+    .service-card:hover { transform: translateY(-5px); box-shadow: 0 16px 45px rgba(45,125,111,0.11); border-color: var(--mint); }
+    .service-card:hover::after { transform: scaleX(1); }
+    .service-icon { width: 48px; height: 48px; background: var(--sage); border-radius: 13px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 1.4rem; }
+    .service-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .service-card p { color: var(--muted); font-size: 0.83rem; line-height: 1.7; }
+
+    /* ══ CITA SECTION ══ */
+    #cita { background: white; position: relative; overflow: hidden; }
+    #cita::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 50% 60% at 0% 50%, rgba(200,221,208,0.25) 0%, transparent 60%), radial-gradient(ellipse 40% 50% at 100% 50%, rgba(45,125,111,0.05) 0%, transparent 60%); pointer-events: none; }
+    .cita-inner { max-width: 980px; margin: 0 auto; position: relative; z-index: 1; }
+    .cita-grid { display: grid; grid-template-columns: 1fr 1.45fr; gap: 3.5rem; align-items: start; }
+
+    .cita-info h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.3rem; font-weight: 300; line-height: 1.2; margin-bottom: 0.9rem; }
+    .cita-info h2 em { font-style: italic; color: var(--teal); }
+    .cita-info p { color: var(--muted); font-size: 0.88rem; line-height: 1.8; margin-bottom: 1.8rem; }
+
+    .contact-list { display: flex; flex-direction: column; gap: 0.8rem; }
+    .contact-list a { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: var(--ink); font-size: 0.86rem; transition: color 0.2s; }
+    .contact-list a:hover { color: var(--teal); }
+    .contact-icon { width: 34px; height: 34px; background: var(--sage); border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.95rem; }
+
+    /* años badge */
+    .years-badge {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: linear-gradient(135deg, var(--teal), var(--teal2));
+      color: white; border-radius: 14px;
+      padding: 1rem 1.4rem; margin-bottom: 1.5rem;
+      box-shadow: 0 6px 20px rgba(45,125,111,0.25);
+    }
+    .years-num { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 600; line-height: 1; }
+    .years-text { font-size: 0.8rem; font-weight: 500; line-height: 1.35; opacity: 0.9; }
+
+    /* ══ FORM ══ */
+    .cita-form { background: var(--cream); border: 1px solid var(--border); border-radius: 22px; padding: 2.2rem; position: relative; }
+    .cita-form::before { content: ''; position: absolute; top: -1px; left: 20%; right: 20%; height: 2px; background: linear-gradient(90deg, transparent, var(--teal), transparent); }
+    .form-title { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 600; margin-bottom: 1.4rem; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .fld { display: flex; flex-direction: column; gap: 0.32rem; margin-bottom: 0.9rem; }
+    .fld label { font-size: 0.7rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+    .fld label .req { color: var(--teal); }
+
+    .fld input, .fld select, .fld textarea {
+      font-family: 'Outfit', sans-serif; font-size: 0.9rem;
+      color: var(--ink); background: white;
+      border: 1.5px solid var(--border); border-radius: 10px;
+      padding: 0.7rem 0.9rem; outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%; -webkit-appearance: none; appearance: none;
+    }
+    .fld input::placeholder, .fld textarea::placeholder { color: rgba(122,150,144,0.45); }
+    .fld input:focus, .fld select:focus, .fld textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(45,125,111,0.1); }
+    .fld select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a9690' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.9rem center; padding-right: 2.2rem; }
+    .fld textarea { resize: vertical; min-height: 85px; }
+
+    /* ── SLOT CHECKER ── */
+    .slot-checker-wrap { margin-bottom: 0.9rem; }
+
+    .slot-row { display: grid; grid-template-columns: 1fr auto; gap: 0.6rem; align-items: end; }
+
+    .slot-status {
+      display: none;
+      align-items: center; gap: 0.5rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.82rem; font-weight: 600;
+      margin-top: 0.5rem;
+      animation: fadeUp 0.3s ease both;
+    }
+    .slot-status.libre    { display: flex; background: rgba(45,125,111,0.09); border: 1px solid rgba(45,125,111,0.25); color: var(--success); }
+    .slot-status.ocupado  { display: flex; background: rgba(192,57,43,0.07);  border: 1px solid rgba(192,57,43,0.25);  color: var(--error); }
+    .slot-status.checking { display: flex; background: rgba(122,150,144,0.08); border: 1px solid var(--border); color: var(--muted); }
+
+    .slot-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .libre   .slot-dot { background: var(--success); }
+    .ocupado .slot-dot { background: var(--error); animation: pulse 1.2s infinite; }
+    .checking .slot-dot { background: var(--muted); animation: pulse 0.8s infinite; }
+
+    .check-btn {
+      background: var(--teal);
+      color: white; border: none;
+      border-radius: 10px;
+      padding: 0.7rem 1rem;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.82rem; font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      white-space: nowrap;
+      height: fit-content;
+      align-self: end;
+    }
+    .check-btn:hover { background: var(--teal2); transform: translateY(-1px); }
+    .check-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    /* ── SUBMIT ── */
+    .form-submit {
+      width: 100%; background: var(--teal); color: white; border: none;
+      border-radius: 100px; padding: 0.95rem;
+      font-family: 'Outfit', sans-serif; font-size: 0.93rem; font-weight: 600;
+      cursor: pointer; transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      box-shadow: 0 4px 18px rgba(45,125,111,0.25); margin-top: 0.3rem;
+    }
+    .form-submit:hover { background: var(--teal2); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(45,125,111,0.3); }
+    .form-submit:active { transform: scale(0.98); }
+    .form-submit:disabled { opacity: 0.45; cursor: not-allowed; transform: none !important; box-shadow: none; }
+
+    .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.6s linear infinite; display: none; flex-shrink: 0; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .form-msg { display: none; padding: 0.85rem 1rem; border-radius: 10px; font-size: 0.84rem; font-weight: 500; margin-top: 0.9rem; text-align: center; }
+    .form-msg.success { background: rgba(45,125,111,0.08); border: 1px solid rgba(45,125,111,0.25); color: var(--success); }
+    .form-msg.error   { background: rgba(192,57,43,0.06);  border: 1px solid rgba(192,57,43,0.2);  color: var(--error); }
+
+    /* ── SAVED ── */
+    .saved-section { margin-top: 1.4rem; display: none; border-top: 1px solid var(--border); padding-top: 1.2rem; }
+    .saved-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem; }
+    .saved-title { font-size: 0.7rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+    .saved-clear { font-size: 0.72rem; color: var(--error); cursor: pointer; background: none; border: none; font-family: 'Outfit',sans-serif; padding: 0; opacity: 0.7; transition: opacity 0.2s; }
+    .saved-clear:hover { opacity: 1; }
+    .saved-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .saved-item { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 0.75rem 1rem; display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; }
+    .saved-name { font-size: 0.83rem; font-weight: 600; color: var(--ink); }
+    .saved-detail { font-size: 0.74rem; color: var(--muted); margin-top: 2px; }
+    .saved-badge { background: rgba(45,125,111,0.1); color: var(--teal); font-size: 0.68rem; font-weight: 600; padding: 0.22rem 0.65rem; border-radius: 100px; white-space: nowrap; flex-shrink: 0; }
+
+    /* ══ FOOTER ══ */
+    footer { background: var(--ink); color: rgba(255,255,255,0.45); text-align: center; padding: 2.2rem 1.5rem; font-size: 0.8rem; line-height: 1.7; }
+    footer strong { color: rgba(255,255,255,0.85); }
+
+    /* ══ RESPONSIVE ══ */
+    @media (max-width: 960px) {
+      .hero { grid-template-columns: 1fr; padding: 6.5rem 1.5rem 3rem; gap: 2.5rem; min-height: auto; }
+      .hero-desc { max-width: 100%; }
+      .cita-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 0.85rem 1.1rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero { padding: 5.5rem 1.1rem 2.5rem; }
+      .hero h1 { font-size: 2.5rem; }
+      .hero-btns { flex-direction: column; }
+      .btn-primary, .btn-outline { width: 100%; text-align: center; padding: 0.9rem; }
+      section { padding: 3rem 1.1rem; }
+      .services-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .cita-form { padding: 1.5rem 1.1rem; }
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+      .cita-info h2 { font-size: 1.9rem; }
+      .slot-row { grid-template-columns: 1fr; }
+      .check-btn { width: 100%; }
+    }
+
+    @media (max-width: 380px) {
+      .nav-brand { font-size: 1.1rem; }
+      .logo-svg-wrap { width: 34px; height: 34px; }
+      .hero h1 { font-size: 2.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="logo-svg-wrap">
+      <svg viewBox="0 0 32 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 4 C8 2 10 1 12 1.5 C13.5 2 14.5 3 16 3 C17.5 3 18.5 2 20 1.5 C22 1 24 2 24 4 C25 6 25 9 24 11 C23 13 22 14 22 16 C22 22 21 28 20 31 C19.5 32.5 18.5 33 17.5 32 C17 31 16.5 29 16 29 C15.5 29 15 31 14.5 32 C13.5 33 12.5 32.5 12 31 C11 28 10 22 10 16 C10 14 9 13 8 11 C7 9 7 6 8 4Z" fill="white" stroke="rgba(255,255,255,0.3)" stroke-width="0.4"/>
+        <line x1="16" y1="4" x2="16" y2="10" stroke="rgba(45,125,111,0.4)" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <span class="nav-brand">Todo <em>Bien</em></span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#cita">Contacto</a></li>
+    <li><a href="#cita" class="nav-cta">Pedir cita</a></li>
+  </ul>
+
+  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<nav class="mobile-menu" id="mobileMenu">
+  <a href="#servicios">Servicios</a>
+  <a href="#cita">Contacto</a>
+  <a href="#cita" style="color:var(--teal);font-weight:600;">→ Pedir cita</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-text">
+    <div class="hero-badge">Clínica Dental · Lima, Perú</div>
+    <h1>Tu sonrisa<br>merece lo<br><em>mejor</em></h1>
+    <p class="hero-desc">En Todo Bien cuidamos tu salud dental con tecnología moderna y el trato cálido que mereces.</p>
+    <div class="hero-btns">
+      <a href="#cita" class="btn-primary">Reservar cita →</a>
+      <a href="#servicios" class="btn-outline">Ver servicios</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-card">
+      <div class="stat-row">
+        <div class="stat"><div class="stat-num">23+</div><div class="stat-label">Años exp.</div></div>
+        <div class="stat"><div class="stat-num">4k+</div><div class="stat-label">Pacientes</div></div>
+        <div class="stat"><div class="stat-num">98%</div><div class="stat-label">Satisfacción</div></div>
+      </div>
+      <div class="services-mini">
+        <div class="service-item"><div class="service-dot"></div><span class="service-name">Limpieza dental</span><span class="service-price">Desde S/. 80</span></div>
+        <div class="service-item"><div class="service-dot"></div><span class="service-name">Blanqueamiento</span><span class="service-price">Desde S/. 250</span></div>
+        <div class="service-item"><div class="service-dot"></div><span class="service-name">Ortodoncia</span><span class="service-price">Desde S/. 1,200</span></div>
+        <div class="service-item"><div class="service-dot"></div><span class="service-name">Implantes</span><span class="service-price">Desde S/. 1,800</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="section-header">
+    <div class="section-tag">Nuestros servicios</div>
+    <h2>Todo lo que tu<br>sonrisa <em>necesita</em></h2>
+    <p>Tratamientos completos para toda la familia con tecnología de última generación.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card"><div class="service-icon">🦷</div><h3>Limpieza y Prevención</h3><p>Profilaxis, detartraje y fluorización para mantener tus dientes sanos y brillantes.</p></div>
+    <div class="service-card"><div class="service-icon">✨</div><h3>Blanqueamiento</h3><p>Blanqueamiento profesional con láser para una sonrisa radiante desde la primera sesión.</p></div>
+    <div class="service-card"><div class="service-icon">😁</div><h3>Ortodoncia</h3><p>Brackets, cerámicos y alineadores invisibles para una sonrisa perfectamente alineada.</p></div>
+    <div class="service-card"><div class="service-icon">🔬</div><h3>Implantes Dentales</h3><p>Implantes de titanio de alta calidad para recuperar tu sonrisa completa de forma permanente.</p></div>
+    <div class="service-card"><div class="service-icon">👶</div><h3>Odontopediatría</h3><p>Atención especializada para niños en un ambiente cálido que elimina el miedo al dentista.</p></div>
+    <div class="service-card"><div class="service-icon">💎</div><h3>Estética Dental</h3><p>Carillas, coronas y diseño de sonrisa para lograr la apariencia que siempre soñaste.</p></div>
+  </div>
+</section>
+
+<!-- CITA -->
+<section id="cita">
+  <div class="cita-inner">
+    <div class="cita-grid">
+
+      <div class="cita-info">
+        <div class="section-tag">Reserva tu cita</div>
+        <h2>Agenda tu visita<br><em>hoy mismo</em></h2>
+
+        <div class="years-badge">
+          <div class="years-num">23</div>
+          <div class="years-text">años de<br>experiencia</div>
+        </div>
+
+        <p>Completa el formulario, elige tu fecha y hora, y verifica la disponibilidad al instante antes de confirmar.</p>
+        <div class="contact-list">
+          <a href="tel:+51999000000"><div class="contact-icon">📞</div>+51 999 000 000</a>
+          <a href="https://wa.me/51999000000" target="_blank" rel="noopener"><div class="contact-icon">💬</div>WhatsApp disponible</a>
+          <a href="mailto:hola@todobien.pe"><div class="contact-icon">📧</div>hola@todobien.pe</a>
+          <a href="#"><div class="contact-icon">📍</div>Lima, Perú</a>
+        </div>
+      </div>
+
+      <div class="cita-form">
+        <div class="form-title">📋 Formulario de cita</div>
+
+        <!-- ⚠️ Reemplaza TU_ID_AQUI con la URL de tu Apps Script -->
+        <form id="citaForm" novalidate>
+
+          <div class="form-row">
+            <div class="fld">
+              <label>Nombre <span class="req">*</span></label>
+              <input type="text" id="f_nombre" name="nombre" placeholder="Tu nombre completo" required autocomplete="name"/>
+            </div>
+            <div class="fld">
+              <label>Teléfono <span class="req">*</span></label>
+              <input type="tel" id="f_telefono" name="telefono" placeholder="+51 999 000 000" required autocomplete="tel"/>
+            </div>
+          </div>
+
+          <div class="fld">
+            <label>Correo electrónico</label>
+            <input type="email" id="f_correo" name="correo" placeholder="tu@correo.com" autocomplete="email"/>
+          </div>
+
+          <div class="fld">
+            <label>Servicio de interés <span class="req">*</span></label>
+            <select id="f_servicio" name="servicio" required>
+              <option value="" disabled selected>Selecciona un servicio...</option>
+              <option>Limpieza y Prevención</option>
+              <option>Blanqueamiento</option>
+              <option>Ortodoncia</option>
+              <option>Implantes Dentales</option>
+              <option>Odontopediatría</option>
+              <option>Estética Dental</option>
+              <option>Consulta general</option>
+            </select>
+          </div>
+
+          <!-- FECHA + HORA + VERIFICADOR -->
+          <div class="form-row">
+            <div class="fld">
+              <label>Fecha preferida <span class="req">*</span></label>
+              <input type="date" id="f_fecha" name="fecha_pref" required/>
+            </div>
+            <div class="fld">
+              <label>Hora preferida <span class="req">*</span></label>
+              <input type="time" id="f_hora" name="hora_pref" required
+                     min="08:00" max="20:00"
+                     placeholder="ej: 12:30"/>
+            </div>
+          </div>
+
+          <!-- Botón verificar + resultado -->
+          <div class="slot-checker-wrap">
+            <button type="button" class="check-btn" id="checkBtn" onclick="verificarDisponibilidad()">
+              🔍 Verificar disponibilidad
+            </button>
+            <div class="slot-status" id="slotStatus">
+              <span class="slot-dot"></span>
+              <span id="slotMsg"></span>
+            </div>
+          </div>
+
+          <div class="fld">
+            <label>Comentario o síntoma</label>
+            <textarea id="f_comentario" name="comentario" placeholder="Cuéntanos brevemente tu consulta o síntoma..."></textarea>
+          </div>
+
+          <button type="submit" class="form-submit" id="submitBtn" disabled>
+            <span class="spinner" id="spinner"></span>
+            <span id="btnText">Verifica disponibilidad primero</span>
+          </button>
+
+          <div class="form-msg success" id="successMsg">✅ ¡Cita reservada! Te contactaremos pronto para confirmar.</div>
+          <div class="form-msg error"   id="errorMsg"></div>
+        </form>
+
+        <div class="saved-section" id="savedSection">
+          <div class="saved-header">
+            <span class="saved-title">🗓 Tus citas guardadas</span>
+            <button class="saved-clear" onclick="clearSaved()">Borrar todo</button>
+          </div>
+          <div class="saved-list" id="savedList"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <strong>Todo Bien Clínica Dental</strong> · Lima, Perú<br>Todos los derechos reservados</p>
+</footer>
+
+<script>
+  // ─────────────────────────────────────────────────────────────
+  //  ⚠️  REEMPLAZA con la URL de tu Google Apps Script
+  // ─────────────────────────────────────────────────────────────
+  const SCRIPT_URL = "https://script.google.com/macros/s/TU_ID_AQUI/exec";
+
+  // Duración de cada cita en minutos
+  const DURACION_MINUTOS = 90;
+
+  // ── NAV ──
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+
+  const hamburger  = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  }));
+
+  window.addEventListener('scroll', () => {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  }, { passive: true });
+
+  // Fecha mínima = hoy
+  document.getElementById('f_fecha').min = new Date().toISOString().split('T')[0];
+
+  // ── ELEMENTOS FORM ──
+  const form       = document.getElementById('citaForm');
+  const btn        = document.getElementById('submitBtn');
+  const spinner    = document.getElementById('spinner');
+  const btnText    = document.getElementById('btnText');
+  const successMsg = document.getElementById('successMsg');
+  const errorMsg   = document.getElementById('errorMsg');
+  const slotStatus = document.getElementById('slotStatus');
+  const slotMsg    = document.getElementById('slotMsg');
+  const checkBtn   = document.getElementById('checkBtn');
+
+  let slotConfirmado = false; // solo permite enviar si se verificó y está libre
+
+  // Si el usuario cambia fecha u hora, resetear la verificación
+  ['f_fecha','f_hora'].forEach(id => {
+    document.getElementById(id).addEventListener('change', resetSlot);
+  });
+
+  function resetSlot() {
+    slotConfirmado = false;
+    slotStatus.className = 'slot-status';
+    btn.disabled = true;
+    btnText.textContent = 'Verifica disponibilidad primero';
+    successMsg.style.display = 'none';
+    errorMsg.style.display   = 'none';
+  }
+
+  // ── VERIFICAR DISPONIBILIDAD ──
+  async function verificarDisponibilidad() {
+    const fecha = document.getElementById('f_fecha').value;
+    const hora  = document.getElementById('f_hora').value;
+
+    if (!fecha || !hora) {
+      mostrarError('Por favor ingresa una fecha y una hora primero.');
+      return;
+    }
+
+    // Validar rango horario 8:00 – 20:00
+    const [hh, mm] = hora.split(':').map(Number);
+    if (hh < 8 || hh >= 20) {
+      mostrarError('El horario de atención es de 8:00 a 20:00.');
+      return;
+    }
+
+    // Estado: verificando
+    slotStatus.className = 'slot-status checking';
+    slotMsg.textContent  = 'Verificando disponibilidad...';
+    checkBtn.disabled    = true;
+
+    try {
+      const url = `${SCRIPT_URL}?action=check&fecha=${encodeURIComponent(fecha)}&hora=${encodeURIComponent(hora)}&duracion=${DURACION_MINUTOS}`;
+      const res  = await fetch(url);
+      const data = await res.json();
+
+      if (data.disponible) {
+        slotStatus.className = 'slot-status libre';
+        slotMsg.textContent  = `✓ ${hora} del ${formatFecha(fecha)} está disponible`;
+        slotConfirmado = true;
+        btn.disabled   = false;
+        btnText.textContent = 'Reservar mi cita';
+      } else {
+        slotStatus.className = 'slot-status ocupado';
+        slotMsg.textContent  = `✗ Ese horario ya está ocupado. Prueba con otro.`;
+        slotConfirmado = false;
+        btn.disabled   = true;
+        btnText.textContent = 'Verifica disponibilidad primero';
+
+        // Sugerir siguiente horario libre si viene en la respuesta
+        if (data.siguiente) {
+          slotMsg.textContent += ` Próximo libre: ${data.siguiente}`;
+        }
+      }
+    } catch (err) {
+      slotStatus.className = 'slot-status ocupado';
+      slotMsg.textContent  = '⚠ No se pudo verificar. Revisa tu conexión.';
+    } finally {
+      checkBtn.disabled = false;
+    }
+  }
+
+  // ── SUBMIT ──
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (!slotConfirmado) {
+      mostrarError('Por favor verifica la disponibilidad del horario primero.');
+      return;
+    }
+
+    const nombre   = document.getElementById('f_nombre').value.trim();
+    const telefono = document.getElementById('f_telefono').value.trim();
+    const servicio = document.getElementById('f_servicio').value;
+    const fecha    = document.getElementById('f_fecha').value;
+    const hora     = document.getElementById('f_hora').value;
+
+    if (!nombre || !telefono || !servicio || !fecha || !hora) {
+      mostrarError('Por favor completa todos los campos obligatorios.');
+      return;
+    }
+
+    const data = {};
+    new FormData(form).forEach((val, key) => { data[key] = val.trim(); });
+    data.fecha_envio = new Date().toLocaleString('es-PE');
+
+    btn.disabled = true;
+    spinner.style.display = 'block';
+    btnText.textContent   = 'Reservando...';
+    successMsg.style.display = 'none';
+    errorMsg.style.display   = 'none';
+
+    try {
+      // Doble verificación antes de guardar (evita race condition)
+      const urlCheck = `${SCRIPT_URL}?action=check&fecha=${encodeURIComponent(fecha)}&hora=${encodeURIComponent(hora)}&duracion=${DURACION_MINUTOS}`;
+      const checkRes = await fetch(urlCheck);
+      const checkData = await checkRes.json();
+
+      if (!checkData.disponible) {
+        slotStatus.className = 'slot-status ocupado';
+        slotMsg.textContent  = '✗ Alguien reservó ese horario justo ahora. Elige otro.';
+        slotConfirmado = false;
+        btn.disabled   = true;
+        btnText.textContent = 'Verifica disponibilidad primero';
+        return;
+      }
+
+      // Guardar cita
+      await fetch(SCRIPT_URL, {
+        method : 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body   : JSON.stringify(data)
+      });
+
+      saveLocal(data);
+      successMsg.style.display = 'block';
+      slotStatus.className = 'slot-status';
+      slotConfirmado = false;
+      form.reset();
+      document.getElementById('f_fecha').min = new Date().toISOString().split('T')[0];
+      renderSaved();
+
+    } catch (err) {
+      mostrarError('Error al enviar. Revisa tu conexión e inténtalo de nuevo.');
+    } finally {
+      spinner.style.display = 'none';
+      if (!slotConfirmado) {
+        btn.disabled = true;
+        btnText.textContent = 'Verifica disponibilidad primero';
+      }
+    }
+  });
+
+  // ── HELPERS ──
+  function mostrarError(msg) {
+    errorMsg.textContent     = '⚠️ ' + msg;
+    errorMsg.style.display   = 'block';
+    setTimeout(() => errorMsg.style.display = 'none', 5000);
+  }
+
+  function formatFecha(iso) {
+    const [y,m,d] = iso.split('-');
+    return `${d}/${m}/${y}`;
+  }
+
+  // ── LOCAL STORAGE ──
+  function getCitas() { try { return JSON.parse(localStorage.getItem('todobien_citas') || '[]'); } catch { return []; } }
+
+  function saveLocal(data) {
+    const list = getCitas();
+    list.unshift(data);
+    localStorage.setItem('todobien_citas', JSON.stringify(list.slice(0, 10)));
+  }
+
+  function clearSaved() {
+    localStorage.removeItem('todobien_citas');
+    renderSaved();
+  }
+
+  function renderSaved() {
+    const list    = getCitas();
+    const section = document.getElementById('savedSection');
+    const ul      = document.getElementById('savedList');
+    if (!list.length) { section.style.display = 'none'; return; }
+    section.style.display = 'block';
+    ul.innerHTML = list.map(c => `
+      <div class="saved-item">
+        <div>
+          <div class="saved-name">${esc(c.nombre)}</div>
+          <div class="saved-detail">${esc(c.servicio)} · ${esc(c.fecha_pref)} ${esc(c.hora_pref||'')} · ${esc(c.horario||'')}</div>
+        </div>
+        <span class="saved-badge">Confirmada ✓</span>
+      </div>`).join('');
+  }
+
+  function esc(s) {
+    return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  renderSaved();
+</script>
+</body>
+</html>
