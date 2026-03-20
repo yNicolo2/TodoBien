@@ -143,6 +143,16 @@ section{padding:5rem 1.5rem}
 .porque-card p{color:var(--muted);font-size:.83rem;line-height:1.7}
 @media(max-width:640px){#ubicacion .\31 fr+.\31 fr,#ubicacion>div>div>div:last-child{grid-column:1}}
 
+/* LIGHTBOX */
+#lightbox{display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.9);align-items:center;justify-content:center;cursor:zoom-out}
+#lightbox.open{display:flex}
+#lightbox img{max-width:92vw;max-height:88vh;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.5);cursor:default;animation:lbIn .2s ease}
+@keyframes lbIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+#lbClose{position:fixed;top:18px;right:22px;color:white;font-size:2rem;cursor:pointer;line-height:1;opacity:.8;transition:opacity .2s;z-index:100000;background:rgba(0,0,0,.4);border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center}
+#lbClose:hover{opacity:1}
+.ref-img{cursor:zoom-in;transition:transform .2s,box-shadow .2s}
+.ref-img:hover{transform:scale(1.02);box-shadow:0 12px 40px rgba(26,86,196,.2)!important}
+
 footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;padding:2.2rem 1.5rem;font-size:.8rem;line-height:1.7}
 footer strong{color:rgba(255,255,255,.85)}
 @media(max-width:960px){.hero{grid-template-columns:1fr;padding:6.5rem 1.5rem 3rem;gap:2.5rem;min-height:auto}.cita-grid{grid-template-columns:1fr;gap:2.5rem}}
@@ -416,7 +426,7 @@ footer strong{color:rgba(255,255,255,.85)}
           <p style="font-size:.88rem;font-weight:700;color:var(--ink);margin-bottom:.5rem">Jr. Las Drusas 174A, Urb. Las Flores</p>
           <p style="font-size:.83rem;color:var(--muted);line-height:1.7;margin-bottom:1rem">San Juan de Lurigancho, Lima &mdash; Peru</p>
           <div style="background:rgba(26,86,196,.07);border:1px solid rgba(26,86,196,.2);border-radius:10px;padding:.9rem 1rem;font-size:.82rem;color:var(--ink);line-height:1.7">
-            <strong>&#128204; Referencia:</strong> Terminando la cuadra 18 e iniciando la 19 de la Av. Proceres de la Independencia. En la esquina hay una peluqueria <strong>Montalvo</strong> &mdash; entras por esa calle y estamos una cuadra adentro.
+            <strong>&#128204; Referencia:</strong> Al terminar la cuadra 18 e iniciar la 19 de la Av. Proceres de la Independencia. En la esquina esta la peluqueria <strong>Montalvo</strong>, entras por esa calle y estamos una cuadra adentro. Al costado del local <strong>Los Amigos</strong>.
           </div>
           <a href="https://wa.me/51999000000?text=Hola%2C%20quisiera%20saber%20c%C3%B3mo%20llegar%20a%20la%20cl%C3%ADnica" target="_blank" rel="noopener"
             style="display:inline-flex;align-items:center;gap:.5rem;margin-top:1rem;background:#25d366;color:white;text-decoration:none;padding:.6rem 1.2rem;border-radius:100px;font-size:.83rem;font-weight:600">
@@ -428,12 +438,12 @@ footer strong{color:rgba(255,255,255,.85)}
       <!-- Imagenes de referencia derecha -->
       <div style="display:flex;flex-direction:column;gap:1rem">
         <div style="border-radius:16px;overflow:hidden;box-shadow:0 8px 30px rgba(26,86,196,.12);border:1px solid var(--border)">
-          <img src="ref1.png" alt="Referencia ubicacion 1" style="width:100%;display:block;height:240px;object-fit:cover"/>
+          <img src="ref1.png" alt="Referencia ubicacion 1" class="ref-img" style="width:100%;display:block;height:240px;object-fit:cover"/>
         </div>
         <div style="border-radius:16px;overflow:hidden;box-shadow:0 8px 30px rgba(26,86,196,.12);border:1px solid var(--border)">
-          <img src="ref2.png" alt="Referencia ubicacion 2" style="width:100%;display:block;height:240px;object-fit:cover"/>
+          <img src="ref2.png" alt="Referencia ubicacion 2" class="ref-img" style="width:100%;display:block;height:240px;object-fit:cover"/>
         </div>
-        <a href="https://maps.google.com/?q=Jr.+Las+Drusas+174A+San+Juan+de+Lurigancho+Lima" target="_blank" rel="noopener"
+        <a href="https://maps.google.com/?q=Jr.+Las+Drusas+174A+Urbanizacion+Las+Flores+San+Juan+de+Lurigancho+Lima" target="_blank" rel="noopener"
           style="display:flex;align-items:center;justify-content:center;gap:.6rem;background:var(--teal);color:white;text-decoration:none;padding:.8rem;border-radius:12px;font-size:.88rem;font-weight:600;transition:background .2s"
           onmouseover="this.style.background='var(--teal2)'" onmouseout="this.style.background='var(--teal)'">
           &#128506; Abrir en Google Maps
@@ -457,6 +467,20 @@ footer strong{color:rgba(255,255,255,.85)}
 
 <footer><p>&copy; 2026 <strong>Todo Bien Clinica Dental</strong> &middot; Lima, Peru<br>Todos los derechos reservados</p></footer>
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Global scope — llamadas desde onclick en HTML
+function openLB(src){
+  document.getElementById('lbImg').src = src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLB(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
 var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwOysSv718AaTLAoberNee_Z9bUgfhNPHNvBH8h0UgzK0_R4NX8LXemN8-bWiCtbFLS/exec";
 var DURACION = 90;
 var slotOK = false;
@@ -696,4 +720,31 @@ function renderSaved() {
   ul.innerHTML = list.map(function(c){
     return '<div class="saved-item"><div>' +
            '<div class="saved-name">' + esc(c.nombre) + '</div>' +
-           '<div class="saved-detail">' + esc(c.
+           '<div class="saved-detail">' + esc(c.servicio) + ' &middot; ' + esc(c.fecha_pref) + ' &middot; ' + esc(formatH(c.hora_pref||'00:00')) + '</div>' +
+           '</div><span class="saved-badge">Confirmada</span></div>';
+  }).join('');
+}
+renderSaved();
+
+// LIGHTBOX events (functions defined globally above)
+document.getElementById('lightbox').addEventListener('click', function(e){
+  if(e.target === this) closeLB();
+});
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') closeLB();
+});
+document.querySelectorAll('.ref-img').forEach(function(img){
+  img.addEventListener('click', function(){ openLB(this.src); });
+});
+
+}); // end DOMContentLoaded
+</script>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <div id="lbClose" onclick="closeLB()">&times;</div>
+  <img id="lbImg" src="" alt=""/>
+</div>
+
+</body>
+</html>
