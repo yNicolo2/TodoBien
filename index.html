@@ -133,10 +133,20 @@ section{padding:5rem 1.5rem}
 .saved-name{font-size:.83rem;font-weight:600;color:var(--ink)}
 .saved-detail{font-size:.74rem;color:var(--muted);margin-top:2px}
 .saved-badge{background:rgba(26,86,196,.1);color:var(--teal);font-size:.68rem;font-weight:600;padding:.22rem .65rem;border-radius:100px;white-space:nowrap;flex-shrink:0}
+
+.ubicacion-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start}
+@media(max-width:700px){.ubicacion-grid{grid-template-columns:1fr}}
+.porque-card{background:white;border:1px solid var(--border);border-radius:18px;padding:1.6rem;transition:transform .25s,box-shadow .25s,border-color .25s}
+.porque-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(26,86,196,.1);border-color:var(--mint)}
+.porque-icon{font-size:2rem;margin-bottom:.9rem}
+.porque-card h3{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;margin-bottom:.5rem;color:var(--ink)}
+.porque-card p{color:var(--muted);font-size:.83rem;line-height:1.7}
+@media(max-width:640px){#ubicacion .\31 fr+.\31 fr,#ubicacion>div>div>div:last-child{grid-column:1}}
+
 footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;padding:2.2rem 1.5rem;font-size:.8rem;line-height:1.7}
 footer strong{color:rgba(255,255,255,.85)}
 @media(max-width:960px){.hero{grid-template-columns:1fr;padding:6.5rem 1.5rem 3rem;gap:2.5rem;min-height:auto}.cita-grid{grid-template-columns:1fr;gap:2.5rem}}
-@media(max-width:640px){nav{padding:.85rem 1.1rem}.nav-links{display:none}.hamburger{display:flex}.hero{padding:5.5rem 1.1rem 2.5rem}.hero h1{font-size:2.5rem}.hero-btns{flex-direction:column}.btn-primary,.btn-outline{width:100%;text-align:center;padding:.9rem}section{padding:3rem 1.1rem}.services-grid{grid-template-columns:1fr;gap:1rem}.cita-form{padding:1.5rem 1.1rem}.form-row{grid-template-columns:1fr;gap:0}.slot-row{grid-template-columns:1fr}.check-btn{width:100%}.cita-info h2{font-size:1.9rem}}
+@media(max-width:640px){#ubicacion>div>div:nth-child(2)>div{grid-template-columns:1fr!important} nav{padding:.85rem 1.1rem}.nav-links{display:none}.hamburger{display:flex}.hero{padding:5.5rem 1.1rem 2.5rem}.hero h1{font-size:2.5rem}.hero-btns{flex-direction:column}.btn-primary,.btn-outline{width:100%;text-align:center;padding:.9rem}section{padding:3rem 1.1rem}.services-grid{grid-template-columns:1fr;gap:1rem}.cita-form{padding:1.5rem 1.1rem}.form-row{grid-template-columns:1fr;gap:0}.slot-row{grid-template-columns:1fr}.check-btn{width:100%}.cita-info h2{font-size:1.9rem}}
 @media(max-width:380px){.nav-brand{font-size:1.1rem}.logo-svg-wrap{width:34px;height:34px}.hero h1{font-size:2.1rem}}
 </style>
 </head>
@@ -319,6 +329,132 @@ footer strong{color:rgba(255,255,255,.85)}
     </div>
   </div>
 </section>
+
+<!-- POR QUE ELEGIRNOS -->
+<section id="porque" style="background:var(--cream)">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="section-header">
+      <div class="section-tag">Por que elegirnos</div>
+      <h2>Tu sonrisa en <em>buenas manos</em></h2>
+      <p>Nos comprometemos a brindarte la mejor atencion dental con calidez y tecnologia de avanzada.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem">
+      <div class="porque-card">
+        <div class="porque-icon">&#127981;</div>
+        <h3>Tecnologia Moderna</h3>
+        <p>Equipos de ultima generacion para diagnosticos precisos y tratamientos mas comodos y eficientes.</p>
+      </div>
+      <div class="porque-card">
+        <div class="porque-icon">&#129489;&#8205;&#9877;&#65039;</div>
+        <h3>Especialistas Certificados</h3>
+        <p>Nuestros profesionales estan altamente capacitados y en constante actualizacion con las ultimas tecnicas.</p>
+      </div>
+      <div class="porque-card">
+        <div class="porque-icon">&#10084;&#65039;</div>
+        <h3>Atencion Personalizada</h3>
+        <p>Cada paciente es unico. Te escuchamos, evaluamos y diseñamos el plan de tratamiento ideal para ti.</p>
+      </div>
+      <div class="porque-card">
+        <div class="porque-icon">&#128176;</div>
+        <h3>Precios Accesibles</h3>
+        <p>Calidad dental sin comprometer tu bolsillo. Contamos con planes de pago y facilidades para todos.</p>
+      </div>
+      <div class="porque-card">
+        <div class="porque-icon">&#128274;</div>
+        <h3>Ambiente Seguro</h3>
+        <p>Instalaciones esterilizadas bajo los mas altos estandares de bioseguridad para tu tranquilidad.</p>
+      </div>
+      <div class="porque-card">
+        <div class="porque-icon">&#11088;</div>
+        <h3>23 Anos de Experiencia</h3>
+        <p>Mas de dos decadas atendiendo familias limeñas con dedicacion, confianza y resultados comprobados.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HORARIOS Y UBICACION -->
+<section id="ubicacion" style="background:white">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="section-header">
+      <div class="section-tag">Donde estamos</div>
+      <h2>Visita nuestra <em>clinica</em></h2>
+      <p>Ubicanos facilmente en San Juan de Lurigancho, Lima.</p>
+    </div>
+    <div class="ubicacion-grid">
+
+      <!-- Info izquierda -->
+      <div>
+        <!-- Horarios -->
+        <div style="background:var(--cream);border:1px solid var(--border);border-radius:18px;padding:1.8rem;margin-bottom:1.2rem">
+          <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:1.2rem">
+            <div style="width:40px;height:40px;background:var(--teal);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0">&#128336;</div>
+            <h3 style="font-family:Cormorant Garamond,serif;font-size:1.2rem;font-weight:600">Horarios de atencion</h3>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:.6rem">
+            <div style="display:flex;justify-content:space-between;padding:.55rem .8rem;background:white;border-radius:8px;font-size:.88rem">
+              <span style="font-weight:600">Lunes - Viernes</span>
+              <span style="color:var(--teal);font-weight:700">9:00 AM - 8:00 PM</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:.55rem .8rem;background:white;border-radius:8px;font-size:.88rem">
+              <span style="font-weight:600">Sabado</span>
+              <span style="color:var(--teal);font-weight:700">9:00 AM - 6:00 PM</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:.55rem .8rem;background:var(--sage);border-radius:8px;font-size:.88rem">
+              <span style="font-weight:600;color:var(--muted)">Domingo</span>
+              <span style="color:var(--muted);font-weight:600">Cerrado</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Direccion -->
+        <div style="background:var(--cream);border:1px solid var(--border);border-radius:18px;padding:1.8rem">
+          <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:1.2rem">
+            <div style="width:40px;height:40px;background:var(--teal);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0">&#128205;</div>
+            <h3 style="font-family:Cormorant Garamond,serif;font-size:1.2rem;font-weight:600">Como llegarnos</h3>
+          </div>
+          <p style="font-size:.88rem;font-weight:700;color:var(--ink);margin-bottom:.5rem">Jr. Las Drusas 174A, Urb. Las Flores</p>
+          <p style="font-size:.83rem;color:var(--muted);line-height:1.7;margin-bottom:1rem">San Juan de Lurigancho, Lima &mdash; Peru</p>
+          <div style="background:rgba(26,86,196,.07);border:1px solid rgba(26,86,196,.2);border-radius:10px;padding:.9rem 1rem;font-size:.82rem;color:var(--ink);line-height:1.7">
+            <strong>&#128204; Referencia:</strong> Terminando la cuadra 18 e iniciando la 19 de la Av. Proceres de la Independencia. En la esquina hay una peluqueria <strong>Montalvo</strong> &mdash; entras por esa calle y estamos una cuadra adentro.
+          </div>
+          <a href="https://wa.me/51999000000?text=Hola%2C%20quisiera%20saber%20c%C3%B3mo%20llegar%20a%20la%20cl%C3%ADnica" target="_blank" rel="noopener"
+            style="display:inline-flex;align-items:center;gap:.5rem;margin-top:1rem;background:#25d366;color:white;text-decoration:none;padding:.6rem 1.2rem;border-radius:100px;font-size:.83rem;font-weight:600">
+            &#128172; Escribenos para indicaciones
+          </a>
+        </div>
+      </div>
+
+      <!-- Imagenes de referencia derecha -->
+      <div style="display:flex;flex-direction:column;gap:1rem">
+        <div style="border-radius:16px;overflow:hidden;box-shadow:0 8px 30px rgba(26,86,196,.12);border:1px solid var(--border)">
+          <img src="ref1.png" alt="Referencia ubicacion 1" style="width:100%;display:block;height:240px;object-fit:cover"/>
+        </div>
+        <div style="border-radius:16px;overflow:hidden;box-shadow:0 8px 30px rgba(26,86,196,.12);border:1px solid var(--border)">
+          <img src="ref2.png" alt="Referencia ubicacion 2" style="width:100%;display:block;height:240px;object-fit:cover"/>
+        </div>
+        <a href="https://maps.google.com/?q=Jr.+Las+Drusas+174A+San+Juan+de+Lurigancho+Lima" target="_blank" rel="noopener"
+          style="display:flex;align-items:center;justify-content:center;gap:.6rem;background:var(--teal);color:white;text-decoration:none;padding:.8rem;border-radius:12px;font-size:.88rem;font-weight:600;transition:background .2s"
+          onmouseover="this.style.background='var(--teal2)'" onmouseout="this.style.background='var(--teal)'">
+          &#128506; Abrir en Google Maps
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BOTON FLOTANTE WHATSAPP -->
+<a href="https://wa.me/51999000000?text=Hola%2C%20quisiera%20agendar%20una%20cita" target="_blank" rel="noopener" id="waBubble"
+  style="position:fixed;bottom:24px;right:24px;z-index:9999;width:58px;height:58px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.5);text-decoration:none;transition:transform .2s,box-shadow .2s"
+  onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 6px 28px rgba(37,211,102,.65)'"
+  onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 20px rgba(37,211,102,.5)'"
+  title="Escribenos por WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="30" height="30">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
 <footer><p>&copy; 2026 <strong>Todo Bien Clinica Dental</strong> &middot; Lima, Peru<br>Todos los derechos reservados</p></footer>
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwOysSv718AaTLAoberNee_Z9bUgfhNPHNvBH8h0UgzK0_R4NX8LXemN8-bWiCtbFLS/exec";
