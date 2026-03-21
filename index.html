@@ -389,6 +389,33 @@ section{padding:5rem 1.5rem}
 .consult-foto-placeholder .ph-icon{font-size:2rem;opacity:.4}
 .consult-foto-placeholder .ph-text{font-size:.78rem;font-weight:600;opacity:.5}
 
+/* KONAMI EGG */
+#konamiOverlay{display:none;position:fixed;inset:0;z-index:999999;background:rgba(13,31,60,.92);backdrop-filter:blur(8px);align-items:center;justify-content:center;flex-direction:column;gap:1rem;cursor:pointer}
+#konamiOverlay.open{display:flex;animation:fadeUp .4s ease both}
+.konami-dientes{font-size:3rem;animation:dienteBaile 1s infinite alternate}
+@keyframes dienteBaile{0%{transform:rotate(-15deg) scale(1)}100%{transform:rotate(15deg) scale(1.2)}}
+.konami-titulo{font-family:'Cormorant Garamond',serif;font-size:2rem;color:white;font-weight:600;text-align:center}
+.konami-msg{font-size:.95rem;color:rgba(255,255,255,.7);text-align:center;max-width:320px;line-height:1.7}
+.konami-cerrar{font-size:.8rem;color:rgba(255,255,255,.4);margin-top:.5rem}
+
+/* DENTISTOMETRO */
+#dentModal{display:none;position:fixed;inset:0;z-index:99996;background:rgba(13,31,60,.6);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:1rem}
+#dentModal.open{display:flex}
+.dent-box{background:white;border-radius:22px;padding:2rem;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(13,31,60,.25);animation:modalIn .25s ease both;text-align:center}
+.dent-title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;margin-bottom:.4rem}
+.dent-sub{color:var(--muted);font-size:.85rem;margin-bottom:1.5rem}
+.dent-slider-wrap{padding:0 .5rem;margin-bottom:.8rem}
+.dent-slider{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:3px;background:linear-gradient(to right,var(--teal) 0%,var(--teal) 0%,var(--border) 0%);outline:none;cursor:pointer}
+.dent-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;background:var(--teal);cursor:pointer;box-shadow:0 2px 8px rgba(26,86,196,.3)}
+.dent-labels{display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);margin-bottom:1.2rem;padding:0 .3rem}
+.dent-resultado{background:var(--cream);border:1.5px solid var(--border);border-radius:14px;padding:1rem 1.2rem;min-height:80px;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;transition:all .3s}
+.dent-resultado p{font-size:.9rem;line-height:1.7;color:var(--ink)}
+.dent-emoji{font-size:2rem;margin-bottom:.4rem;display:block}
+.dent-close{background:var(--teal);color:white;border:none;border-radius:100px;padding:.75rem 2rem;font-family:'Outfit',sans-serif;font-weight:600;cursor:pointer;font-size:.9rem;transition:background .2s}
+.dent-close:hover{background:var(--teal2)}
+.dent-trigger{display:inline-flex;align-items:center;gap:.5rem;background:white;border:1.5px solid var(--border);border-radius:100px;padding:.55rem 1.2rem;font-size:.82rem;font-weight:600;color:var(--ink);cursor:pointer;transition:all .2s;margin-top:1rem}
+.dent-trigger:hover{border-color:var(--teal);color:var(--teal);transform:translateY(-2px)}
+
 footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;padding:2.2rem 1.5rem;font-size:.8rem;line-height:1.7}
 footer strong{color:rgba(255,255,255,.85)}
 @media(max-width:960px){.hero{grid-template-columns:1fr;padding:6.5rem 1.5rem 3rem;gap:2.5rem;min-height:auto}.cita-grid{grid-template-columns:1fr;gap:2.5rem}}
@@ -839,7 +866,12 @@ footer strong{color:rgba(255,255,255,.85)}
         <div class="faq-a"><div class="faq-a-inner">Estamos en Jr. Las Drusas 174A, Urb. Las Flores, San Juan de Lurigancho. Al terminar la cuadra 18 e iniciar la 19 de la Av. Proceres de la Independencia, entra por la calle donde esta la peluqueria Montalvo en la esquina. Estamos una cuadra adentro, al costado de Inversiones Los Amigos. Tambien puedes escribirnos por WhatsApp para indicaciones.</div></div>
       </div>
     </div>
+    <div style="text-align:center;margin-top:1.5rem">
+    <button class="dent-trigger" onclick="document.getElementById('dentModal').classList.add('open');document.body.style.overflow='hidden'">
+      &#129723; Abrir el Dentistometro
+    </button>
   </div>
+</div>
 </section>
 
 <!-- METODOS DE PAGO -->
@@ -1078,6 +1110,51 @@ function filtrarAntDes(cat,tabEl){
     card.style.display=(cat==='todo'||card.dataset.cat===cat)?'':' none';
   });
 }
+// ── KONAMI CODE ────────────────────────────────────────────
+var konamiSeq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+var konamiPos = 0;
+document.addEventListener('keydown', function(e){
+  if (e.key === konamiSeq[konamiPos]) {
+    konamiPos++;
+    if (konamiPos === konamiSeq.length) {
+      konamiPos = 0;
+      document.getElementById('konamiOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      // Lanzar confeti tambien!
+      lanzarConfeti();
+    }
+  } else {
+    konamiPos = 0;
+  }
+});
+
+// ── DENTISTOMETRO ──────────────────────────────────────────
+var dentMsgs = [
+  { emoji:'&#129392;', txt:'Apenas 1 mes. Vas bien! Aunque si ya tienes cosquillitas en las encias, no esperes mas.' },
+  { emoji:'&#128528;', txt:'3 meses. Acceptable. El Dr. Lujan te recibe sin juzgarte, prometido.' },
+  { emoji:'&#128533;', txt:'6 meses. Eso ya es el limite recomendado. Tu sarro te esta mirando fijamente ahora mismo.' },
+  { emoji:'&#128552;', txt:'1 ano. Amigo/a... el sarro ya tiene nombre propio. Se llama Roberto y paga alquiler.' },
+  { emoji:'&#128561;', txt:'1 ano y medio. Tus dientes han mandado carta documento. El Dr. Lujan esta disponible urgente.' },
+  { emoji:'&#129327;', txt:'2 anos. A este punto tus dientes ya tienen sus propias redes sociales y no te siguen.' },
+  { emoji:'&#128169;', txt:'2 anos y medio. Houston, tenemos un problema. Ven pronto, hay descuento por valiente.' },
+  { emoji:'&#129354;', txt:'3 anos. El Dr. Lujan va a necesitar casco, linterna y pico para la excavacion. Te esperamos igual.' },
+  { emoji:'&#128293;', txt:'4 anos. A estas alturas tus muelas del juicio ya sacaron su propia sabiduria. URGENTE.' },
+  { emoji:'&#128128;', txt:'5 anos o mas. Leyenda. Mito. El Dr. Lujan te dedicara una placa en la pared. Ven YA por favor.' },
+  { emoji:'&#128123;', txt:'Nunca en tu vida. Respetamos tu coraje. El consultorio tiene extintor, desfibrilador y mucha paciencia. Te esperamos.' },
+];
+function actualizarDent(val) {
+  var idx = Math.min(parseInt(val), dentMsgs.length - 1);
+  var msg = dentMsgs[idx];
+  var res = document.getElementById('dentResultado');
+  // Gradient del slider
+  var slider = document.getElementById('dentSlider');
+  var pct = (val / 10) * 100;
+  slider.style.background = 'linear-gradient(to right, var(--teal) 0%, var(--teal) '+pct+'%, var(--border) '+pct+'%, var(--border) 100%)';
+  res.style.borderColor = idx < 3 ? 'rgba(26,86,196,.25)' : idx < 6 ? 'rgba(245,158,11,.4)' : 'rgba(192,57,43,.3)';
+  res.style.background  = idx < 3 ? 'var(--cream)' : idx < 6 ? 'rgba(245,158,11,.06)' : 'rgba(192,57,43,.05)';
+  res.innerHTML = '<div><span class="dent-emoji">'+msg.emoji+'</span><p>'+msg.txt+'</p></div>';
+}
+
 function openModal(){
   document.getElementById('confirmModal').style.display = 'flex';
   document.body.style.overflow = 'hidden';
@@ -1392,8 +1469,44 @@ function filtrarAntDes(cat, tabEl) {
   });
 }
 
+
+
 }); // end DOMContentLoaded
 </script>
 <button id="backToTop" title="Volver arriba" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
+
+<!-- DENTISTOMETRO -->
+<div id="dentModal">
+  <div class="dent-box">
+    <div class="dent-title">&#129723; El Dentistometro</div>
+    <div class="dent-sub">&#191;Cuanto tiempo llevas sin ir al dentista?</div>
+    <div class="dent-slider-wrap">
+      <input type="range" class="dent-slider" id="dentSlider" min="0" max="10" value="0" oninput="actualizarDent(this.value)"/>
+    </div>
+    <div class="dent-labels">
+      <span>1 mes</span>
+      <span>6 meses</span>
+      <span>1 ano</span>
+      <span>2+ anos</span>
+      <span>Jamas</span>
+    </div>
+    <div class="dent-resultado" id="dentResultado">
+      <div>
+        <span class="dent-emoji">&#128513;</span>
+        <p>Mueve el slider para descubrir tu nivel de urgencia dental...</p>
+      </div>
+    </div>
+    <button class="dent-close" onclick="document.getElementById('dentModal').classList.remove('open');document.body.style.overflow=''">Cerrar</button>
+  </div>
+</div>
+
+<!-- KONAMI EASTER EGG -->
+<div id="konamiOverlay" onclick="this.classList.remove('open');document.body.style.overflow=''">
+  <div class="konami-dientes">&#129463;&#129463;&#129463;</div>
+  <div class="konami-titulo">&#127881; MODO SECRETO ACTIVADO &#127881;</div>
+  <div class="konami-msg" id="konamiMsg">Encontraste el easter egg del Dr. Lujan.<br>Como premio... nada. Pero si vienes al consultorio te damos un caramelito sin azucar &#129315;</div>
+  <div class="konami-cerrar">Click en cualquier lugar para cerrar</div>
+</div>
+
 </body>
 </html>
