@@ -3,7 +3,73 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Todo Bien - Clinica Dental</title>
+<title>Consultorio Dental Todo Bien | San Juan de Lurigancho, Lima</title>
+<meta name="description" content="Consultorio Dental Todo Bien en San Juan de Lurigancho, Lima. Limpieza dental, blanqueamiento, ortodoncia, endodoncia, rehabilitacion oral y estetica dental. Agenda tu cita online. Jr. Las Drusas 174A, Urb. Las Flores."/>
+<meta name="keywords" content="dentista San Juan de Lurigancho, clinica dental SJL, dentista Lima, consultorio dental Todo Bien, limpieza dental SJL, brackets Lima, endodoncia SJL, blanqueamiento dental Lima, dentista cerca de mi"/>
+<meta name="robots" content="index, follow"/>
+<meta name="author" content="Consultorio Dental Todo Bien"/>
+<meta name="geo.region" content="PE-LIM"/>
+<meta name="geo.placename" content="San Juan de Lurigancho, Lima, Peru"/>
+
+<!-- Open Graph (para compartir en redes) -->
+<meta property="og:type" content="business.business"/>
+<meta property="og:title" content="Consultorio Dental Todo Bien — San Juan de Lurigancho"/>
+<meta property="og:description" content="Cuidamos tu salud dental con tecnologia moderna y trato calido. Limpieza, blanqueamiento, ortodoncia, endodoncia y mas. Agenda tu cita online."/>
+<meta property="og:url" content="https://ynicolo2.github.io/TodoBien/"/>
+<meta property="og:image" content="https://ynicolo2.github.io/TodoBien/logo.png"/>
+<meta property="og:locale" content="es_PE"/>
+
+<!-- Twitter/X card -->
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Consultorio Dental Todo Bien"/>
+<meta name="twitter:description" content="Tu dentista de confianza en San Juan de Lurigancho. Agenda tu cita online."/>
+
+<!-- Schema.org — le dice a Google exactamente que eres una clinica dental -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dentist",
+  "name": "Consultorio Dental Todo Bien",
+  "description": "Consultorio dental en San Juan de Lurigancho que ofrece limpieza dental, blanqueamiento, ortodoncia, endodoncia, rehabilitacion oral y estetica dental.",
+  "url": "https://ynicolo2.github.io/TodoBien/",
+  "logo": "https://ynicolo2.github.io/TodoBien/logo.png",
+  "image": "https://ynicolo2.github.io/TodoBien/logo.png",
+  "telephone": "+51999000000",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Jr. Las Drusas 174A, Urbanizacion Las Flores",
+    "addressLocality": "San Juan de Lurigancho",
+    "addressRegion": "Lima",
+    "postalCode": "15408",
+    "addressCountry": "PE"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": -12.0013347,
+    "longitude": -77.0074015
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+      "opens": "09:00",
+      "closes": "20:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Saturday",
+      "opens": "09:00",
+      "closes": "18:00"
+    }
+  ],
+  "priceRange": "S/. 80 - S/. 1500",
+  "currenciesAccepted": "PEN",
+  "paymentAccepted": "Cash, Credit Card, Debit Card, Yape, Plin",
+  "hasMap": "https://www.google.com/maps/place/INVERSIONES+LOS+AMIGOS+SRL/@-12.0013294,-77.0099764,17z",
+  "sameAs": []
+}
+</script>
+
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -217,6 +283,82 @@ section{padding:5rem 1.5rem}
 .modal-btn-confirm{background:var(--teal);border:none;border-radius:100px;padding:.8rem;font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;color:white;transition:background .2s}
 .modal-btn-confirm:hover{background:var(--teal2)}
 
+/* LOADER */
+#pageLoader{position:fixed;inset:0;z-index:999999;background:var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s ease,visibility .5s ease}
+#pageLoader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.loader-logo{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--teal);margin-bottom:1.2rem}
+.loader-logo em{font-style:normal;color:var(--ink)}
+.loader-bar-wrap{width:180px;height:3px;background:var(--border);border-radius:100px;overflow:hidden}
+.loader-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--teal),var(--mint));border-radius:100px;animation:loaderFill 1.2s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes loaderFill{0%{width:0%}60%{width:75%}100%{width:100%}}
+
+/* SCROLL ANIMATIONS */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-32px);transition:opacity .6s ease,transform .6s ease}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(32px);transition:opacity .6s ease,transform .6s ease}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+
+/* BOTON VOLVER ARRIBA */
+#backToTop{position:fixed;bottom:92px;right:24px;z-index:9000;width:44px;height:44px;background:var(--teal);color:white;border:none;border-radius:50%;font-size:1.1rem;cursor:pointer;box-shadow:0 4px 16px rgba(26,86,196,.3);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s,transform .2s;display:flex;align-items:center;justify-content:center}
+#backToTop.show{opacity:1;visibility:visible}
+#backToTop:hover{transform:translateY(-3px);background:var(--teal2)}
+
+/* POLITICA CANCELACION */
+.cancel-banner{background:rgba(26,86,196,.06);border:1.5px solid rgba(26,86,196,.18);border-radius:14px;padding:1rem 1.4rem;display:flex;align-items:flex-start;gap:.9rem;margin-top:1.2rem}
+.cancel-icon{font-size:1.3rem;flex-shrink:0;margin-top:.05rem}
+.cancel-text{font-size:.83rem;color:var(--ink);line-height:1.7}
+.cancel-text strong{color:var(--teal)}
+
+/* BARRA DE PROGRESO SCROLL */
+#scrollBar{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,var(--teal),var(--mint),var(--teal));z-index:99999;transition:width .05s linear;box-shadow:0 0 8px rgba(26,86,196,.4)}
+
+/* CONFETI */
+.confeti-piece{position:fixed;width:10px;height:10px;top:-10px;border-radius:2px;opacity:0;pointer-events:none;z-index:999999;animation:confetiFall linear forwards}
+@keyframes confetiFall{
+  0%  {opacity:1;transform:translateY(0) rotate(0deg) scale(1)}
+  80% {opacity:1}
+  100%{opacity:0;transform:translateY(100vh) rotate(720deg) scale(.5)}
+}
+
+/* ANIMACION LOGO */
+.logo-svg-wrap img {
+  animation: logoBounce 1s cubic-bezier(.36,.07,.19,.97) both;
+  transform-origin: center bottom;
+}
+@keyframes logoBounce {
+  0%   { transform: scale(0) rotate(-15deg); opacity: 0; }
+  60%  { transform: scale(1.2) rotate(5deg);  opacity: 1; }
+  80%  { transform: scale(0.9) rotate(-3deg); }
+  100% { transform: scale(1)   rotate(0deg);  opacity: 1; }
+}
+.logo-svg-wrap:hover img {
+  animation: logoWiggle .5s ease;
+}
+@keyframes logoWiggle {
+  0%,100% { transform: rotate(0deg)   scale(1); }
+  20%     { transform: rotate(-10deg) scale(1.1); }
+  40%     { transform: rotate(10deg)  scale(1.1); }
+  60%     { transform: rotate(-6deg)  scale(1.05); }
+  80%     { transform: rotate(4deg)   scale(1.05); }
+}
+
+/* METODOS DE PAGO */
+.pagos-section{background:var(--cream);border-top:1px solid var(--border)}
+.pagos-grid{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:1rem;max-width:900px;margin:0 auto}
+.pago-badge{display:flex;align-items:center;gap:.55rem;background:white;border:1.5px solid var(--border);border-radius:12px;padding:.65rem 1.1rem;font-size:.85rem;font-weight:700;color:var(--ink);transition:transform .2s,box-shadow .2s,border-color .2s}
+.pago-badge:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(26,86,196,.1);border-color:var(--teal)}
+.pago-icon{font-size:1.3rem;flex-shrink:0}
+.pago-yape{border-color:#7b2d8b;color:#7b2d8b}
+.pago-yape:hover{border-color:#7b2d8b;box-shadow:0 8px 24px rgba(123,45,139,.15)}
+.pago-plin{border-color:#00a94f;color:#00a94f}
+.pago-plin:hover{border-color:#00a94f;box-shadow:0 8px 24px rgba(0,169,79,.15)}
+.pago-pos{border-color:#1a56c4;color:#1a56c4}
+.pago-pos:hover{border-color:#1a56c4;box-shadow:0 8px 24px rgba(26,86,196,.15)}
+.pago-cash{border-color:#f59e0b;color:#b45309}
+.pago-cash:hover{border-color:#f59e0b;box-shadow:0 8px 24px rgba(245,158,11,.15)}
+
 footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;padding:2.2rem 1.5rem;font-size:.8rem;line-height:1.7}
 footer strong{color:rgba(255,255,255,.85)}
 @media(max-width:960px){.hero{grid-template-columns:1fr;padding:6.5rem 1.5rem 3rem;gap:2.5rem;min-height:auto}.cita-grid{grid-template-columns:1fr;gap:2.5rem}}
@@ -225,6 +367,12 @@ footer strong{color:rgba(255,255,255,.85)}
 </style>
 </head>
 <body>
+
+<div id="scrollBar"></div>
+<div id="pageLoader">
+  <div class="loader-logo">Todo <em>Bien</em></div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+</div>
 <nav id="navbar">
   <a href="#" class="nav-logo">
     <div class="logo-svg-wrap">
@@ -276,7 +424,7 @@ footer strong{color:rgba(255,255,255,.85)}
     <h2>Todo lo que tu<br>sonrisa <em>necesita</em></h2>
     <p>Tratamientos completos para toda la familia con tecnologia de ultima generacion.</p>
   </div>
-  <div class="services-grid">
+  <div class="services-grid reveal">
     <div class="service-card"><div class="service-icon">&#129463;</div><h3>Limpieza y Prevencion</h3><p>Profilaxis, detartraje y fluorizacion para mantener tus dientes sanos y brillantes.</p></div>
     <div class="service-card"><div class="service-icon">&#10024;</div><h3>Blanqueamiento</h3><p>Blanqueamiento profesional con laser para una sonrisa radiante desde la primera sesion.</p></div>
     <div class="service-card"><div class="service-icon">&#128513;</div><h3>Ortodoncia y Brackets</h3><p>Brackets metalicos, ceramicos y alineadores invisibles para una sonrisa perfectamente alineada.</p></div>
@@ -288,7 +436,7 @@ footer strong{color:rgba(255,255,255,.85)}
 <section id="cita">
   <div class="cita-inner">
     <div class="cita-grid">
-      <div class="cita-info">
+      <div class="cita-info reveal-left">
         <div class="section-tag">Reserva tu cita</div>
         <h2>Agenda tu visita<br><em>hoy mismo</em></h2>
         <div class="years-badge"><div class="years-num">23</div><div class="years-text">anos de<br>experiencia</div></div>
@@ -299,8 +447,12 @@ footer strong{color:rgba(255,255,255,.85)}
           
           <a href="#"><div class="contact-icon">&#128205;</div>Lima, Peru</a>
         </div>
+        <div class="cancel-banner">
+          <div class="cancel-icon">&#128198;</div>
+          <div class="cancel-text"><strong>Politica de cancelacion:</strong> Si no puedes asistir, avisanos con al menos <strong>24 horas de anticipacion</strong> por WhatsApp. Asi podemos darle tu horario a otro paciente. Gracias por tu consideracion.</div>
+        </div>
       </div>
-      <div class="cita-form">
+      <div class="cita-form reveal-right">
         <div class="form-title">&#128203; Formulario de cita</div>
         <form id="citaForm" novalidate>
           <div class="form-row">
@@ -412,7 +564,7 @@ footer strong{color:rgba(255,255,255,.85)}
       <h2>Tu sonrisa en <em>buenas manos</em></h2>
       <p>Nos comprometemos a brindarte la mejor atencion dental con calidez y tecnologia de avanzada.</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem">
+    <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem">
       <div class="porque-card">
         <div class="porque-icon">&#127981;</div>
         <h3>Tecnologia Moderna</h3>
@@ -455,7 +607,7 @@ footer strong{color:rgba(255,255,255,.85)}
       <h2>Visita nuestra <em>clinica</em></h2>
       <p>Ubicanos facilmente en San Juan de Lurigancho, Lima.</p>
     </div>
-    <div class="ubicacion-grid">
+    <div class="ubicacion-grid reveal">
 
       <!-- Info izquierda -->
       <div>
@@ -549,54 +701,36 @@ footer strong{color:rgba(255,255,255,.85)}
       <h2>Sonrisas que <em>hablan por si solas</em></h2>
       <p>La satisfaccion de nuestros pacientes es nuestra mayor recompensa.</p>
     </div>
-    <div class="testi-grid">
+    <div class="testi-grid reveal">
       <div class="testi-card">
         <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="testi-text">Me dio mucho miedo ir al dentista pero la doctora me explico todo con calma. La limpieza fue rapida y sin dolor. Ya tengo mi proxima cita agendada.</p>
-        <div class="testi-author">
-          <div class="testi-avatar">M</div>
-          <div><div class="testi-name">Maria R.</div><div class="testi-service">Limpieza y Prevencion</div></div>
-        </div>
+        <p class="testi-text">Vine con bastante miedo pero el doctor es muy tranquilo y paciente. Me explico todo antes de empezar. La limpieza salio super bien y el precio esta accesible. Ya le comente a mi familia.</p>
+        <div class="testi-author"><div class="testi-avatar">R</div><div><div class="testi-name">Rosario Ch.</div><div class="testi-service">Limpieza y Prevencion</div></div></div>
       </div>
       <div class="testi-card">
         <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="testi-text">Me hicieron la endodoncia y la verdad que no doli&#243; nada como pensaba. El consultorio esta muy limpio y la atencion es de primera. Muy recomendado.</p>
-        <div class="testi-author">
-          <div class="testi-avatar">C</div>
-          <div><div class="testi-name">Carlos M.</div><div class="testi-service">Endodoncia</div></div>
-        </div>
+        <p class="testi-text">Tenia un dolor de muela terrible y me atendieron el mismo dia. Con la anestesia no senti nada, de verdad. El precio es justo comparado a otras clinicas del sector. Lo recomiendo sin dudarlo.</p>
+        <div class="testi-author"><div class="testi-avatar">W</div><div><div class="testi-name">Walter Q.</div><div class="testi-service">Endodoncia</div></div></div>
       </div>
       <div class="testi-card">
         <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="testi-text">Llevo 8 meses con mis brackets y el avance es increible. Me explican cada paso del tratamiento y siempre resuelven mis dudas por WhatsApp. Excelente!</p>
-        <div class="testi-author">
-          <div class="testi-avatar">L</div>
-          <div><div class="testi-name">Luciana P.</div><div class="testi-service">Ortodoncia y Brackets</div></div>
-        </div>
+        <p class="testi-text">Llevo casi un año con mis brackets y el cambio es increible. Lo que mas me gusta es que el doctor responde rapido por WhatsApp cuando tengo dudas. Vale cada sol invertido, no se arrepientan.</p>
+        <div class="testi-author"><div class="testi-avatar">Y</div><div><div class="testi-name">Yesenia M.</div><div class="testi-service">Ortodoncia y Brackets</div></div></div>
       </div>
       <div class="testi-card">
         <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="testi-text">El blanqueamiento quedo espectacular, mucho mejor de lo que esperaba. Ademas los precios son muy accesibles comparado a otras clinicas. Totalmente recomendable.</p>
-        <div class="testi-author">
-          <div class="testi-avatar">A</div>
-          <div><div class="testi-name">Ana G.</div><div class="testi-service">Blanqueamiento</div></div>
-        </div>
+        <p class="testi-text">Me hice el blanqueamiento antes de mi matrimonio y quede feliz con el resultado. Mis dientes quedaron muy blancos. Varias personas en la boda me preguntaron donde me habia atendido, jaja.</p>
+        <div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Milagros T.</div><div class="testi-service">Blanqueamiento</div></div></div>
       </div>
       <div class="testi-card">
         <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="testi-text">Me pusieron una corona y quedo identica al diente natural. Tuve miedo de que se notara pero nadie se ha dado cuenta. El trabajo es muy profesional.</p>
-        <div class="testi-author">
-          <div class="testi-avatar">R</div>
-          <div><div class="testi-name">Roberto S.</div><div class="testi-service">Rehabilitacion Oral</div></div>
-        </div>
+        <p class="testi-text">Me pusieron una corona que se me habia caido hace tiempo y quedo identica a los otros dientes. Mi esposa no se dio cuenta hasta que se lo dije. El doctor hace un trabajo muy bueno, es muy profesional.</p>
+        <div class="testi-author"><div class="testi-avatar">D</div><div><div class="testi-name">Dante H.</div><div class="testi-service">Rehabilitacion Oral</div></div></div>
       </div>
       <div class="testi-card">
         <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="testi-text">Fui por una urgencia con mucho dolor y me atendieron el mismo dia. Me solucionaron el problema rapido y el precio fue muy justo. Gracias por la atencion.</p>
-        <div class="testi-author">
-          <div class="testi-avatar">J</div>
-          <div><div class="testi-name">Jorge V.</div><div class="testi-service">Consulta de Urgencia</div></div>
-        </div>
+        <p class="testi-text">Llegue con la mejilla hinchada y me atendieron rapido. Me dieron medicacion y me programaron para la siguiente semana. Buen trato, buen precio y cerca de casa. No pido mas la verdad.</p>
+        <div class="testi-author"><div class="testi-avatar">C</div><div><div class="testi-name">Carmen V.</div><div class="testi-service">Urgencia Dental</div></div></div>
       </div>
     </div>
   </div>
@@ -610,7 +744,7 @@ footer strong{color:rgba(255,255,255,.85)}
       <h2>Todo lo que necesitas <em>saber</em></h2>
       <p>Resolvemos tus dudas antes de tu primera visita.</p>
     </div>
-    <div class="faq-list">
+    <div class="faq-list reveal">
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">
           <span>&#129463; &iquest;Duele la endodoncia?</span>
@@ -661,6 +795,67 @@ footer strong{color:rgba(255,255,255,.85)}
         <div class="faq-a"><div class="faq-a-inner">Estamos en Jr. Las Drusas 174A, Urb. Las Flores, San Juan de Lurigancho. Al terminar la cuadra 18 e iniciar la 19 de la Av. Proceres de la Independencia, entra por la calle donde esta la peluqueria Montalvo en la esquina. Estamos una cuadra adentro, al costado de Inversiones Los Amigos. Tambien puedes escribirnos por WhatsApp para indicaciones.</div></div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- METODOS DE PAGO -->
+<section class="pagos-section" style="padding:2.5rem 1.5rem">
+  <div style="max-width:900px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:1.5rem">
+      <div class="section-tag">Metodos de pago</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300">Paganos como <em style="font-style:italic;color:var(--teal)">te sea mas facil</em></h2>
+    </div>
+    <div class="pagos-grid reveal">
+
+      <!-- YAPE -->
+      <div class="pago-badge" style="border-color:#7b2d8b;color:#7b2d8b">
+        <img src="yape.png" alt="Yape" style="width:28px;height:28px;object-fit:contain"/>
+        Yape
+      </div>
+
+      <!-- PLIN -->
+      <div class="pago-badge" style="border-color:#009bde;color:#009bde">
+        <img src="plin.png" alt="Plin" style="width:28px;height:28px;object-fit:contain"/>
+        Plin
+      </div>
+
+      <!-- VISA -->
+      <div class="pago-badge" style="border-color:#1a1f71;color:#1a1f71">
+        <svg width="38" height="22" viewBox="0 0 750 471" xmlns="http://www.w3.org/2000/svg">
+          <rect width="750" height="471" rx="40" fill="#1a1f71"/>
+          <path d="M278 334L311 138H364L331 334H278ZM524 142C513 138 496 134 475 134C422 134 385 162 385 201C384 230 411 246 432 256C453 267 461 274 461 283C461 297 444 304 428 304C406 304 394 301 374 292L367 289L359 338C372 344 396 350 421 350C477 350 514 322 514 281C515 258 500 241 471 227C452 217 441 210 441 200C441 188 454 175 482 175C505 175 521 180 534 186L540 189L548 142L524 142ZM648 138H607C594 138 585 142 580 156L502 334H559L571 299H640L648 334H699L648 138ZM586 257C590 247 609 195 609 195C608 196 614 180 617 170L621 193C621 193 633 249 636 257H586ZM202 138L150 277L144 249C134 219 107 186 76 171L124 334H182L263 138H202Z" fill="white"/>
+        </svg>
+      </div>
+
+      <!-- MASTERCARD -->
+      <div class="pago-badge" style="border-color:#eb001b;color:#eb001b;gap:.4rem">
+        <svg width="36" height="22" viewBox="0 0 152 95" xmlns="http://www.w3.org/2000/svg">
+          <rect width="152" height="95" rx="8" fill="#252525"/>
+          <circle cx="57" cy="47.5" r="28" fill="#eb001b"/>
+          <circle cx="95" cy="47.5" r="28" fill="#f79e1b"/>
+          <path d="M76 24.5A28 28 0 0 1 95 47.5A28 28 0 0 1 76 70.5A28 28 0 0 1 57 47.5A28 28 0 0 1 76 24.5Z" fill="#ff5f00"/>
+        </svg>
+        Mastercard
+      </div>
+
+      <!-- POS / TARJETA -->
+      <div class="pago-badge pago-pos">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+        </svg>
+        POS / Tarjeta
+      </div>
+
+      <!-- EFECTIVO -->
+      <div class="pago-badge pago-cash">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+        </svg>
+        Efectivo
+      </div>
+
+    </div>
+    <p style="text-align:center;color:var(--muted);font-size:.8rem;margin-top:1.2rem">&#128274; Todos los pagos son seguros y con boleta disponible</p>
   </div>
 </section>
 <footer><p>&copy; 2026 <strong>Todo Bien Clinica Dental</strong> &middot; Lima, Peru<br>Todos los derechos reservados</p></footer>
@@ -878,6 +1073,7 @@ document.getElementById('modalConfirmBtn').addEventListener('click', async funct
     if (r.success) {
       saveLocal({nombre:nombre,telefono:telefono,dni:dni,servicio:servicio,fecha_pref:fecha,hora_pref:hora});
       document.getElementById('successMsg').style.display = 'block';
+      lanzarConfeti();
       document.getElementById('slotStatus').className = 'slot-status';
       slotOK = false;
       document.getElementById('citaForm').reset();
@@ -941,7 +1137,76 @@ function startCounters(){
 window.addEventListener('scroll',startCounters,{passive:true});
 setTimeout(startCounters,500);
 
+
+// LOADER — ocultar cuando carga la pagina
+window.addEventListener('load', function(){
+  setTimeout(function(){
+    document.getElementById('pageLoader').classList.add('hidden');
+  }, 1300);
+});
+
+// SCROLL REVEAL
+var revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+function checkReveal() {
+  revealEls.forEach(function(el) {
+    var rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 60) {
+      el.classList.add('visible');
+    }
+  });
+}
+window.addEventListener('scroll', checkReveal, {passive:true});
+checkReveal(); // check on load
+
+// BOTON VOLVER ARRIBA
+window.addEventListener('scroll', function(){
+  var btn = document.getElementById('backToTop');
+  if (window.scrollY > 400) btn.classList.add('show');
+  else btn.classList.remove('show');
+}, {passive:true});
+
+
+// BARRA DE PROGRESO SCROLL
+window.addEventListener('scroll', function(){
+  var scrollTop  = window.scrollY;
+  var docHeight  = document.documentElement.scrollHeight - window.innerHeight;
+  var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  document.getElementById('scrollBar').style.width = pct + '%';
+}, {passive:true});
+
+// CONFETI
+function lanzarConfeti() {
+  var colores = ['#1a56c4','#bdd4f5','#f59e0b','#10b981','#f43f5e','#a855f7','#0d1f3c'];
+  var formas  = [2, 4, 50]; // border-radius: cuadrado, rombo, circulo
+  for (var i = 0; i < 120; i++) {
+    (function(i) {
+      setTimeout(function() {
+        var p = document.createElement('div');
+        p.className = 'confeti-piece';
+        var color  = colores[Math.floor(Math.random() * colores.length)];
+        var forma  = formas[Math.floor(Math.random() * formas.length)];
+        var size   = 6 + Math.random() * 10;
+        var left   = Math.random() * 100;
+        var dur    = 2 + Math.random() * 2;
+        var delay  = Math.random() * 0.5;
+        p.style.cssText = [
+          'left:' + left + 'vw',
+          'width:' + size + 'px',
+          'height:' + size + 'px',
+          'background:' + color,
+          'border-radius:' + forma + 'px',
+          'animation-duration:' + dur + 's',
+          'animation-delay:' + delay + 's',
+        ].join(';');
+        document.body.appendChild(p);
+        setTimeout(function(){ p.remove(); }, (dur + delay + 0.5) * 1000);
+      }, i * 8);
+    })(i);
+  }
+}
+
 }); // end DOMContentLoaded
 </script>
+<button id="backToTop" title="Volver arriba" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
 </body>
 </html>
