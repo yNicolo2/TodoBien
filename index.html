@@ -359,6 +359,36 @@ section{padding:5rem 1.5rem}
 .pago-cash{border-color:#f59e0b;color:#b45309}
 .pago-cash:hover{border-color:#f59e0b;box-shadow:0 8px 24px rgba(245,158,11,.15)}
 
+/* ANTES Y DESPUES */
+.antdes-tabs{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.8rem}
+.antdes-tab{padding:.55rem 1.3rem;border-radius:100px;font-size:.83rem;font-weight:600;cursor:pointer;border:1.5px solid var(--border);background:white;color:var(--muted);transition:all .2s}
+.antdes-tab.active{background:var(--teal);color:white;border-color:var(--teal)}
+.antdes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem;max-width:1100px;margin:0 auto}
+.antdes-card{background:white;border:1px solid var(--border);border-radius:18px;overflow:hidden;transition:transform .25s,box-shadow .25s}
+.antdes-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(26,86,196,.1)}
+.antdes-imgs{display:grid;grid-template-columns:1fr 1fr;position:relative}
+.antdes-side{position:relative;overflow:hidden}
+.antdes-side img{width:100%;height:200px;object-fit:cover;display:block;background:var(--sage)}
+.antdes-label{position:absolute;bottom:8px;left:8px;background:rgba(13,31,60,.7);color:white;font-size:.68rem;font-weight:700;padding:.25rem .6rem;border-radius:100px;letter-spacing:.5px}
+.antdes-divider{position:absolute;left:50%;top:0;bottom:0;width:3px;background:white;z-index:2;transform:translateX(-50%)}
+.antdes-divider::before{content:'↔';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:white;color:var(--teal);font-size:.9rem;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.antdes-info{padding:1rem 1.2rem}
+.antdes-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;margin-bottom:.3rem}
+.antdes-desc{font-size:.8rem;color:var(--muted);line-height:1.6}
+.antdes-hidden{display:none}
+
+/* EN CONSTRUCCION badge */
+.wip-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(245,158,11,.12);border:1.5px solid rgba(245,158,11,.4);color:#b45309;font-size:.72rem;font-weight:700;padding:.3rem .8rem;border-radius:100px;letter-spacing:.5px}
+
+/* CONSULTORIO */
+.consult-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;max-width:1100px;margin:0 auto}
+.consult-foto{border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:0 4px 20px rgba(26,86,196,.08);background:var(--sage);position:relative;cursor:zoom-in;transition:transform .2s,box-shadow .2s}
+.consult-foto:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(26,86,196,.14)}
+.consult-foto img{width:100%;height:200px;object-fit:cover;display:block}
+.consult-foto-placeholder{width:100%;height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;color:var(--muted)}
+.consult-foto-placeholder .ph-icon{font-size:2rem;opacity:.4}
+.consult-foto-placeholder .ph-text{font-size:.78rem;font-weight:600;opacity:.5}
+
 footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;padding:2.2rem 1.5rem;font-size:.8rem;line-height:1.7}
 footer strong{color:rgba(255,255,255,.85)}
 @media(max-width:960px){.hero{grid-template-columns:1fr;padding:6.5rem 1.5rem 3rem;gap:2.5rem;min-height:auto}.cita-grid{grid-template-columns:1fr;gap:2.5rem}}
@@ -382,6 +412,9 @@ footer strong{color:rgba(255,255,255,.85)}
   </a>
   <ul class="nav-links">
     <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#antesdespues">Antes y despues</a></li>
+    <li><a href="#ubicacion">Como llegar</a></li>
+    <li><a href="#pagos">Pagos</a></li>
     <li><a href="#cita">Contacto</a></li>
     <li><a href="#cita" class="nav-cta">Pedir cita</a></li>
   </ul>
@@ -389,12 +422,16 @@ footer strong{color:rgba(255,255,255,.85)}
 </nav>
 <nav class="mobile-menu" id="mobileMenu">
   <a href="#servicios">Servicios</a>
+  <a href="#antesdespues">Antes y despues</a>
+  <a href="#ubicacion">Como llegar</a>
+  <a href="#pagos">Pagos</a>
   <a href="#cita">Contacto</a>
   <a href="#cita" style="color:var(--teal);font-weight:600;">Pedir cita</a>
 </nav>
 <div class="hero">
   <div class="hero-text">
     <div class="hero-badge">Clinica Dental &middot; Lima, Peru</div>
+    <div style="display:inline-flex;align-items:center;gap:.5rem;font-size:.8rem;color:var(--muted);margin-bottom:.8rem;animation:fadeUp .6s .05s ease both"><span style="color:var(--teal);font-weight:700">&#128084;</span> Atendido por el <strong style="color:var(--ink)">Dr. Lujan</strong> &mdash; Cirujano Dentista</div>
     <h1>Tu sonrisa<br>merece lo<br><em>mejor</em></h1>
     <p class="hero-desc">En Todo Bien cuidamos tu salud dental con tecnologia moderna y el trato calido que mereces.</p>
     <div class="hero-btns">
@@ -439,7 +476,14 @@ footer strong{color:rgba(255,255,255,.85)}
       <div class="cita-info reveal-left">
         <div class="section-tag">Reserva tu cita</div>
         <h2>Agenda tu visita<br><em>hoy mismo</em></h2>
-        <div class="years-badge"><div class="years-num">23</div><div class="years-text">anos de<br>experiencia</div></div>
+        <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem;flex-wrap:wrap">
+          <div class="years-badge" style="margin-bottom:0"><div class="years-num">23</div><div class="years-text">anos de<br>experiencia</div></div>
+          <div style="background:white;border:1.5px solid var(--border);border-radius:14px;padding:.8rem 1.1rem">
+            <div style="font-size:.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:.2rem">Tu doctor</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink)">Dr. Lujan</div>
+            <div style="font-size:.75rem;color:var(--muted)">Cirujano Dentista</div>
+          </div>
+        </div>
         <p>Elige tu fecha y hora, verifica disponibilidad al instante y confirma tu cita en segundos.</p>
         <div class="contact-list">
           <a href="tel:+51999000000"><div class="contact-icon">&#128222;</div>+51 999 000 000</a>
@@ -799,7 +843,80 @@ footer strong{color:rgba(255,255,255,.85)}
 </section>
 
 <!-- METODOS DE PAGO -->
-<section class="pagos-section" style="padding:2.5rem 1.5rem">
+
+<!-- ANTES Y DESPUES -->
+<section id="antesdespues" style="background:var(--cream)">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="section-header">
+      <div class="section-tag">Resultados reales</div>
+      <h2>Antes y <em>despues</em></h2>
+      <p>Resultados de nuestros pacientes. Cada sonrisa es un caso real tratado por el Dr. Lujan.</p>
+      <div style="margin-top:.8rem" class="wip-badge">&#128679; Fotos reales proximamente</div>
+    </div>
+    <div class="antdes-tabs">
+      <div class="antdes-tab active" onclick="filtrarAntDes('todo',this)">Todos</div>
+      <div class="antdes-tab" onclick="filtrarAntDes('blanq',this)">Blanqueamiento</div>
+      <div class="antdes-tab" onclick="filtrarAntDes('ortod',this)">Ortodoncia</div>
+      <div class="antdes-tab" onclick="filtrarAntDes('rehab',this)">Rehabilitacion</div>
+    </div>
+    <div class="antdes-grid reveal" id="antdesGrid">
+      <div class="antdes-card" data-cat="blanq">
+        <div class="antdes-imgs">
+          <div class="antdes-side"><div class="consult-foto-placeholder" style="height:200px;background:#f0f0f0"><div class="ph-icon">📷</div><div class="ph-text">Foto antes</div></div><span class="antdes-label">ANTES</span></div>
+          <div class="antdes-side"><div class="consult-foto-placeholder" style="height:200px;background:#e8f0fb"><div class="ph-icon">✨</div><div class="ph-text">Foto despues</div></div><span class="antdes-label">DESPUES</span></div>
+          <div class="antdes-divider"></div>
+        </div>
+        <div class="antdes-info"><div class="antdes-title">Blanqueamiento dental</div><div class="antdes-desc">Paciente con manchas por cafe. 1 sesion de blanqueamiento profesional. Resultado inmediato.</div></div>
+      </div>
+      <div class="antdes-card" data-cat="ortod">
+        <div class="antdes-imgs">
+          <div class="antdes-side"><div class="consult-foto-placeholder" style="height:200px;background:#f0f0f0"><div class="ph-icon">📷</div><div class="ph-text">Foto antes</div></div><span class="antdes-label">ANTES</span></div>
+          <div class="antdes-side"><div class="consult-foto-placeholder" style="height:200px;background:#e8f0fb"><div class="ph-icon">😁</div><div class="ph-text">Foto despues</div></div><span class="antdes-label">DESPUES</span></div>
+          <div class="antdes-divider"></div>
+        </div>
+        <div class="antdes-info"><div class="antdes-title">Ortodoncia con brackets</div><div class="antdes-desc">Tratamiento de 14 meses. Correccion de apiñamiento dental y mordida cruzada.</div></div>
+      </div>
+      <div class="antdes-card" data-cat="rehab">
+        <div class="antdes-imgs">
+          <div class="antdes-side"><div class="consult-foto-placeholder" style="height:200px;background:#f0f0f0"><div class="ph-icon">📷</div><div class="ph-text">Foto antes</div></div><span class="antdes-label">ANTES</span></div>
+          <div class="antdes-side"><div class="consult-foto-placeholder" style="height:200px;background:#e8f0fb"><div class="ph-icon">💎</div><div class="ph-text">Foto despues</div></div><span class="antdes-label">DESPUES</span></div>
+          <div class="antdes-divider"></div>
+        </div>
+        <div class="antdes-info"><div class="antdes-title">Rehabilitacion oral completa</div><div class="antdes-desc">Coronas ceramicas en sector anterior. Recuperacion total de estetica y funcion masticatoria.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOTOS DEL CONSULTORIO -->
+<section id="consultorio" style="background:white">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="section-header">
+      <div class="section-tag">Nuestras instalaciones</div>
+      <h2>Conoce nuestro <em>consultorio</em></h2>
+      <p>Un espacio limpio, moderno y pensado para que te sientas comodo desde que entras.</p>
+      <div style="margin-top:.8rem" class="wip-badge">&#128679; Fotos del consultorio proximamente</div>
+    </div>
+    <div class="consult-grid reveal">
+      <div class="consult-foto ref-img" onclick="openLB(this.querySelector('img')?.src || '')">
+        <div class="consult-foto-placeholder"><div class="ph-icon">&#127968;</div><div class="ph-text">Sala de espera</div></div>
+      </div>
+      <div class="consult-foto ref-img" onclick="openLB(this.querySelector('img')?.src || '')">
+        <div class="consult-foto-placeholder"><div class="ph-icon">&#129529;</div><div class="ph-text">Sala de atencion</div></div>
+      </div>
+      <div class="consult-foto ref-img" onclick="openLB(this.querySelector('img')?.src || '')">
+        <div class="consult-foto-placeholder"><div class="ph-icon">&#128300;</div><div class="ph-text">Equipos modernos</div></div>
+      </div>
+      <div class="consult-foto ref-img" onclick="openLB(this.querySelector('img')?.src || '')">
+        <div class="consult-foto-placeholder"><div class="ph-icon">&#128197;</div><div class="ph-text">Recepcion</div></div>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:1.2rem;font-size:.82rem;color:var(--muted)">
+      &#128247; Cuando tengas las fotos, reemplaza los placeholders en el HTML con <code style="background:var(--sage);padding:.1rem .4rem;border-radius:4px;font-size:.78rem">img src="foto1.jpg"</code>
+    </p>
+  </div>
+</section>
+<section id="pagos" class="pagos-section" style="padding:2.5rem 1.5rem">
   <div style="max-width:900px;margin:0 auto">
     <div style="text-align:center;margin-bottom:1.5rem">
       <div class="section-tag">Metodos de pago</div>
@@ -858,7 +975,56 @@ footer strong{color:rgba(255,255,255,.85)}
     <p style="text-align:center;color:var(--muted);font-size:.8rem;margin-top:1.2rem">&#128274; Todos los pagos son seguros y con boleta disponible</p>
   </div>
 </section>
-<footer><p>&copy; 2026 <strong>Todo Bien Clinica Dental</strong> &middot; Lima, Peru<br>Todos los derechos reservados</p></footer>
+<footer>
+  <p>&copy; 2026 <strong>Todo Bien Clinica Dental</strong> &middot; Lima, Peru<br>Todos los derechos reservados</p>
+  <p style="margin-top:.8rem">
+    <a href="#" onclick="document.getElementById('privacyModal').style.display='flex';document.body.style.overflow='hidden';return false" style="color:rgba(255,255,255,.35);font-size:.75rem;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.15);padding-bottom:1px;transition:color .2s" onmouseover="this.style.color='rgba(255,255,255,.7)'" onmouseout="this.style.color='rgba(255,255,255,.35)'">Politica de Privacidad</a>
+    <span style="color:rgba(255,255,255,.15);margin:0 .5rem">&middot;</span>
+    <a href="#" onclick="document.getElementById('privacyModal').style.display='flex';document.body.style.overflow='hidden';return false" style="color:rgba(255,255,255,.35);font-size:.75rem;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.15);padding-bottom:1px;transition:color .2s" onmouseover="this.style.color='rgba(255,255,255,.7)'" onmouseout="this.style.color='rgba(255,255,255,.35)'">Terminos de uso</a>
+  </p>
+  <!-- mensaje para extorsionadores -->
+  <p style="margin-top:2rem;font-size:.72rem;color:rgba(255,255,255,.18);letter-spacing:.3px;font-style:italic">
+    &#128064; Hola curioso/a. Si eres un extorsionador leyendo esto, mejor ve a extorsionar a tu abuela. Aqui no hay nada para ti. &#128591;
+  </p>
+</footer>
+<!-- MODAL POLITICA DE PRIVACIDAD -->
+<div id="privacyModal" style="display:none;position:fixed;inset:0;z-index:99997;background:rgba(13,31,60,.6);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:1rem;overflow-y:auto">
+  <div style="background:white;border-radius:18px;padding:2rem;max-width:560px;width:100%;box-shadow:0 20px 60px rgba(13,31,60,.2);max-height:85vh;overflow-y:auto;position:relative">
+    <button onclick="document.getElementById('privacyModal').style.display='none';document.body.style.overflow=''" style="position:absolute;top:1rem;right:1rem;background:var(--sage);border:none;border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center">&times;</button>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;margin-bottom:1rem;padding-right:2rem">Politica de Privacidad</h2>
+    <p style="font-size:.78rem;color:var(--muted);margin-bottom:1.2rem">Ultima actualizacion: Marzo 2026</p>
+
+    <div style="font-size:.85rem;color:var(--ink);line-height:1.8;display:flex;flex-direction:column;gap:1rem">
+      <div>
+        <strong>1. Datos que recopilamos</strong><br/>
+        Cuando agendas una cita recopilamos tu nombre, numero de telefono, DNI y el servicio de interes. Estos datos se usan unicamente para confirmar y gestionar tu cita.
+      </div>
+      <div>
+        <strong>2. Uso de la informacion</strong><br/>
+        Tu informacion personal nunca sera vendida, compartida ni cedida a terceros. Solo el personal del Consultorio Dental Todo Bien tendra acceso a tus datos para fines de atencion medica.
+      </div>
+      <div>
+        <strong>3. Almacenamiento</strong><br/>
+        Los datos de tu cita se guardan en una hoja de calculo privada accesible solo por el consultorio. Tu navegador guarda localmente el historial de tus citas agendadas, el cual puedes borrar en cualquier momento desde la misma pagina.
+      </div>
+      <div>
+        <strong>4. Tus derechos</strong><br/>
+        Tienes derecho a solicitar la eliminacion de tus datos en cualquier momento. Para hacerlo escribe a nuestro WhatsApp indicando tu nombre y DNI.
+      </div>
+      <div>
+        <strong>5. Cookies</strong><br/>
+        Esta pagina no utiliza cookies de seguimiento ni publicidad. Solo se usa almacenamiento local del navegador para recordar tus citas.
+      </div>
+      <div>
+        <strong>6. Contacto</strong><br/>
+        Ante cualquier consulta sobre tus datos personales contactanos por WhatsApp o visitanos en Jr. Las Drusas 174A, Urb. Las Flores, San Juan de Lurigancho.
+      </div>
+    </div>
+
+    <button onclick="document.getElementById('privacyModal').style.display='none';document.body.style.overflow=''" style="margin-top:1.5rem;width:100%;background:var(--teal);color:white;border:none;border-radius:100px;padding:.85rem;font-family:'Outfit',sans-serif;font-weight:600;cursor:pointer;font-size:.9rem">Entendido</button>
+  </div>
+</div>
+
 
 <!-- LIGHTBOX -->
 <div id="lightbox" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.9);align-items:center;justify-content:center;cursor:zoom-out">
@@ -904,6 +1070,13 @@ function toggleFaq(el) {
   var isOpen = item.classList.contains('open');
   document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
   if (!isOpen) item.classList.add('open');
+}
+function filtrarAntDes(cat,tabEl){
+  document.querySelectorAll('.antdes-tab').forEach(function(t){t.classList.remove('active');});
+  tabEl.classList.add('active');
+  document.querySelectorAll('.antdes-card').forEach(function(card){
+    card.style.display=(cat==='todo'||card.dataset.cat===cat)?'':' none';
+  });
 }
 function openModal(){
   document.getElementById('confirmModal').style.display = 'flex';
@@ -1203,6 +1376,20 @@ function lanzarConfeti() {
       }, i * 8);
     })(i);
   }
+}
+
+
+// FILTRO ANTES Y DESPUES
+function filtrarAntDes(cat, tabEl) {
+  document.querySelectorAll('.antdes-tab').forEach(function(t){ t.classList.remove('active'); });
+  tabEl.classList.add('active');
+  document.querySelectorAll('.antdes-card').forEach(function(card){
+    if (cat === 'todo' || card.dataset.cat === cat) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
 }
 
 }); // end DOMContentLoaded
