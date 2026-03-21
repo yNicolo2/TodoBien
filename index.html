@@ -416,6 +416,41 @@ section{padding:5rem 1.5rem}
 .dent-trigger{display:inline-flex;align-items:center;gap:.5rem;background:white;border:1.5px solid var(--border);border-radius:100px;padding:.55rem 1.2rem;font-size:.82rem;font-weight:600;color:var(--ink);cursor:pointer;transition:all .2s;margin-top:1rem}
 .dent-trigger:hover{border-color:var(--teal);color:var(--teal);transform:translateY(-2px)}
 
+/* AGENDA SECRETA */
+#agendaOverlay{display:none;position:fixed;inset:0;z-index:999990;background:rgba(13,31,60,.7);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:1rem}
+#agendaOverlay.open{display:flex}
+#agendaBox{background:white;border-radius:22px;width:100%;max-width:680px;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(13,31,60,.3);overflow:hidden;animation:modalIn .25s ease both}
+.agenda-header{background:var(--teal);color:white;padding:1.1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.agenda-header h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600}
+.agenda-header-sub{font-size:.75rem;opacity:.8;margin-top:.1rem}
+.agenda-close{background:rgba(255,255,255,.2);border:none;color:white;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.agenda-close:hover{background:rgba(255,255,255,.35)}
+.agenda-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--cream)}
+.agenda-tab{flex:1;padding:.7rem;font-size:.8rem;font-weight:600;color:var(--muted);background:none;border:none;cursor:pointer;border-bottom:2.5px solid transparent;transition:all .2s}
+.agenda-tab.active{color:var(--teal);border-bottom-color:var(--teal);background:white}
+.agenda-body{overflow-y:auto;flex:1;padding:1.2rem}
+.agenda-loading{text-align:center;color:var(--muted);padding:2rem;font-size:.88rem}
+.cita-item{background:var(--cream);border:1px solid var(--border);border-radius:12px;padding:.9rem 1.1rem;margin-bottom:.7rem;display:flex;gap:.9rem;align-items:flex-start;transition:border-color .2s}
+.cita-item:hover{border-color:var(--teal)}
+.cita-hora{background:var(--teal);color:white;border-radius:8px;padding:.4rem .7rem;font-size:.82rem;font-weight:800;white-space:nowrap;flex-shrink:0;text-align:center;min-width:58px}
+.cita-datos{flex:1}
+.cita-nombre{font-size:.9rem;font-weight:700;color:var(--ink)}
+.cita-servicio{font-size:.78rem;color:var(--teal);font-weight:600;margin:.15rem 0}
+.cita-detalle{font-size:.76rem;color:var(--muted)}
+.cita-empty{text-align:center;color:var(--muted);padding:2.5rem 1rem;font-size:.88rem}
+.agenda-pin-box{padding:2rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:1rem}
+.agenda-pin-icon{font-size:2.5rem}
+.agenda-pin-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600}
+.agenda-pin-input{font-family:'Outfit',sans-serif;font-size:1.1rem;letter-spacing:.3rem;text-align:center;border:2px solid var(--border);border-radius:12px;padding:.7rem 1rem;width:180px;outline:none;transition:border-color .2s}
+.agenda-pin-input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(26,86,196,.1)}
+.agenda-pin-btn{background:var(--teal);color:white;border:none;border-radius:100px;padding:.75rem 2rem;font-family:'Outfit',sans-serif;font-weight:700;cursor:pointer;font-size:.9rem;transition:background .2s}
+.agenda-pin-btn:hover{background:var(--teal2)}
+.agenda-pin-error{color:var(--error);font-size:.82rem;display:none}
+.agenda-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:1.2rem}
+.agenda-stat{background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:.7rem;text-align:center}
+.agenda-stat-num{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--teal);line-height:1}
+.agenda-stat-lbl{font-size:.65rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-top:.2rem}
+
 footer{background:var(--ink);color:rgba(255,255,255,.45);text-align:center;padding:2.2rem 1.5rem;font-size:.8rem;line-height:1.7}
 footer strong{color:rgba(255,255,255,.85)}
 @media(max-width:960px){.hero{grid-template-columns:1fr;padding:6.5rem 1.5rem 3rem;gap:2.5rem;min-height:auto}.cita-grid{grid-template-columns:1fr;gap:2.5rem}}
@@ -478,6 +513,15 @@ footer strong{color:rgba(255,255,255,.85)}
         <div class="service-item"><div class="service-dot"></div><span class="service-name">Blanqueamiento</span><span class="service-price">Desde S/. 250</span></div>
         <div class="service-item"><div class="service-dot"></div><span class="service-name">Ortodoncia</span><span class="service-price">Desde S/. 1,200</span></div>
         <div class="service-item"><div class="service-dot"></div><span class="service-name">Endodoncia</span><span class="service-price">Desde S/. 350</span></div>
+      </div>
+      <!-- OFERTA DEL MES dentro del hero card -->
+      <div style="margin-top:1rem;background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:12px;padding:.75rem 1rem;display:flex;align-items:center;gap:.7rem;box-shadow:0 3px 12px rgba(245,158,11,.3)">
+        <div style="font-size:1.2rem;flex-shrink:0">🦷</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:.62rem;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.8)">Oferta del mes</div>
+          <div style="font-size:.88rem;font-weight:700;color:white">Limpieza + Fluorización &mdash; <span style="font-size:1rem">S/. 90</span></div>
+        </div>
+        <a href="#cita" style="background:white;color:#d97706;font-size:.75rem;font-weight:800;padding:.38rem .8rem;border-radius:100px;text-decoration:none;white-space:nowrap;flex-shrink:0">Agendar →</a>
       </div>
     </div>
   </div>
@@ -798,10 +842,11 @@ footer strong{color:rgba(255,255,255,.85)}
         <p class="testi-text">Me pusieron una corona que se me habia caido hace tiempo y quedo identica a los otros dientes. Mi esposa no se dio cuenta hasta que se lo dije. El doctor hace un trabajo muy bueno, es muy profesional.</p>
         <div class="testi-author"><div class="testi-avatar">D</div><div><div class="testi-name">Dante H.</div><div class="testi-service">Rehabilitacion Oral</div></div></div>
       </div>
-      <div class="testi-card">
+      <div class="testi-card" style="border-color:var(--teal);position:relative">
+        <div style="position:absolute;top:-10px;left:1.2rem;background:var(--teal);color:white;font-size:.65rem;font-weight:800;padding:.2rem .7rem;border-radius:100px;letter-spacing:.8px;text-transform:uppercase">&#9989; Reseña real</div>
         <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="testi-text">Llegue con la mejilla hinchada y me atendieron rapido. Me dieron medicacion y me programaron para la siguiente semana. Buen trato, buen precio y cerca de casa. No pido mas la verdad.</p>
-        <div class="testi-author"><div class="testi-avatar">C</div><div><div class="testi-name">Carmen V.</div><div class="testi-service">Urgencia Dental</div></div></div>
+        <p class="testi-text">Usted si tiene paciencia, no como en otros lados que apurado me tienen.</p>
+        <div class="testi-author"><div class="testi-avatar" style="background:var(--teal);color:white">P</div><div><div class="testi-name">Paciente verificado</div><div class="testi-service">Consultorio Todo Bien</div></div></div>
       </div>
     </div>
   </div>
@@ -1185,6 +1230,165 @@ function actualizarDent(val) {
   res.innerHTML = '<div><span class="dent-emoji">'+msg.emoji+'</span><p>'+msg.txt+'</p></div>';
 }
 
+// ── AGENDA SECRETA ─────────────────────────────────────────────
+var AGENDA_PIN     = "irala";
+var agendaUnlocked = false;
+var agendaTabActual = 'hoy';
+var todasLasCitas  = [];
+
+// Detectar escritura "agenda" en cualquier parte
+var agendaBuffer = '';
+document.addEventListener('keydown', function(e){
+  // Ignorar si se esta escribiendo en un input
+  var tag = document.activeElement.tagName;
+  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+
+  agendaBuffer += e.key.toLowerCase();
+  if (agendaBuffer.length > 6) agendaBuffer = agendaBuffer.slice(-6);
+  if (agendaBuffer.includes('agenda')) {
+    agendaBuffer = '';
+    abrirAgenda();
+  }
+});
+
+function abrirAgenda() {
+  document.getElementById('agendaOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  if (!agendaUnlocked) {
+    setTimeout(function(){ document.getElementById('agendaPinInput').focus(); }, 100);
+  }
+}
+
+function cerrarAgenda() {
+  document.getElementById('agendaOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  // Reset PIN screen si cerro
+  if (!agendaUnlocked) {
+    document.getElementById('agendaPinInput').value = '';
+    document.getElementById('agendaPinError').style.display = 'none';
+  }
+}
+
+function verificarPin() {
+  var val = document.getElementById('agendaPinInput').value.trim().toLowerCase();
+  if (val === AGENDA_PIN) {
+    agendaUnlocked = true;
+    document.getElementById('agendaPinScreen').style.display = 'none';
+    document.getElementById('agendaMain').style.display      = 'flex';
+    // Mostrar fecha de hoy
+    var hoy = new Date();
+    var dias = ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'];
+    var meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+    document.getElementById('agendaFechaHoy').textContent =
+      dias[hoy.getDay()] + ' ' + hoy.getDate() + ' de ' + meses[hoy.getMonth()] + ' ' + hoy.getFullYear();
+    cargarCitas();
+  } else {
+    var err = document.getElementById('agendaPinError');
+    err.style.display = 'block';
+    document.getElementById('agendaPinInput').value = '';
+    document.getElementById('agendaPinInput').focus();
+    setTimeout(function(){ err.style.display = 'none'; }, 3000);
+  }
+}
+
+function cargarCitas() {
+  document.getElementById('agendaBody').innerHTML = '<div class="agenda-loading">&#128336; Cargando citas...</div>';
+  var url = SCRIPT_URL + '?action=getCitas&t=' + Date.now();
+  fetch(url, {method:'GET', redirect:'follow'})
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if (data.citas) {
+        todasLasCitas = data.citas;
+        actualizarStats();
+        mostrarTab(agendaTabActual);
+      } else {
+        document.getElementById('agendaBody').innerHTML = '<div class="cita-empty">&#128198; No se pudieron cargar las citas.<br><small>' + (data.error||'') + '</small></div>';
+      }
+    })
+    .catch(function(err){
+      document.getElementById('agendaBody').innerHTML = '<div class="cita-empty">&#9888; Error de conexion.<br><small>' + err + '</small></div>';
+    });
+}
+
+function isoHoy() {
+  var h = new Date();
+  return h.getFullYear() + '-' + pad2(h.getMonth()+1) + '-' + pad2(h.getDate());
+}
+function isoSemana() {
+  var dias = [];
+  var hoy = new Date();
+  for (var i=0; i<7; i++) {
+    var d = new Date(hoy);
+    d.setDate(hoy.getDate() + i);
+    dias.push(d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate()));
+  }
+  return dias;
+}
+function pad2(n){ return String(n).padStart(2,'0'); }
+
+function actualizarStats() {
+  var hoy     = isoHoy();
+  var semana  = isoSemana();
+  var cHoy    = todasLasCitas.filter(function(c){ return c.fecha === hoy; }).length;
+  var cSemana = todasLasCitas.filter(function(c){ return semana.indexOf(c.fecha) !== -1; }).length;
+  document.getElementById('statHoy').textContent    = cHoy;
+  document.getElementById('statSemana').textContent = cSemana;
+  document.getElementById('statTotal').textContent  = todasLasCitas.length;
+}
+
+function cambiarTab(tab) {
+  agendaTabActual = tab;
+  document.querySelectorAll('.agenda-tab').forEach(function(t){ t.classList.remove('active'); });
+  document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
+  mostrarTab(tab);
+}
+
+function mostrarTab(tab) {
+  var hoy    = isoHoy();
+  var semana = isoSemana();
+  var citas;
+  if (tab === 'hoy')    citas = todasLasCitas.filter(function(c){ return c.fecha === hoy; });
+  else if (tab === 'semana') citas = todasLasCitas.filter(function(c){ return semana.indexOf(c.fecha) !== -1; });
+  else citas = todasLasCitas.slice();
+
+  // Ordenar por fecha y hora
+  citas.sort(function(a,b){
+    var da = a.fecha + ' ' + a.hora;
+    var db = b.fecha + ' ' + b.hora;
+    return da < db ? -1 : da > db ? 1 : 0;
+  });
+
+  if (!citas.length) {
+    var msgs = {hoy:'No hay citas para hoy &#127881;', semana:'No hay citas esta semana', todas:'No hay citas registradas aun'};
+    document.getElementById('agendaBody').innerHTML = '<div class="cita-empty">' + (msgs[tab]||'Sin citas') + '</div>';
+    return;
+  }
+
+  var html = '';
+  var ultimaFecha = '';
+  citas.forEach(function(cita) {
+    if (tab !== 'hoy' && cita.fecha !== ultimaFecha) {
+      ultimaFecha = cita.fecha;
+      var p = cita.fecha.split('-');
+      html += '<div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin:1rem 0 .5rem;padding-left:.3rem">&#128197; ' + p[2]+'/'+p[1]+'/'+p[0] + '</div>';
+    }
+    var horaLabel = formatH(cita.hora);
+    html += '<div class="cita-item">' +
+      '<div class="cita-hora">' + horaLabel + '</div>' +
+      '<div class="cita-datos">' +
+        '<div class="cita-nombre">&#128100; ' + esc(cita.nombre) + '</div>' +
+        '<div class="cita-servicio">&#129463; ' + esc(cita.servicio) + '</div>' +
+        '<div class="cita-detalle">&#128222; ' + esc(cita.telefono) +
+          (cita.dni ? ' &nbsp;&#128100; DNI: ' + esc(cita.dni) : '') + '</div>' +
+        (cita.comentario ? '<div class="cita-detalle" style="margin-top:.2rem">&#128172; ' + esc(cita.comentario) + '</div>' : '') +
+      '</div>' +
+    '</div>';
+  });
+  document.getElementById('agendaBody').innerHTML = html;
+}
+
+
+
 function openModal(){
   document.getElementById('confirmModal').style.display = 'flex';
   document.body.style.overflow = 'hidden';
@@ -1196,7 +1400,7 @@ function closeModal(){
 </script>
 
 <script>
-var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0f1Hk4q0xzNbbsNV2lLW3XuHF2AcMJoHKhxjx-K3CnWVraUVMSIqJv6J8MFgdO9LZ/exec";
+var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqg8r1FV16UaLSTyHzPPzfILilY6VIXDV2rORRQYUYktUkSZSICD7lU-_2A4QBD8rg/exec";
 var DURACION = 90;
 var slotOK = false;
 
@@ -1472,6 +1676,12 @@ function filtrarAntDes(cat, tabEl) {
 
 
 
+
+
+// Agenda overlay click
+var agendaOv = document.getElementById('agendaOverlay');
+if(agendaOv) agendaOv.addEventListener('click', function(e){ if(e.target===this) cerrarAgenda(); });
+
 }); // end DOMContentLoaded
 </script>
 <button id="backToTop" title="Volver arriba" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
@@ -1507,6 +1717,48 @@ function filtrarAntDes(cat, tabEl) {
   <div class="konami-titulo">&#127881; MODO SECRETO ACTIVADO &#127881;</div>
   <div class="konami-msg" id="konamiMsg">Encontraste el easter egg del Dr. Lujan.<br>Como premio... nada. Pero si vienes al consultorio te damos un caramelito sin azucar &#129315;</div>
   <div class="konami-cerrar">Click en cualquier lugar para cerrar</div>
+</div>
+
+
+<!-- AGENDA SECRETA -->
+<div id="agendaOverlay">
+  <div id="agendaBox">
+    <!-- PIN screen -->
+    <div id="agendaPinScreen">
+      <div class="agenda-pin-box">
+        <div class="agenda-pin-icon">&#128274;</div>
+        <div class="agenda-pin-title">Agenda del Dr. Lujan</div>
+        <p style="font-size:.83rem;color:var(--muted)">Ingresa la contrasena para continuar</p>
+        <input type="password" class="agenda-pin-input" id="agendaPinInput" placeholder="••••••" maxlength="20"
+          onkeydown="if(event.key==='Enter')verificarPin()"/>
+        <button class="agenda-pin-btn" onclick="verificarPin()">Entrar</button>
+        <div class="agenda-pin-error" id="agendaPinError">Contrasena incorrecta. Intenta de nuevo.</div>
+      </div>
+    </div>
+    <!-- Agenda screen (oculto hasta verificar PIN) -->
+    <div id="agendaMain" style="display:none;flex-direction:column;flex:1;overflow:hidden">
+      <div class="agenda-header">
+        <div>
+          <h3>&#128197; Agenda &mdash; Dr. Lujan</h3>
+          <div class="agenda-header-sub" id="agendaFechaHoy"></div>
+        </div>
+        <button class="agenda-close" onclick="cerrarAgenda()">&#10005;</button>
+      </div>
+      <div class="agenda-tabs">
+        <button class="agenda-tab active" id="tabHoy"   onclick="cambiarTab('hoy')">Hoy</button>
+        <button class="agenda-tab"        id="tabSemana" onclick="cambiarTab('semana')">Esta semana</button>
+        <button class="agenda-tab"        id="tabTodas"  onclick="cambiarTab('todas')">Todas</button>
+      </div>
+      <div class="agenda-stats" style="padding:1rem 1.2rem .2rem">
+        <div class="agenda-stat"><div class="agenda-stat-num" id="statHoy">-</div><div class="agenda-stat-lbl">Hoy</div></div>
+        <div class="agenda-stat"><div class="agenda-stat-num" id="statSemana">-</div><div class="agenda-stat-lbl">Esta semana</div></div>
+        <div class="agenda-stat"><div class="agenda-stat-num" id="statTotal">-</div><div class="agenda-stat-lbl">Total</div></div>
+      </div>
+      <div class="agenda-body" id="agendaBody">
+        <div class="agenda-loading">&#128336; Cargando citas...</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 </body>
