@@ -1097,6 +1097,36 @@ function closeLB(){
   document.getElementById('lightbox').style.display = 'none';
   document.body.style.overflow = '';
 }
+// CONFETI
+function lanzarConfeti() {
+  var colores = ['#1a56c4','#bdd4f5','#f59e0b','#10b981','#f43f5e','#a855f7','#0d1f3c'];
+  var formas  = [2, 4, 50]; // border-radius: cuadrado, rombo, circulo
+  for (var i = 0; i < 120; i++) {
+    (function(i) {
+      setTimeout(function() {
+        var p = document.createElement('div');
+        p.className = 'confeti-piece';
+        var color  = colores[Math.floor(Math.random() * colores.length)];
+        var forma  = formas[Math.floor(Math.random() * formas.length)];
+        var size   = 6 + Math.random() * 10;
+        var left   = Math.random() * 100;
+        var dur    = 2 + Math.random() * 2;
+        var delay  = Math.random() * 0.5;
+        p.style.cssText = [
+          'left:' + left + 'vw',
+          'width:' + size + 'px',
+          'height:' + size + 'px',
+          'background:' + color,
+          'border-radius:' + forma + 'px',
+          'animation-duration:' + dur + 's',
+          'animation-delay:' + delay + 's',
+        ].join(';');
+        document.body.appendChild(p);
+        setTimeout(function(){ p.remove(); }, (dur + delay + 0.5) * 1000);
+      }, i * 8);
+    })(i);
+  }
+}
 function toggleFaq(el) {
   var item = el.parentElement;
   var isOpen = item.classList.contains('open');
@@ -1166,7 +1196,7 @@ function closeModal(){
 </script>
 
 <script>
-var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwOysSv718AaTLAoberNee_Z9bUgfhNPHNvBH8h0UgzK0_R4NX8LXemN8-bWiCtbFLS/exec";
+var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0f1Hk4q0xzNbbsNV2lLW3XuHF2AcMJoHKhxjx-K3CnWVraUVMSIqJv6J8MFgdO9LZ/exec";
 var DURACION = 90;
 var slotOK = false;
 
@@ -1424,36 +1454,7 @@ window.addEventListener('scroll', function(){
   document.getElementById('scrollBar').style.width = pct + '%';
 }, {passive:true});
 
-// CONFETI
-function lanzarConfeti() {
-  var colores = ['#1a56c4','#bdd4f5','#f59e0b','#10b981','#f43f5e','#a855f7','#0d1f3c'];
-  var formas  = [2, 4, 50]; // border-radius: cuadrado, rombo, circulo
-  for (var i = 0; i < 120; i++) {
-    (function(i) {
-      setTimeout(function() {
-        var p = document.createElement('div');
-        p.className = 'confeti-piece';
-        var color  = colores[Math.floor(Math.random() * colores.length)];
-        var forma  = formas[Math.floor(Math.random() * formas.length)];
-        var size   = 6 + Math.random() * 10;
-        var left   = Math.random() * 100;
-        var dur    = 2 + Math.random() * 2;
-        var delay  = Math.random() * 0.5;
-        p.style.cssText = [
-          'left:' + left + 'vw',
-          'width:' + size + 'px',
-          'height:' + size + 'px',
-          'background:' + color,
-          'border-radius:' + forma + 'px',
-          'animation-duration:' + dur + 's',
-          'animation-delay:' + delay + 's',
-        ].join(';');
-        document.body.appendChild(p);
-        setTimeout(function(){ p.remove(); }, (dur + delay + 0.5) * 1000);
-      }, i * 8);
-    })(i);
-  }
-}
+
 
 
 // FILTRO ANTES Y DESPUES
