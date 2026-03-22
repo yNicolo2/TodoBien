@@ -1215,22 +1215,32 @@ function filtrarAntDes(cat,tabEl){
     card.style.display=(cat==='todo'||card.dataset.cat===cat)?'':' none';
   });
 }
+
+
 // ── KONAMI CODE ────────────────────────────────────────────
 var konamiSeq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
 var konamiPos = 0;
+
+// ── LUJAN SECRET TRIGGER ────────────────────────────────────
+var _secretBuf = '';
 document.addEventListener('keydown', function(e){
+  var tag = document.activeElement.tagName;
+  if (tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT') return;
+  if (e.key.length > 1) return;
+  _secretBuf += e.key.toLowerCase();
+  if (_secretBuf.length > 8) _secretBuf = _secretBuf.slice(-8);
+  if (_secretBuf.includes('admin'))  { _secretBuf=''; window.open('admin.html','_blank'); return; }
+  if (_secretBuf.includes('agenda')) { _secretBuf=''; abrirAgenda(); return; }
+  // Konami
   if (e.key === konamiSeq[konamiPos]) {
     konamiPos++;
     if (konamiPos === konamiSeq.length) {
       konamiPos = 0;
       document.getElementById('konamiOverlay').classList.add('open');
       document.body.style.overflow = 'hidden';
-      // Lanzar confeti tambien!
       lanzarConfeti();
     }
-  } else {
-    konamiPos = 0;
-  }
+  } else { konamiPos = 0; }
 });
 
 // ── DENTISTOMETRO ──────────────────────────────────────────
@@ -1260,26 +1270,15 @@ function actualizarDent(val) {
   res.innerHTML = '<div><span class="dent-emoji">'+msg.emoji+'</span><p>'+msg.txt+'</p></div>';
 }
 
+
+
 // ── AGENDA SECRETA ─────────────────────────────────────────────
 var AGENDA_PIN     = "irala";
 var agendaUnlocked = false;
 var agendaTabActual = 'hoy';
 var todasLasCitas  = [];
 
-// Detectar escritura "agenda" en cualquier parte
-var agendaBuffer = '';
-document.addEventListener('keydown', function(e){
-  // Ignorar si se esta escribiendo en un input
-  var tag = document.activeElement.tagName;
-  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
 
-  agendaBuffer += e.key.toLowerCase();
-  if (agendaBuffer.length > 6) agendaBuffer = agendaBuffer.slice(-6);
-  if (agendaBuffer.includes('agenda')) {
-    agendaBuffer = '';
-    abrirAgenda();
-  }
-});
 
 function abrirAgenda() {
   document.getElementById('agendaOverlay').classList.add('open');
@@ -1483,7 +1482,7 @@ function validarCampos() {
   var ok = true;
   fieldErr('nombre',   !nombre);             if (!nombre)              ok = false;
   fieldErr('telefono', !telefono);           if (!telefono)            ok = false;
-  fieldErr('dni',      !/^\d{8}$/.test(dni)); if (!/^\d{8}$/.test(dni)) ok = false;
+  fieldErr('dni',      !/^[0-9]{8}$/.test(dni)); if (!/^[0-9]{8}$/.test(dni)) ok = false;
   fieldErr('servicio', !servicio);           if (!servicio)            ok = false;
   fieldErr('fecha',    !fecha);              if (!fecha)               ok = false;
   fieldErr('hora',     !hora);               if (!hora)                ok = false;
@@ -1723,6 +1722,10 @@ function filtrarAntDes(cat, tabEl) {
 // Agenda overlay click
 var agendaOv = document.getElementById('agendaOverlay');
 if(agendaOv) agendaOv.addEventListener('click', function(e){ if(e.target===this) cerrarAgenda(); });
+
+
+// ── ACCESO ADMIN: escribe "lujan" en cualquier parte ─────────
+var adminBuf = '';
 
 }); // end DOMContentLoaded
 </script>
