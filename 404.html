@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Todo Bien</title>
+<script>
+(function () {
+  var parts = location.pathname.split('/').filter(Boolean);
+  if (parts.length) {
+    location.replace(location.origin + '/' + parts[0] + '/index.html' + location.search + location.hash);
+  } else {
+    location.replace('index.html' + location.search + location.hash);
+  }
+})();
+</script>
+<meta http-equiv="refresh" content="0;url=index.html"/>
+</head>
+<body>
+<p>Cargando inicio… <a href="index.html">Ir al inicio</a></p>
+</body>
+</html>
