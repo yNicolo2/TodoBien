@@ -1430,7 +1430,7 @@ function closeModal(){
 </script>
 
 <script>
-var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxhbc3u_Qj3QaPfGArDkpZMQTgeEUH5w2T4qJf4aLSkCSRV5s9OB6AB2X6PqjiOcDg9/exec";
+var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzQt6YL5fTs99sTmwF64ZJV0cGsbRkDqVzVwPweoOsBUJVltSd_AL8CR__dfRF5xgNU/exec";
 var DURACION = 90;
 var slotOK = false;
 
@@ -1514,7 +1514,7 @@ document.getElementById('checkBtn').addEventListener('click', async function(){
     if (!res.ok) throw new Error('HTTP ' + res.status);
     var data = await res.json();
     if (data.disponible) {
-      setSlot('libre', '&#10003; ' + formatH(hora) + ' del ' + formatF(fecha) + ' disponible');
+      setSlot('libre', '✓ ' + formatH(hora) + ' del ' + formatF(fecha) + ' disponible');
       slotOK = true;
       document.getElementById('submitBtn').disabled = false;
       document.getElementById('btnText').textContent = 'Reservar mi cita';
