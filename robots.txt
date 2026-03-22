@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://ynicolo2.github.io/TodoBien/sitemap.xml
