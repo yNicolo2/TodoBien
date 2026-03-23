@@ -13,18 +13,18 @@
 <meta name="geo.region" content="PE-LIM"/>
 <meta name="geo.placename" content="San Juan de Lurigancho, Lima, Peru"/>
 
-<!-- Open Graph (para WhatsApp, Facebook, etc) -->
-<meta property="og:title" content="Consultorio Dental Todo Bien — San Juan de Lurigancho">
-<meta property="og:description" content="Tu dentista de confianza en SJL, Lima. Limpieza, blanqueamiento, ortodoncia y más. ¡Agenda tu cita online!">
-<meta property="og:image" content="https://todobien.pages.dev/og-image.png">
-<meta property="og:url" content="https://todobien.pages.dev/">
-<meta property="og:type" content="website">
+<!-- Open Graph (para compartir en redes) -->
+<meta property="og:type" content="business.business"/>
+<meta property="og:title" content="Consultorio Dental Todo Bien — San Juan de Lurigancho"/>
+<meta property="og:description" content="Cuidamos tu salud dental con tecnologia moderna y trato calido. Limpieza, blanqueamiento, ortodoncia, endodoncia y mas. Agenda tu cita online."/>
+<meta property="og:url" content="https://ynicolo2.github.io/TodoBien/"/>
+<meta property="og:image" content="https://ynicolo2.github.io/TodoBien/logo.png"/>
+<meta property="og:locale" content="es_PE"/>
 
-<!-- Twitter/WhatsApp card -->
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Consultorio Dental Todo Bien — SJL, Lima"/>
+<!-- Twitter/X card -->
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Consultorio Dental Todo Bien"/>
 <meta name="twitter:description" content="Tu dentista de confianza en San Juan de Lurigancho. Agenda tu cita online."/>
-<meta name="twitter:image" content="https://todobien.pages.dev/og-image.png"/>
 
 <!-- Schema.org — le dice a Google exactamente que eres una clinica dental -->
 <script type="application/ld+json">
@@ -35,7 +35,7 @@
   "description": "Consultorio dental en San Juan de Lurigancho que ofrece limpieza dental, blanqueamiento, ortodoncia, endodoncia, rehabilitacion oral y estetica dental.",
   "url": "https://ynicolo2.github.io/TodoBien/",
   "logo": "https://ynicolo2.github.io/TodoBien/logo.png",
-  "image": "https://ynicolo2.github.io/TodoBien/og-image.png",
+  "image": "https://ynicolo2.github.io/TodoBien/logo.png",
   "telephone": "+51999000000",
   "address": {
     "@type": "PostalAddress",
@@ -470,7 +470,7 @@ footer strong{color:rgba(255,255,255,.85)}
 </div>
 <nav id="navbar">
   <a href="#" class="nav-logo">
-    <div class="logo-svg-wrap" id="logoWrap">
+    <div class="logo-svg-wrap">
       <img src="logo.png" alt="Todo Bien logo" style="width:36px;height:36px;object-fit:contain;"/>
     </div>
     <span class="nav-brand">Todo <em>Bien</em></span>
@@ -589,6 +589,15 @@ footer strong{color:rgba(255,255,255,.85)}
             <label>DNI <span class="req">*</span></label>
             <input type="text" id="f_dni" placeholder="12345678" maxlength="8" autocomplete="off"/>
             <span class="field-err" id="err_dni">El DNI debe tener 8 digitos numericos</span>
+            <div id="dniInfo" style="display:none;margin-top:.5rem;background:#f0f6ff;border:1px solid #bdd4f5;border-radius:10px;padding:.8rem 1rem;font-size:.8rem;color:#0d1f3c;line-height:1.7">
+              <strong>¿Por qué pedimos tu DNI?</strong><br/>
+              Tu DNI nos permite identificarte de forma segura, evitar duplicados y llevar tu historia clínica actualizada. Es como en cualquier clínica — es para tu beneficio.<br/>
+              <span style="color:#5b7aaa;font-size:.75rem">Tus datos son confidenciales y nunca se comparten con terceros.</span>
+            </div>
+            <button type="button" onclick="var d=document.getElementById('dniInfo');d.style.display=d.style.display==='none'?'block':'none'" style="margin-top:.4rem;background:none;border:none;color:var(--teal);font-size:.75rem;font-weight:600;cursor:pointer;padding:0;display:flex;align-items:center;gap:.3rem;font-family:'Outfit',sans-serif">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+              ¿Por qué necesitan mi DNI?
+            </button>
           </div>
           <div class="fld">
             <label>Servicio de interes <span class="req">*</span></label>
@@ -1729,21 +1738,7 @@ if(agendaOv) agendaOv.addEventListener('click', function(e){ if(e.target===this)
 var adminBuf = '';
 
 
-// ── LOGO 4 CLICKS → Panel Admin ──────────────────────────────
-var _clickCount = 0, _clickTimer = null;
-var _logoEl = document.getElementById('logoWrap');
-if(_logoEl){
-  _logoEl.addEventListener('click', function(){
-    _clickCount++;
-    clearTimeout(_clickTimer);
-    if(_clickCount >= 4){
-      _clickCount = 0;
-      window.open('admin.html','_blank');
-    } else {
-      _clickTimer = setTimeout(function(){ _clickCount = 0; }, 800);
-    }
-  });
-}
+// Admin: escribe "admin" en el teclado para abrir el panel
 
 }); // end DOMContentLoaded
 </script>
