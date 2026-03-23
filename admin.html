@@ -228,6 +228,22 @@ td{padding:.65rem .9rem;font-size:.82rem;vertical-align:middle}
         <div class="sbi" data-panel="citas">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>Citas
         </div>
+        <div class="sbi" data-panel="nueva">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg>Nueva cita
+        </div>
+        <div class="sbi" data-panel="reprogramar">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>Reprogramar
+        </div>
+        <div class="sbi" data-panel="estadisticas">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M5 9.2h3V19H5V9.2zM10.6 5h2.8v14h-2.8V5zM16.2 13h2.8v6h-2.8v-6z"/></svg>Estadísticas
+        </div>
+        <div class="sb-sec">Acciones</div>
+        <div class="sbi" data-panel="nueva-cita">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg>+ Nueva cita
+        </div>
+        <div class="sbi" data-panel="nueva">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg>Nueva cita
+        </div>
         <div class="sb-sec">Pacientes</div>
         <div class="sbi" data-panel="pacientes">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>Historia clínica
@@ -318,6 +334,346 @@ td{padding:.65rem .9rem;font-size:.82rem;vertical-align:middle}
         <div id="pacList"><div class="empty"><div class="empty-icon">👤</div><div class="empty-txt">Busca un paciente para ver su ficha clínica</div></div></div>
       </div>
 
+      <!-- NUEVA CITA MANUAL -->
+      <div id="panel-nueva" class="panel">
+        <div class="ptitle">Nueva <strong>cita manual</strong></div>
+        <div class="card" style="max-width:680px">
+          <div class="card-hdr">
+            <div class="card-title">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+              Agregar cita
+            </div>
+            <div id="nc-msg" style="font-size:.78rem;font-weight:600;display:none"></div>
+          </div>
+          <div class="card-body" style="display:grid;grid-template-columns:1fr 1fr;gap:.9rem">
+
+            <div class="pf">
+              <label>Nombre completo *</label>
+              <input id="nc_nombre" placeholder="Nombre del paciente" type="text"/>
+            </div>
+            <div class="pf">
+              <label>Teléfono *</label>
+              <input id="nc_tel" placeholder="+51 999 000 000" type="tel"/>
+            </div>
+            <div class="pf">
+              <label>DNI</label>
+              <input id="nc_dni" placeholder="12345678" maxlength="8" type="text"/>
+            </div>
+            <div class="pf">
+              <label>Estado de la cita</label>
+              <select id="nc_estado">
+                <option value="Confirmada">Confirmada</option>
+                <option value="Atendida">Atendida</option>
+                <option value="Cancelada">Cancelada</option>
+                <option value="No asistio">No asistió</option>
+              </select>
+            </div>
+            <div class="pf full">
+              <label>Servicio / Tratamiento *</label>
+              <select id="nc_serv">
+                <option value="">— Selecciona —</option>
+                <option>Limpieza y Prevencion</option>
+                <option>Blanqueamiento</option>
+                <option>Ortodoncia y Brackets</option>
+                <option>Endodoncia</option>
+                <option>Rehabilitacion Oral y Protesis</option>
+                <option>Estetica Dental</option>
+                <option>Consulta general</option>
+              </select>
+            </div>
+            <div class="pf">
+              <label>Fecha de la cita *</label>
+              <input id="nc_fecha" type="date"/>
+            </div>
+            <div class="pf">
+              <label>Hora *</label>
+              <select id="nc_hora">
+                <option value="">— Hora —</option>
+                <option value="08:00">8:00 AM</option><option value="08:30">8:30 AM</option>
+                <option value="09:00">9:00 AM</option><option value="09:30">9:30 AM</option>
+                <option value="10:00">10:00 AM</option><option value="10:30">10:30 AM</option>
+                <option value="11:00">11:00 AM</option><option value="11:30">11:30 AM</option>
+                <option value="12:00">12:00 PM</option><option value="12:30">12:30 PM</option>
+                <option value="13:00">1:00 PM</option><option value="13:30">1:30 PM</option>
+                <option value="14:00">2:00 PM</option><option value="14:30">2:30 PM</option>
+                <option value="15:00">3:00 PM</option><option value="15:30">3:30 PM</option>
+                <option value="16:00">4:00 PM</option><option value="16:30">4:30 PM</option>
+                <option value="17:00">5:00 PM</option><option value="17:30">5:30 PM</option>
+                <option value="18:00">6:00 PM</option><option value="18:30">6:30 PM</option>
+                <option value="19:00">7:00 PM</option><option value="19:30">7:30 PM</option>
+              </select>
+            </div>
+            <div class="pf">
+              <label>Método de pago</label>
+              <select id="nc_pago">
+                <option value="Pendiente">Pendiente</option>
+                <option value="Pagado - Efectivo">Pagado — Efectivo</option>
+                <option value="Pagado - Yape">Pagado — Yape</option>
+                <option value="Pagado - Plin">Pagado — Plin</option>
+                <option value="Pagado - POS">Pagado — POS / Tarjeta</option>
+              </select>
+            </div>
+            <div class="pf full">
+              <label>Notas / Comentario</label>
+              <textarea id="nc_obs" placeholder="Motivo de consulta, observaciones, referido por..." style="min-height:60px"></textarea>
+            </div>
+
+          </div>
+          <div style="padding:.9rem 1.2rem;border-top:1px solid var(--sage);display:flex;gap:.6rem;align-items:center">
+            <button class="btn btn-p" id="nc_guardar">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+              Guardar cita
+            </button>
+            <button class="btn btn-g" id="nc_limpiar">Limpiar</button>
+            <div id="nc_saving" style="display:none;font-size:.78rem;color:var(--muted);font-style:italic">Guardando...</div>
+          </div>
+        </div>
+
+        <!-- Últimas citas agregadas manualmente -->
+        <div id="nc_recientes" style="margin-top:1.2rem;max-width:680px;display:none">
+          <div class="card-title" style="margin-bottom:.6rem">Citas agregadas hoy</div>
+          <div id="nc_lista"></div>
+        </div>
+      </div>
+
+      <!-- NUEVA CITA MANUAL -->
+      <div id="panel-nueva" class="panel">
+        <div class="ptitle">Nueva <strong>cita manual</strong></div>
+        <div class="card">
+          <div class="card-hdr"><div class="card-title">Agregar cita desde el panel</div></div>
+          <div class="card-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.9rem">
+              <div class="pf">
+                <label>Nombre completo *</label>
+                <input id="nc_nombre" placeholder="Nombre del paciente"/>
+              </div>
+              <div class="pf">
+                <label>Teléfono *</label>
+                <input id="nc_tel" placeholder="+51 999 000 000" type="tel"/>
+              </div>
+              <div class="pf">
+                <label>DNI *</label>
+                <input id="nc_dni" placeholder="12345678" maxlength="8"/>
+              </div>
+              <div class="pf">
+                <label>Servicio *</label>
+                <select id="nc_serv">
+                  <option value="">Seleccionar...</option>
+                  <option>Limpieza y Prevencion</option>
+                  <option>Blanqueamiento</option>
+                  <option>Ortodoncia y Brackets</option>
+                  <option>Endodoncia</option>
+                  <option>Rehabilitacion Oral y Protesis</option>
+                  <option>Estetica Dental</option>
+                  <option>Consulta general</option>
+                </select>
+              </div>
+              <div class="pf">
+                <label>Fecha *</label>
+                <input id="nc_fecha" type="date"/>
+              </div>
+              <div class="pf">
+                <label>Hora *</label>
+                <select id="nc_hora">
+                  <option value="">Seleccionar hora...</option>
+                  <option value="08:00">8:00 AM</option><option value="08:30">8:30 AM</option>
+                  <option value="09:00">9:00 AM</option><option value="09:30">9:30 AM</option>
+                  <option value="10:00">10:00 AM</option><option value="10:30">10:30 AM</option>
+                  <option value="11:00">11:00 AM</option><option value="11:30">11:30 AM</option>
+                  <option value="12:00">12:00 PM</option><option value="12:30">12:30 PM</option>
+                  <option value="13:00">1:00 PM</option><option value="13:30">1:30 PM</option>
+                  <option value="14:00">2:00 PM</option><option value="14:30">2:30 PM</option>
+                  <option value="15:00">3:00 PM</option><option value="15:30">3:30 PM</option>
+                  <option value="16:00">4:00 PM</option><option value="16:30">4:30 PM</option>
+                  <option value="17:00">5:00 PM</option><option value="17:30">5:30 PM</option>
+                  <option value="18:00">6:00 PM</option><option value="18:30">6:30 PM</option>
+                  <option value="19:00">7:00 PM</option><option value="19:30">7:30 PM</option>
+                </select>
+              </div>
+              <div class="pf" style="grid-column:1/-1">
+                <label>Comentario / motivo</label>
+                <textarea id="nc_comentario" placeholder="Motivo de la consulta, observaciones..."></textarea>
+              </div>
+            </div>
+            <div id="nc_msg" style="display:none;margin:.8rem 0;padding:.7rem 1rem;border-radius:var(--r-sm);font-size:.82rem;font-weight:500"></div>
+            <div style="display:flex;gap:.7rem;margin-top:.5rem;flex-wrap:wrap">
+              <button class="btn btn-p" id="nc_guardar" style="padding:.7rem 1.8rem">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                Guardar cita
+              </button>
+              <button class="btn btn-g" id="nc_limpiar" style="padding:.7rem 1.2rem">Limpiar</button>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:1rem">
+          <div class="card-hdr"><div class="card-title">Editar tratamiento de una cita existente</div></div>
+          <div class="card-body">
+            <p style="font-size:.82rem;color:var(--muted);margin-bottom:.8rem">Busca la cita y cambia el servicio directamente desde aqui.</p>
+            <div style="display:flex;gap:.7rem;align-items:center;flex-wrap:wrap">
+              <input class="inp" id="nc_busEdit" placeholder="Buscar por nombre o DNI..." style="flex:1;min-width:160px;border-radius:var(--r-sm)"/>
+              <button class="btn btn-g" id="nc_btnBus">Buscar</button>
+            </div>
+            <div id="nc_editList" style="margin-top:.8rem"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REPROGRAMAR -->
+      <div id="panel-reprogramar" class="panel">
+        <div class="ptitle">Re<strong>programar</strong> cita</div>
+        <div class="card" style="margin-bottom:1rem">
+          <div class="card-body" style="display:flex;gap:.7rem;align-items:center;flex-wrap:wrap">
+            <input class="inp" id="qRep" placeholder="Buscar paciente por nombre o DNI..." style="flex:1;min-width:180px;border-radius:var(--r-sm)"/>
+            <button class="btn btn-p" id="btnBusRep">Buscar</button>
+          </div>
+        </div>
+        <div id="repList"><div class="empty"><div class="empty-icon">📅</div><div class="empty-txt">Busca un paciente para reprogramar su cita</div></div></div>
+      </div>
+
+      <!-- ESTADÍSTICAS -->
+      <div id="panel-estadisticas" class="panel">
+        <div class="ptitle">Esta<strong>dísticas</strong></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem">
+          <div class="card">
+            <div class="card-hdr"><div class="card-title">Citas por mes</div></div>
+            <div class="card-body"><canvas id="chartMes" height="200"></canvas></div>
+          </div>
+          <div class="card">
+            <div class="card-hdr"><div class="card-title">Servicios más solicitados</div></div>
+            <div class="card-body"><canvas id="chartServ" height="200"></canvas></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hdr"><div class="card-title">Estado de pagos</div></div>
+          <div class="card-body" style="display:flex;align-items:center;gap:2rem;flex-wrap:wrap">
+            <canvas id="chartPago" width="180" height="180" style="max-width:180px"></canvas>
+            <div id="pagoLeyenda" style="flex:1;min-width:120px"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NUEVA CITA MANUAL -->
+      <div id="panel-nueva-cita" class="panel">
+        <div class="ptitle">Nueva <strong>cita manual</strong></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:860px">
+
+          <!-- Formulario -->
+          <div class="card" style="grid-column:1/-1">
+            <div class="card-hdr">
+              <div class="card-title">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+                Datos de la cita
+              </div>
+              <span id="ncMsg" style="font-size:.78rem;font-weight:600;display:none"></span>
+            </div>
+            <div style="padding:1.2rem 1.3rem;display:grid;grid-template-columns:1fr 1fr;gap:.9rem">
+
+              <div class="pf">
+                <label>Nombre completo <span style="color:var(--teal)">*</span></label>
+                <input id="nc_nombre" placeholder="Nombre del paciente" autocomplete="off"/>
+              </div>
+              <div class="pf">
+                <label>Teléfono <span style="color:var(--teal)">*</span></label>
+                <input id="nc_tel" placeholder="+51 999 000 000" type="tel"/>
+              </div>
+              <div class="pf">
+                <label>DNI</label>
+                <input id="nc_dni" placeholder="12345678" maxlength="8"/>
+              </div>
+              <div class="pf">
+                <label>Estado de la cita</label>
+                <select id="nc_estado">
+                  <option value="Confirmada">Confirmada</option>
+                  <option value="Atendida">Atendida</option>
+                  <option value="Cancelada">Cancelada</option>
+                </select>
+              </div>
+
+              <div class="pf full">
+                <label>Servicio / Tratamiento <span style="color:var(--teal)">*</span></label>
+                <select id="nc_serv">
+                  <option value="">Selecciona un servicio...</option>
+                  <option>Limpieza y Prevencion</option>
+                  <option>Blanqueamiento</option>
+                  <option>Ortodoncia y Brackets</option>
+                  <option>Endodoncia</option>
+                  <option>Rehabilitacion Oral y Protesis</option>
+                  <option>Estetica Dental</option>
+                  <option>Consulta general</option>
+                  <option value="__custom__">Otro tratamiento (especificar)...</option>
+                </select>
+                <input id="nc_serv_custom" placeholder="Escribe el tratamiento..." style="display:none;margin-top:.4rem;padding:.6rem .85rem;border:1.5px solid var(--border);border-radius:var(--r-sm);font-size:.83rem;color:var(--ink);background:var(--cream);width:100%"/>
+              </div>
+
+              <div class="pf">
+                <label>Fecha de la cita <span style="color:var(--teal)">*</span></label>
+                <input id="nc_fecha" type="date"/>
+              </div>
+              <div class="pf">
+                <label>Hora <span style="color:var(--teal)">*</span></label>
+                <select id="nc_hora">
+                  <option value="">Seleccionar...</option>
+                  <option value="08:00">8:00 AM</option><option value="08:30">8:30 AM</option>
+                  <option value="09:00">9:00 AM</option><option value="09:30">9:30 AM</option>
+                  <option value="10:00">10:00 AM</option><option value="10:30">10:30 AM</option>
+                  <option value="11:00">11:00 AM</option><option value="11:30">11:30 AM</option>
+                  <option value="12:00">12:00 PM</option><option value="12:30">12:30 PM</option>
+                  <option value="13:00">1:00 PM</option><option value="13:30">1:30 PM</option>
+                  <option value="14:00">2:00 PM</option><option value="14:30">2:30 PM</option>
+                  <option value="15:00">3:00 PM</option><option value="15:30">3:30 PM</option>
+                  <option value="16:00">4:00 PM</option><option value="16:30">4:30 PM</option>
+                  <option value="17:00">5:00 PM</option><option value="17:30">5:30 PM</option>
+                  <option value="18:00">6:00 PM</option><option value="18:30">6:30 PM</option>
+                  <option value="19:00">7:00 PM</option><option value="19:30">7:30 PM</option>
+                </select>
+              </div>
+
+              <div class="pf">
+                <label>Método de pago</label>
+                <select id="nc_pago">
+                  <option value="Pendiente">Pendiente</option>
+                  <option value="Pagado - Efectivo">Pagado — Efectivo</option>
+                  <option value="Pagado - Yape">Pagado — Yape</option>
+                  <option value="Pagado - Plin">Pagado — Plin</option>
+                  <option value="Pagado - POS">Pagado — POS / Tarjeta</option>
+                </select>
+              </div>
+              <div class="pf">
+                <label>Monto cobrado (S/.)</label>
+                <input id="nc_monto" placeholder="Ej: 90" type="number" min="0"/>
+              </div>
+
+              <div class="pf full">
+                <label>Observaciones / Comentario</label>
+                <textarea id="nc_obs" placeholder="Motivo, síntomas, notas del tratamiento..." style="min-height:80px"></textarea>
+              </div>
+
+              <div style="grid-column:1/-1;display:flex;gap:.7rem;align-items:center;flex-wrap:wrap;padding-top:.3rem">
+                <button class="btn btn-p" id="ncGuardar">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  Guardar cita
+                </button>
+                <button class="btn btn-g" id="ncLimpiar">Limpiar formulario</button>
+                <span id="ncSaving" style="font-size:.78rem;color:var(--muted);display:none">Guardando...</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Últimas citas agregadas manualmente -->
+          <div class="card" style="grid-column:1/-1">
+            <div class="card-hdr"><div class="card-title">Citas recientes de hoy y esta semana</div></div>
+            <div class="tbl-wrap">
+              <table>
+                <thead><tr><th>Nombre</th><th>Servicio</th><th>Fecha</th><th>Hora</th><th>Estado</th><th>Pago</th><th>Monto</th></tr></thead>
+                <tbody id="ncRecientes"><tr><td colspan="7" class="loading">Cargando...</td></tr></tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
       <!-- ODONTOGRAMA -->
       <div id="panel-odontograma" class="panel">
         <div class="ptitle">Odonto<strong>grama</strong></div>
@@ -364,6 +720,39 @@ td{padding:.65rem .9rem;font-size:.82rem;vertical-align:middle}
 
 <div id="toast"></div>
 
+<!-- Modal reprogramar cita -->
+<div id="repModal" style="display:none;position:fixed;inset:0;z-index:9997;background:rgba(13,31,60,.5);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:1rem">
+  <div style="background:white;border-radius:var(--r-lg);padding:1.6rem;max-width:400px;width:100%;box-shadow:var(--shadow-lg);animation:up .2s ease">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;margin-bottom:.3rem">Reprogramar cita</div>
+    <div id="repModalInfo" style="background:var(--sage);border-radius:var(--r-sm);padding:.7rem .9rem;font-size:.82rem;margin-bottom:1rem;color:var(--ink)"></div>
+    <div style="margin-bottom:.9rem">
+      <label style="display:block;font-size:.66rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem">Nueva fecha</label>
+      <input type="date" id="repFecha" style="width:100%;padding:.62rem .9rem;border:1.5px solid var(--border);border-radius:var(--r-sm);font-size:.85rem;color:var(--ink)"/>
+    </div>
+    <div style="margin-bottom:1rem">
+      <label style="display:block;font-size:.66rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem">Nueva hora</label>
+      <select id="repHora" style="width:100%;padding:.62rem .9rem;border:1.5px solid var(--border);border-radius:var(--r-sm);font-size:.85rem;color:var(--ink);background:white">
+        <option value="08:00">8:00 AM</option><option value="08:30">8:30 AM</option>
+        <option value="09:00">9:00 AM</option><option value="09:30">9:30 AM</option>
+        <option value="10:00">10:00 AM</option><option value="10:30">10:30 AM</option>
+        <option value="11:00">11:00 AM</option><option value="11:30">11:30 AM</option>
+        <option value="12:00">12:00 PM</option><option value="12:30">12:30 PM</option>
+        <option value="13:00">1:00 PM</option><option value="13:30">1:30 PM</option>
+        <option value="14:00">2:00 PM</option><option value="14:30">2:30 PM</option>
+        <option value="15:00">3:00 PM</option><option value="15:30">3:30 PM</option>
+        <option value="16:00">4:00 PM</option><option value="16:30">4:30 PM</option>
+        <option value="17:00">5:00 PM</option><option value="17:30">5:30 PM</option>
+        <option value="18:00">6:00 PM</option><option value="18:30">6:30 PM</option>
+        <option value="19:00">7:00 PM</option><option value="19:30">7:30 PM</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:.6rem">
+      <button id="repCancelBtn" style="flex:1;padding:.7rem;border-radius:100px;background:var(--sage);color:var(--muted);font-size:.83rem;font-weight:600;border:none;cursor:pointer">Cancelar</button>
+      <button id="repSaveBtn" style="flex:2;padding:.7rem;border-radius:100px;background:var(--teal);color:white;font-size:.83rem;font-weight:700;border:none;cursor:pointer;transition:background .2s">Guardar nueva fecha</button>
+    </div>
+  </div>
+</div>
+
 <script>
 var SCRIPT_URL="https://script.google.com/macros/s/AKfycbwYETWyMHPGe6aVB7_1eADUmBMhDDnHDv9WyMIF4-g57qoK5g0lQIoCeRz3ZsUNi8ys/exec";
 var PWD="irala";
@@ -407,6 +796,8 @@ document.addEventListener('DOMContentLoaded',function(){
       document.getElementById('panel-'+p).classList.add('active');
       if(p==='agenda') renderCal();
       if(p==='odontograma') poblarSelPac();
+      if(p==='estadisticas') setTimeout(renderEstadisticas,100);
+      if(p==='nueva'){ var nf=document.getElementById('nc_fecha'); if(nf)nf.min=new Date().toISOString().split('T')[0]; }
     });
   });
   // Buttons
@@ -483,9 +874,10 @@ function cargarDatos(){
       if(document.getElementById('panel-agenda').classList.contains('active')) renderCal();
       setSt('Actualizado '+hStr(),'ok');
       toast('Datos actualizados','ok');
+      if(document.getElementById('panel-estadisticas').classList.contains('active')) setTimeout(renderEstadisticas,100);
     })
     .catch(function(err){
-      setSt('Sin conexión','err');
+      setSt('Sin conexi\xF3n','err');
       toast('No se pudo conectar al servidor','err');
       var cached=localStorage.getItem('tb_citas_cache');
       if(cached){ try{ citas=JSON.parse(cached); var m={}; citas.forEach(function(c){if(c.dni&&!m[c.dni])m[c.dni]={dni:c.dni,nombre:c.nombre,telefono:c.telefono};}); pacs=Object.values(m); renderDash(); filtrarCitas(); toast('Mostrando datos guardados','warn'); }catch(e){} }
@@ -567,7 +959,7 @@ function renderCal(){
     var ch='';
     cD.slice(0,4).forEach(function(c){
       var ec=c.estado.replace(/ /g,'');
-      var pagoIco = (c.pago||'').includes('Pendiente') ? '<span style="color:#f59e0b;font-size:.6rem;font-weight:900">$</span>' : '<span style="color:#16a34a;font-size:.6rem;font-weight:900">✓</span>';
+      var pagoIco = (c.pago||'').indexOf('Pendiente')!==-1 ? '<span style="color:#f59e0b;font-size:.6rem;font-weight:900">$</span>' : '<span style="color:#16a34a;font-size:.6rem;font-weight:900">\u2713</span>';
       var num = String(c.numero||'');
       ch+='<div class="ag-cita '+ec+'" data-num="'+num+'" style="cursor:pointer">'+
         '<div style="font-size:.68rem;font-weight:800;color:inherit">'+fmt12(c.hora)+'</div>'+
@@ -616,17 +1008,17 @@ function guardarEdit(){
   cerrarEdit();
   filtrarCitas(); renderDash();
   if(document.getElementById('panel-agenda').classList.contains('active')) renderCal();
-  toast('Guardado ✓','ok');
+  toast('Guardado \u2713','ok');
   // Sincronizar con Google Sheets en background
   var url = SCRIPT_URL+'?action=updateCita&numero='+encodeURIComponent(cita.numero||'')+
     '&estado='+encodeURIComponent(newEst)+'&pago='+encodeURIComponent(newPago)+'&t='+Date.now();
   fetch(url,{method:'GET',redirect:'follow'})
     .then(function(r){ return r.json(); })
     .then(function(d){
-      if(d.success) toast('Sincronizado con Sheets ✓','ok');
+      if(d.success) toast('Sincronizado con Sheets \u2713','ok');
       else toast('Local OK. Sheets: '+(d.error||'?'),'warn');
     })
-    .catch(function(){ toast('Sin conexión — solo guardado local','warn'); });
+    .catch(function(){ toast('Sin conexi\xF3n — solo guardado local','warn'); });
 }
 
 // CITAS TABLE
@@ -824,6 +1216,571 @@ function isoHoy(){var d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1+''
 function fmt12(h){var p=String(h||'').split(':').map(Number);if(isNaN(p[0]))return String(h||'&mdash;');return(p[0]%12||12)+':'+(p[1]||0+'').toString().padStart(2,'0')+(p[0]>=12?' PM':' AM');}
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function toast(msg,type){var el=document.getElementById('toast');el.textContent=msg;el.className='show '+(type||'');clearTimeout(el._t);el._t=setTimeout(function(){el.className='';},3000);}
+
+
+// ─── NUEVA CITA MANUAL ───────────────────────────────────────
+var ncRecientes = [];
+
+document.addEventListener('DOMContentLoaded', function(){
+  // Set today as default date for nueva cita
+  document.getElementById('nc_fecha').value = isoHoy();
+  document.getElementById('nc_fecha').min   = '';
+
+  document.getElementById('nc_guardar').addEventListener('click', guardarNuevaCita);
+  document.getElementById('nc_limpiar').addEventListener('click', function(){
+    document.getElementById('nc_nombre').value = '';
+    document.getElementById('nc_tel').value    = '';
+    document.getElementById('nc_dni').value    = '';
+    document.getElementById('nc_serv').value   = '';
+    document.getElementById('nc_hora').value   = '';
+    document.getElementById('nc_obs').value    = '';
+    document.getElementById('nc_estado').value = 'Confirmada';
+    document.getElementById('nc_pago').value   = 'Pendiente';
+    document.getElementById('nc_fecha').value  = isoHoy();
+    ncMsg('','');
+  });
+});
+
+function ncMsg(txt, tipo){
+  var el = document.getElementById('nc-msg');
+  if(!txt){ el.style.display='none'; return; }
+  el.style.display = 'block';
+  el.style.color   = tipo==='ok' ? 'var(--green)' : tipo==='err' ? 'var(--red)' : 'var(--muted)';
+  el.textContent   = txt;
+}
+
+function guardarNuevaCita(){
+  var nombre  = document.getElementById('nc_nombre').value.trim();
+  var tel     = document.getElementById('nc_tel').value.trim();
+  var dni     = document.getElementById('nc_dni').value.trim();
+  var serv    = document.getElementById('nc_serv').value;
+  var fecha   = document.getElementById('nc_fecha').value;
+  var hora    = document.getElementById('nc_hora').value;
+  var estado  = document.getElementById('nc_estado').value;
+  var pago    = document.getElementById('nc_pago').value;
+  var obs     = document.getElementById('nc_obs').value.trim();
+
+  if(!nombre||!tel||!serv||!fecha||!hora){
+    ncMsg('⚠ Completa los campos obligatorios (*)','err');
+    return;
+  }
+
+  document.getElementById('nc_saving').style.display = 'block';
+  document.getElementById('nc_guardar').disabled = true;
+  ncMsg('Guardando...','');
+
+  var n  = new Date();
+  var fe = n.getDate()+'/'+(n.getMonth()+1)+'/'+n.getFullYear()+' '+n.getHours()+':'+String(n.getMinutes()).padStart(2,'0');
+
+  var params = new URLSearchParams({
+    action:'save',
+    nombre:nombre, telefono:tel, dni:dni||'',
+    servicio:serv, fecha_pref:fecha, hora_pref:hora,
+    comentario:obs, fecha_envio:fe,
+    consentimiento:'Cita manual - admin',
+    t:Date.now()
+  });
+
+  fetch(SCRIPT_URL+'?'+params.toString(),{method:'GET',redirect:'follow'})
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(d.success||d.ok){
+        // Add to local citas array
+        var numNuevo = (citas.length ? Math.max.apply(null,citas.map(function(c){return parseInt(c.numero)||0;})) : 0)+1;
+        var nuevaCita = {
+          numero:numNuevo, nombre:nombre, telefono:tel, dni:dni,
+          servicio:serv, fecha:fecha, hora:hora,
+          estado:estado, pago:pago, comentario:obs, fecha_envio:fe
+        };
+        citas.push(nuevaCita);
+        // Update pago/estado in Sheets too if not default
+        if(estado!=='Confirmada'||pago!=='Pendiente'){
+          var u=SCRIPT_URL+'?action=updateCita&numero='+encodeURIComponent(numNuevo)+
+            '&estado='+encodeURIComponent(estado)+'&pago='+encodeURIComponent(pago)+'&t='+Date.now();
+          fetch(u,{redirect:'follow'}).catch(function(){});
+        }
+        try{ localStorage.setItem('tb_citas_cache',JSON.stringify(citas)); }catch(e){}
+        ncRecientes.unshift(nuevaCita);
+        renderNcRecientes();
+        renderDash(); filtrarCitas();
+        if(document.getElementById('panel-agenda').classList.contains('active')) renderCal();
+        ncMsg('\u2713 Cita guardada para '+nombre+' el '+formatFecha(fecha)+' a las '+fmt12(hora),'ok');
+        // Clear form
+        document.getElementById('nc_nombre').value = '';
+        document.getElementById('nc_tel').value    = '';
+        document.getElementById('nc_dni').value    = '';
+        document.getElementById('nc_serv').value   = '';
+        document.getElementById('nc_hora').value   = '';
+        document.getElementById('nc_obs').value    = '';
+        document.getElementById('nc_estado').value = 'Confirmada';
+        document.getElementById('nc_pago').value   = 'Pendiente';
+        document.getElementById('nc_fecha').value  = isoHoy();
+        toast('Cita de '+nombre+' guardada \u2713','ok');
+      } else {
+        ncMsg('Error: '+(d.error||'No se pudo guardar'),'err');
+        toast('Error al guardar','err');
+      }
+    })
+    .catch(function(err){
+      ncMsg('Sin conexi\xF3n — revisa el internet','err');
+      toast('Sin conexi\xF3n','err');
+    })
+    .finally(function(){
+      document.getElementById('nc_saving').style.display = 'none';
+      document.getElementById('nc_guardar').disabled = false;
+    });
+}
+
+function renderNcRecientes(){
+  if(!ncRecientes.length) return;
+  var wrap = document.getElementById('nc_recientes');
+  var lista = document.getElementById('nc_lista');
+  wrap.style.display = 'block';
+  lista.innerHTML = ncRecientes.slice(0,5).map(function(c){
+    var fp=(c.fecha||'').split('-'),fd=fp.length===3?fp[2]+'/'+fp[1]+'/'+fp[0]:c.fecha;
+    var col=CS[c.servicio]||{bg:'#e8f0fb',c:'#0f3a8a'};
+    return '<div class="vis-item" style="margin-bottom:.4rem">'+
+      '<span class="td-b" style="font-size:.82rem">'+esc(c.nombre)+'</span>'+
+      '<span class="td-m" style="font-size:.75rem">'+esc(c.telefono)+'</span>'+
+      '<span class="pill" style="background:'+col.bg+';color:'+col.c+';font-size:.67rem">'+esc(c.servicio)+'</span>'+
+      '<span class="td-m">'+fd+' '+fmt12(c.hora)+'</span>'+
+    '</div>';
+  }).join('');
+}
+
+function formatFecha(iso){
+  var p=iso.split('-'); return p.length===3?p[2]+'/'+p[1]+'/'+p[0]:iso;
+}
+
+// ─── NUEVA CITA MANUAL ───────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function(){
+  var today = new Date().toISOString().split('T')[0];
+  var ncFecha = document.getElementById('nc_fecha');
+  if(ncFecha) ncFecha.min = today;
+
+  var ncGuardar = document.getElementById('nc_guardar');
+  if(ncGuardar) ncGuardar.addEventListener('click', guardarNuevaCita);
+
+  var ncLimpiar = document.getElementById('nc_limpiar');
+  if(ncLimpiar) ncLimpiar.addEventListener('click', function(){
+    ['nc_nombre','nc_tel','nc_dni','nc_comentario'].forEach(function(id){
+      var el=document.getElementById(id); if(el) el.value='';
+    });
+    ['nc_serv','nc_hora'].forEach(function(id){
+      var el=document.getElementById(id); if(el) el.selectedIndex=0;
+    });
+    var fd=document.getElementById('nc_fecha'); if(fd) fd.value='';
+    ncMsg('','');
+  });
+
+  var ncBus = document.getElementById('nc_btnBus');
+  if(ncBus) ncBus.addEventListener('click', buscarParaEditarTrat);
+  var ncBusIn = document.getElementById('nc_busEdit');
+  if(ncBusIn) ncBusIn.addEventListener('keydown', function(e){ if(e.key==='Enter') buscarParaEditarTrat(); });
+});
+
+function ncMsg(msg, tipo){
+  var el = document.getElementById('nc_msg');
+  if(!el) return;
+  if(!msg){ el.style.display='none'; return; }
+  el.textContent = msg;
+  el.style.display = 'block';
+  el.style.background = tipo==='ok'?'#dcfce7':tipo==='err'?'#fee2e2':'#fef3c7';
+  el.style.color = tipo==='ok'?'#166534':tipo==='err'?'#9b1c1c':'#92400e';
+  el.style.border = '1px solid '+(tipo==='ok'?'#bbf7d0':tipo==='err'?'#fecaca':'#fde68a');
+}
+
+function gv2(id){ var e=document.getElementById(id); return e?e.value.trim():''; }
+
+function guardarNuevaCita(){
+  var nombre = gv2('nc_nombre'), tel = gv2('nc_tel'), dni = gv2('nc_dni');
+  var serv   = gv2('nc_serv'),   fecha = gv2('nc_fecha'), hora = gv2('nc_hora');
+  var coment = gv2('nc_comentario');
+  if(!nombre||!tel||!dni||!serv||!fecha||!hora){
+    ncMsg('Completa todos los campos obligatorios (*)', 'err'); return;
+  }
+  if(!/^[0-9]{8}$/.test(dni)){
+    ncMsg('El DNI debe tener exactamente 8 dígitos', 'err'); return;
+  }
+  ncMsg('Guardando...', 'warn');
+  document.getElementById('nc_guardar').disabled = true;
+  var n = new Date();
+  var fe = n.getDate()+'/'+(n.getMonth()+1)+'/'+n.getFullYear()+' '+n.getHours()+':'+String(n.getMinutes()).padStart(2,'0');
+  var url = SCRIPT_URL+'?action=save'+
+    '&nombre='+encodeURIComponent(nombre)+
+    '&telefono='+encodeURIComponent(tel)+
+    '&dni='+encodeURIComponent(dni)+
+    '&servicio='+encodeURIComponent(serv)+
+    '&fecha_pref='+encodeURIComponent(fecha)+
+    '&hora_pref='+encodeURIComponent(hora)+
+    '&comentario='+encodeURIComponent(coment)+
+    '&consentimiento=Manual+admin'+
+    '&fecha_envio='+encodeURIComponent(fe)+
+    '&t='+Date.now();
+  fetch(url,{redirect:'follow'})
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(d.success){
+        ncMsg('\u2713 Cita guardada para '+nombre+' el '+formatFecha(fecha)+' a las '+fmt12(hora), 'ok');
+        // Add to local citas array
+        citas.push({nombre:nombre,telefono:tel,dni:dni,servicio:serv,
+          fecha:fecha,hora:hora,comentario:coment,estado:'Confirmada',pago:'Pendiente',numero:citas.length+1});
+        renderDash(); filtrarCitas();
+        if(document.getElementById('panel-agenda').classList.contains('active')) renderCal();
+        toast('Cita de '+nombre+' guardada \u2713','ok');
+      } else {
+        ncMsg('Error: '+(d.error||'No se pudo guardar'), 'err');
+      }
+    })
+    .catch(function(e){ ncMsg('Sin conexión al servidor: '+e,'err'); })
+    .finally(function(){ document.getElementById('nc_guardar').disabled=false; });
+}
+
+function formatFecha(iso){ var p=iso.split('-'); return p[2]+'/'+p[1]+'/'+p[0]; }
+
+function buscarParaEditarTrat(){
+  var q = document.getElementById('nc_busEdit').value.toLowerCase().trim();
+  var el = document.getElementById('nc_editList');
+  if(!q){ el.innerHTML=''; return; }
+  var res = citas.filter(function(c){
+    return c.nombre.toLowerCase().indexOf(q)!==-1||(c.dni||'').indexOf(q)!==-1;
+  }).slice(0,10);
+  if(!res.length){ el.innerHTML='<div class="empty"><div class="empty-txt">Sin resultados</div></div>'; return; }
+  el.innerHTML='<div style="display:flex;flex-direction:column;gap:.5rem">'+res.map(function(c){
+    var fp=(c.fecha||'').split('-'),fd=fp.length===3?fp[2]+'/'+fp[1]+'/'+fp[0]:c.fecha;
+    return '<div style="display:flex;align-items:center;gap:.8rem;padding:.7rem .9rem;background:var(--cream);border:1px solid var(--border);border-radius:var(--r-sm);flex-wrap:wrap">'+
+      '<div style="flex:1;min-width:140px"><div style="font-weight:700;font-size:.84rem">'+esc(c.nombre)+'</div>'+
+      '<div style="font-size:.75rem;color:var(--muted)">'+fd+' '+fmt12(c.hora)+'</div></div>'+
+      '<select onchange="cambiarTratamiento(''+esc(c.numero||'')+'',this.value)" style="padding:.45rem .7rem;border:1.5px solid var(--border);border-radius:var(--r-sm);font-size:.8rem;color:var(--ink);background:white;cursor:pointer">'+
+        '<option value="">Servicio actual: '+esc(c.servicio)+'</option>'+
+        ['Limpieza y Prevencion','Blanqueamiento','Ortodoncia y Brackets','Endodoncia',
+         'Rehabilitacion Oral y Protesis','Estetica Dental','Consulta general']
+        .map(function(s){ return '<option value="'+s+'"'+(s===c.servicio?' selected':'')+'>'+s+'</option>'; }).join('')+
+      '</select>'+
+    '</div>';
+  }).join('')+'</div>';
+}
+
+function cambiarTratamiento(num, nuevoServ){
+  if(!nuevoServ) return;
+  citas.forEach(function(c){ if(String(c.numero)===String(num)) c.servicio=nuevoServ; });
+  try{ localStorage.setItem('tb_citas_cache',JSON.stringify(citas)); }catch(e){}
+  filtrarCitas(); renderDash();
+  if(document.getElementById('panel-agenda').classList.contains('active')) renderCal();
+  toast('Tratamiento actualizado \u2713','ok');
+  // Sync to Sheets
+  var url = SCRIPT_URL+'?action=updateCita&numero='+encodeURIComponent(num||'')+
+    '&servicio='+encodeURIComponent(nuevoServ)+'&t='+Date.now();
+  fetch(url,{redirect:'follow'})
+    .then(function(r){ return r.json(); })
+    .catch(function(){});
+}
+
+// ─── REPROGRAMAR ─────────────────────────────────────────────
+var repIdx = null;
+document.addEventListener('DOMContentLoaded', function(){
+  // Set min date for reschedule
+  document.getElementById('repFecha').min = new Date().toISOString().split('T')[0];
+
+  // Buscar paciente para reprogramar
+  document.getElementById('btnBusRep').addEventListener('click', buscarRep);
+  document.getElementById('qRep').addEventListener('keydown', function(e){ if(e.key==='Enter') buscarRep(); });
+
+  // Reprogramar modal buttons
+  document.getElementById('repCancelBtn').addEventListener('click', function(){ document.getElementById('repModal').style.display='none'; repIdx=null; });
+  document.getElementById('repModal').addEventListener('click', function(e){ if(e.target===this){ this.style.display='none'; repIdx=null; } });
+  document.getElementById('repSaveBtn').addEventListener('click', guardarReprogramar);
+});
+
+function buscarRep(){
+  var q = document.getElementById('qRep').value.toLowerCase().trim();
+  var el = document.getElementById('repList');
+  if(!q){ el.innerHTML='<div class="empty"><div class="empty-icon">📅</div><div class="empty-txt">Escribe un nombre o DNI</div></div>'; return; }
+  var res = citas.filter(function(c){ return c.nombre.toLowerCase().indexOf(q)!==-1||(c.dni||'').indexOf(q)!==-1; });
+  // Remove duplicates by nombre+fecha+hora
+  if(!res.length){ el.innerHTML='<div class="empty"><div class="empty-icon">🔍</div><div class="empty-txt">No se encontraron citas para "'+esc(q)+'"</div></div>'; return; }
+  var sorted = res.slice().sort(function(a,b){ return (b.fecha+' '+b.hora)<(a.fecha+' '+a.hora)?-1:1; });
+  el.innerHTML = '<div class="card"><div class="tbl-wrap"><table>'+
+    '<thead><tr><th>Paciente</th><th>DNI</th><th>Servicio</th><th>Fecha actual</th><th>Hora</th><th>Estado</th><th></th></tr></thead>'+
+    '<tbody>'+sorted.map(function(c){
+      var fp=(c.fecha||'').split('-'),fd=fp.length===3?fp[2]+'/'+fp[1]+'/'+fp[0]:c.fecha;
+      var ec='pill pill-'+(c.estado||'').replace(/ /g,'');
+      return '<tr>'+
+        '<td><div class="td-b">'+esc(c.nombre)+'</div></td>'+
+        '<td class="td-m">'+esc(c.dni||'—')+'</td>'+
+        '<td><span class="pill" style="background:#e8f0fb;color:#0f3a8a;font-size:.67rem">'+esc(c.servicio)+'</span></td>'+
+        '<td class="td-m">'+fd+'</td>'+
+        '<td class="td-m">'+fmt12(c.hora)+'</td>'+
+        '<td><span class="'+ec+'">'+esc(c.estado)+'</span></td>'+
+        '<td><button class="btn btn-sm" style="background:#e0f4ff;color:#0f3a8a" onclick="abrirRepModal(''+esc(c.numero||'')+'')">Reprogramar</button></td>'+
+      '</tr>';
+    }).join('')+'</tbody></table></div></div>';
+}
+
+function abrirRepModal(num){
+  var idx = citas.findIndex(function(c){ return String(c.numero)===String(num); });
+  if(idx<0){ toast('Cita no encontrada','err'); return; }
+  repIdx = idx;
+  var c = citas[idx];
+  var fp=(c.fecha||'').split('-'), fd=fp.length===3?fp[2]+'/'+fp[1]+'/'+fp[0]:c.fecha;
+  document.getElementById('repModalInfo').innerHTML =
+    '<strong>'+esc(c.nombre)+'</strong> · '+esc(c.servicio)+'<br>'+
+    'Fecha actual: <strong>'+fd+' '+fmt12(c.hora)+'</strong>';
+  document.getElementById('repFecha').value = c.fecha||'';
+  document.getElementById('repHora').value  = c.hora||'09:00';
+  document.getElementById('repModal').style.display='flex';
+}
+
+function guardarReprogramar(){
+  if(repIdx===null) return;
+  var newFecha = document.getElementById('repFecha').value;
+  var newHora  = document.getElementById('repHora').value;
+  if(!newFecha||!newHora){ toast('Selecciona fecha y hora','err'); return; }
+  var cita = citas[repIdx];
+  var oldFecha = cita.fecha, oldHora = cita.hora;
+  cita.fecha = newFecha; cita.hora = newHora;
+  // Save locally
+  try{ localStorage.setItem('tb_citas_cache',JSON.stringify(citas)); }catch(e){}
+  document.getElementById('repModal').style.display='none'; repIdx=null;
+  filtrarCitas(); renderDash();
+  if(document.getElementById('panel-agenda').classList.contains('active')) renderCal();
+  toast('Cita reprogramada \u2713','ok');
+  // Sync to Sheets
+  var url = SCRIPT_URL+'?action=reprogramar&numero='+encodeURIComponent(cita.numero||'')+
+    '&fecha='+encodeURIComponent(newFecha)+'&hora='+encodeURIComponent(newHora)+'&t='+Date.now();
+  fetch(url,{redirect:'follow'})
+    .then(function(r){ return r.json(); })
+    .then(function(d){ if(d.success) toast('Sincronizado con Sheets \u2713','ok'); else toast('Local OK · Sheets: '+(d.error||'?'),'warn'); })
+    .catch(function(){ toast('Guardado local \u2713 (sin conexi\xF3n)','warn'); });
+}
+
+// ─── NUEVA CITA MANUAL ────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function(){
+  // Min date
+  var ncFecha = document.getElementById('nc_fecha');
+  if(ncFecha) ncFecha.value = isoHoy();
+
+  // Tratamiento custom
+  var ncServ = document.getElementById('nc_serv');
+  var ncCustom = document.getElementById('nc_serv_custom');
+  if(ncServ) ncServ.addEventListener('change', function(){
+    ncCustom.style.display = this.value==='__custom__' ? 'block' : 'none';
+    if(this.value==='__custom__') ncCustom.focus();
+  });
+
+  // Guardar
+  var ncBtn = document.getElementById('ncGuardar');
+  if(ncBtn) ncBtn.addEventListener('click', guardarNuevaCita);
+
+  // Limpiar
+  var ncLim = document.getElementById('ncLimpiar');
+  if(ncLim) ncLim.addEventListener('click', function(){
+    ['nc_nombre','nc_tel','nc_dni','nc_obs','nc_monto','nc_serv_custom'].forEach(function(id){
+      var el=document.getElementById(id); if(el) el.value='';
+    });
+    document.getElementById('nc_serv').value='';
+    document.getElementById('nc_hora').value='';
+    document.getElementById('nc_estado').value='Confirmada';
+    document.getElementById('nc_pago').value='Pendiente';
+    document.getElementById('nc_fecha').value=isoHoy();
+    document.getElementById('nc_serv_custom').style.display='none';
+    ncMsg('','');
+  });
+});
+
+function ncMsg(msg, tipo){
+  var el=document.getElementById('ncMsg');
+  if(!msg){ el.style.display='none'; return; }
+  el.textContent=msg;
+  el.style.display='inline';
+  el.style.color = tipo==='ok' ? 'var(--green)' : tipo==='err' ? 'var(--red)' : 'var(--muted)';
+}
+
+function guardarNuevaCita(){
+  var nombre  = document.getElementById('nc_nombre').value.trim();
+  var tel     = document.getElementById('nc_tel').value.trim();
+  var dni     = document.getElementById('nc_dni').value.trim();
+  var servEl  = document.getElementById('nc_serv').value;
+  var serv    = servEl==='__custom__' ? document.getElementById('nc_serv_custom').value.trim() : servEl;
+  var fecha   = document.getElementById('nc_fecha').value;
+  var hora    = document.getElementById('nc_hora').value;
+  var estado  = document.getElementById('nc_estado').value;
+  var pago    = document.getElementById('nc_pago').value;
+  var monto   = document.getElementById('nc_monto').value.trim();
+  var obs     = document.getElementById('nc_obs').value.trim();
+
+  if(!nombre||!tel||!serv||!fecha||!hora){
+    ncMsg('Completa los campos obligatorios (*)','err');
+    return;
+  }
+
+  document.getElementById('ncSaving').style.display='inline';
+  document.getElementById('ncGuardar').disabled=true;
+  ncMsg('Guardando...','');
+
+  var now = new Date();
+  var fe  = now.getDate()+'/'+(now.getMonth()+1)+'/'+now.getFullYear()+' '+now.getHours()+':'+String(now.getMinutes()).padStart(2,'0');
+
+  var params = new URLSearchParams({
+    action:'save', nombre:nombre, telefono:tel, dni:dni,
+    servicio:serv, fecha_pref:fecha, hora_pref:hora,
+    comentario:(monto?'S/. '+monto+' — ':'')+obs,
+    fecha_envio:fe, consentimiento:'Admin-Manual', t:Date.now()
+  });
+
+  fetch(SCRIPT_URL+'?'+params.toString(),{redirect:'follow'})
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(d.success||d.ok||!d.error){
+        // Agregar localmente tambi\xE9n
+        var newCita = {
+          numero: citas.length+1, nombre:nombre, telefono:tel, dni:dni,
+          servicio:serv, fecha:fecha, hora:hora, estado:estado,
+          pago:pago, comentario:obs
+        };
+        citas.unshift(newCita);
+        // Update estado/pago if different from default
+        if(estado!=='Confirmada'||pago!=='Pendiente'){
+          var url2=SCRIPT_URL+'?action=updateCita&numero='+encodeURIComponent(newCita.numero)+
+            '&estado='+encodeURIComponent(estado)+'&pago='+encodeURIComponent(pago)+'&t='+Date.now();
+          fetch(url2,{redirect:'follow'}).catch(function(){});
+        }
+        ncMsg('¡Cita guardada con \xE9xito! \u2713','ok');
+        renderDash(); filtrarCitas(); renderNcRecientes();
+        if(document.getElementById('panel-agenda').classList.contains('active')) renderCal();
+        toast('Cita de '+nombre+' guardada \u2713','ok');
+        // Reset form
+        ['nc_nombre','nc_tel','nc_dni','nc_obs','nc_monto','nc_serv_custom'].forEach(function(id){
+          var el=document.getElementById(id); if(el) el.value='';
+        });
+        document.getElementById('nc_serv').value='';
+        document.getElementById('nc_hora').value='';
+        document.getElementById('nc_fecha').value=isoHoy();
+      } else {
+        ncMsg('Error: '+(d.error||'No se pudo guardar'),'err');
+        toast('Error al guardar','err');
+      }
+    })
+    .catch(function(err){
+      ncMsg('Sin conexi\xF3n — cita no guardada en Sheets','err');
+      toast('Sin conexi\xF3n','err');
+    })
+    .finally(function(){
+      document.getElementById('ncSaving').style.display='none';
+      document.getElementById('ncGuardar').disabled=false;
+    });
+}
+
+function renderNcRecientes(){
+  var tb = document.getElementById('ncRecientes');
+  if(!tb) return;
+  var hoy = isoHoy();
+  // Show today + next 7 days
+  var semana = [];
+  for(var i=0;i<7;i++){
+    var d=new Date(); d.setDate(d.getDate()+i);
+    semana.push(d.getFullYear()+'-'+(d.getMonth()+1+'').padStart(2,'0')+'-'+(d.getDate()+'').padStart(2,'0'));
+  }
+  var res = citas.filter(function(c){ return semana.indexOf(c.fecha)!==-1; })
+    .sort(function(a,b){ return (a.fecha+' '+a.hora)<(b.fecha+' '+b.hora)?-1:1; });
+  if(!res.length){ tb.innerHTML='<tr><td colspan="7"><div class="empty"><div class="empty-txt">No hay citas para hoy ni esta semana</div></div></td></tr>'; return; }
+  tb.innerHTML=res.map(function(c){
+    var fp=(c.fecha||'').split('-'),fd=fp.length===3?fp[2]+'/'+fp[1]+'/'+fp[0]:c.fecha;
+    var ec='pill pill-'+(c.estado||'').replace(/ /g,'');
+    var ep=c.pago&&c.pago.indexOf('Pag')!==-1?'pill pill-Pagado':'pill pill-Pendiente';
+    var esHoy=c.fecha===hoy;
+    return '<tr style="'+(esHoy?'background:var(--sage)':'')+'">'  +
+      '<td><div class="td-b">'+esc(c.nombre)+'</div>'+(esHoy?'<div class="td-sub" style="color:var(--teal);font-weight:700">HOY</div>':'')+'</td>'+
+      '<td style="font-size:.78rem">'+esc(c.servicio)+'</td>'+
+      '<td class="td-m">'+fd+'</td>'+
+      '<td class="td-m">'+fmt12(c.hora)+'</td>'+
+      '<td><span class="'+ec+'">'+esc(c.estado||'—')+'</span></td>'+
+      '<td><span class="'+ep+'" style="font-size:.68rem">'+esc(c.pago||'Pendiente')+'</span></td>'+
+      '<td class="td-m" style="font-weight:700">'+(c.comentario&&c.comentario.match(/S\/\. ?[\d]+/)?(c.comentario.match(/S\/\. ?[\d]+/)||[''])[0]:'—')+'</td>'+
+    '</tr>';
+  }).join('');
+}
+
+// Show recent citas when panel opens
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.sbi').forEach(function(item){
+    item.addEventListener('click', function(){
+      if(this.dataset.panel==='nueva-cita') setTimeout(renderNcRecientes, 100);
+    });
+  });
+});
+
+// ─── ESTADÍSTICAS ─────────────────────────────────────────────
+var chartMesObj=null, chartServObj=null, chartPagoObj=null;
+
+function renderEstadisticas(){
+  if(!citas.length){ return; }
+  // Chart.js debe estar cargado
+  if(typeof Chart === 'undefined') return;
+
+  var MESES_SHORT=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+
+  // ── Citas por mes ──
+  var mesCount={};
+  citas.forEach(function(c){
+    if(!c.fecha) return;
+    var k=c.fecha.substring(0,7);
+    mesCount[k]=(mesCount[k]||0)+1;
+  });
+  var meses=Object.keys(mesCount).sort().slice(-8);
+  var mesLabels=meses.map(function(k){ var p=k.split('-'); return MESES_SHORT[parseInt(p[1],10)-1]+' '+p[0].slice(2); });
+  var mesData=meses.map(function(k){ return mesCount[k]; });
+
+  var ctxM=document.getElementById('chartMes');
+  if(chartMesObj) chartMesObj.destroy();
+  chartMesObj=new Chart(ctxM,{
+    type:'bar',
+    data:{ labels:mesLabels, datasets:[{ label:'Citas', data:mesData,
+      backgroundColor:'rgba(26,86,196,.75)', borderColor:'#1a56c4', borderWidth:1.5, borderRadius:6 }]},
+    options:{ responsive:true, plugins:{legend:{display:false}},
+      scales:{ y:{ beginAtZero:true, ticks:{stepSize:1}, grid:{color:'rgba(197,216,245,.4)'}},
+               x:{ grid:{display:false}} }}
+  });
+
+  // ── Servicios ──
+  var servCount={};
+  citas.forEach(function(c){ if(c.servicio) servCount[c.servicio]=(servCount[c.servicio]||0)+1; });
+  var servKeys=Object.keys(servCount).sort(function(a,b){return servCount[b]-servCount[a];}).slice(0,6);
+  var servLabels=servKeys.map(function(k){ return k.length>18?k.substring(0,16)+'…':k; });
+  var servData=servKeys.map(function(k){ return servCount[k]; });
+  var servColors=['#1a56c4','#0f3a8a','#bdd4f5','#5b7aaa','#c5d8f5','#e8f0fb'];
+
+  var ctxS=document.getElementById('chartServ');
+  if(chartServObj) chartServObj.destroy();
+  chartServObj=new Chart(ctxS,{
+    type:'bar',
+    data:{ labels:servLabels, datasets:[{ label:'Citas', data:servData,
+      backgroundColor:servColors, borderRadius:6 }]},
+    options:{ indexAxis:'y', responsive:true, plugins:{legend:{display:false}},
+      scales:{ x:{beginAtZero:true,ticks:{stepSize:1},grid:{color:'rgba(197,216,245,.4)'}},
+               y:{grid:{display:false}} }}
+  });
+
+  // ── Pagos ──
+  var pagado=citas.filter(function(c){ return (c.pago||'').indexOf('Pag')!==-1; }).length;
+  var pendiente=citas.filter(function(c){ return (c.pago||'').indexOf('Pendiente')!==-1; }).length;
+  var ctxP=document.getElementById('chartPago');
+  if(chartPagoObj) chartPagoObj.destroy();
+  chartPagoObj=new Chart(ctxP,{
+    type:'doughnut',
+    data:{ labels:['Pagado','Pendiente'],
+      datasets:[{ data:[pagado,pendiente],
+        backgroundColor:['#16a34a','#d97706'], borderWidth:0, hoverOffset:4 }]},
+    options:{ responsive:false, cutout:'65%', plugins:{ legend:{display:false} }}
+  });
+  var tot=pagado+pendiente||1;
+  document.getElementById('pagoLeyenda').innerHTML=
+    '<div style="display:flex;flex-direction:column;gap:.7rem">'+
+    '<div style="display:flex;align-items:center;gap:.6rem"><div style="width:12px;height:12px;border-radius:50%;background:#16a34a;flex-shrink:0"></div><div><div style="font-weight:700;font-size:.9rem">'+pagado+'</div><div style="font-size:.72rem;color:var(--muted)">Pagadas ('+Math.round(pagado/tot*100)+'%)</div></div></div>'+
+    '<div style="display:flex;align-items:center;gap:.6rem"><div style="width:12px;height:12px;border-radius:50%;background:#d97706;flex-shrink:0"></div><div><div style="font-weight:700;font-size:.9rem">'+pendiente+'</div><div style="font-size:.72rem;color:var(--muted)">Pendientes ('+Math.round(pendiente/tot*100)+'%)</div></div></div>'+
+    '</div>';
+}
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 </body>
 </html>
