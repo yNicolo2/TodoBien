@@ -156,6 +156,22 @@ section{padding:5rem 1.5rem}
 .contact-list a{display:flex;align-items:center;gap:.85rem;text-decoration:none;color:var(--ink);font-size:.9rem;transition:color .2s;font-weight:500}
 .contact-list a:hover{color:var(--teal)}
 .contact-icon{width:42px;height:42px;background:var(--sage);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.support-note {
+  margin-top: 1rem;
+  padding: 0.7rem 0.9rem;
+  background: rgba(26,86,196,.05);
+  border-left: 3px solid var(--teal);
+  border-radius: 12px;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.support-note strong {
+  color: var(--teal);
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 0.2rem;
+}
 .cita-form{background:var(--cream);border:1px solid var(--border);border-radius:22px;padding:2.2rem;position:relative}
 .cita-form::before{content:'';position:absolute;top:-1px;left:20%;right:20%;height:2px;background:linear-gradient(90deg,transparent,var(--teal),transparent)}
 .form-title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;margin-bottom:1.4rem}
@@ -285,11 +301,12 @@ section{padding:5rem 1.5rem}
 .modal-btn-confirm{background:var(--teal);border:none;border-radius:100px;padding:.8rem;font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;color:white;transition:background .2s}
 .modal-btn-confirm:hover{background:var(--teal2)}
 
-/* LOADER */
+/* LOADER (mejorado con spinner) */
 #pageLoader{position:fixed;inset:0;z-index:999999;background:var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s ease,visibility .5s ease}
 #pageLoader.hidden{opacity:0;visibility:hidden;pointer-events:none}
-.loader-logo{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--teal);margin-bottom:1.2rem}
+.loader-logo{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--teal);margin-bottom:1rem}
 .loader-logo em{font-style:normal;color:var(--ink)}
+.loader-spinner{width:44px;height:44px;border:3px solid var(--border);border-top-color:var(--teal);border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:1rem}
 .loader-bar-wrap{width:180px;height:3px;background:var(--border);border-radius:100px;overflow:hidden}
 .loader-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--teal),var(--mint));border-radius:100px;animation:loaderFill 1.2s cubic-bezier(.4,0,.2,1) forwards}
 @keyframes loaderFill{0%{width:0%}60%{width:75%}100%{width:100%}}
@@ -466,6 +483,7 @@ footer strong{color:rgba(255,255,255,.85)}
 <div id="scrollBar"></div>
 <div id="pageLoader">
   <div class="loader-logo">Todo <em>Bien</em></div>
+  <div class="loader-spinner"></div>
   <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
 </div>
 <nav id="navbar">
@@ -560,11 +578,19 @@ footer strong{color:rgba(255,255,255,.85)}
         </div>
         <p>Elige tu fecha y hora, verifica disponibilidad al instante y confirma tu cita en segundos.</p>
         <div class="contact-list">
-          <a href="tel:+51999000000"><div class="contact-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>+51 999 000 000</a>
+          <a href="tel:+51907145218"><div class="contact-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>+51 907 145 218</a>
           <a href="https://wa.me/51907145218" target="_blank" rel="noopener"><div class="contact-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>WhatsApp disponible</a>
           
           <a href="#"><div class="contact-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>Lima, Peru</a>
         </div>
+
+        <!-- NUEVO: RECUADRO DE HORARIOS DE SOPORTE WHATSAPP -->
+        <div class="support-note">
+        <strong><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-right:4px;"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> Soporte por WhatsApp</strong><br>
+        Lunes a Viernes: 5:30 p.m. – 8:30 p.m.<br>
+        Sábados y Domingos: 12:00 p.m. – 9:00 p.m.
+        </div>
+
         <div class="cancel-banner">
           <div class="cancel-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg></div>
           <div class="cancel-text"><strong>Politica de cancelacion:</strong> Si no puedes asistir, avisanos con al menos <strong>24 horas de anticipacion</strong> por WhatsApp. Asi podemos darle tu horario a otro paciente. Gracias por tu consideracion.</div>
@@ -581,7 +607,7 @@ footer strong{color:rgba(255,255,255,.85)}
             </div>
             <div class="fld">
               <label>Telefono <span class="req">*</span></label>
-              <input type="tel" id="f_telefono" placeholder="+51 999 000 000" autocomplete="tel"/>
+              <input type="tel" id="f_telefono" placeholder="+51 907 145 218" autocomplete="tel"/>
               <span class="field-err" id="err_telefono">Ingresa tu numero de telefono</span>
             </div>
           </div>
@@ -836,8 +862,8 @@ footer strong{color:rgba(255,255,255,.85)}
   </div>
 </section>
 
-<!-- BOTON FLOTANTE WHATSAPP -->
-<a href="https://wa.me/51999000000?text=Hola%2C%20quisiera%20agendar%20una%20cita" target="_blank" rel="noopener" id="waBubble"
+<!-- BOTON FLOTANTE WHATSAPP (número actualizado) -->
+<a href="https://wa.me/51907145218?text=Hola%2C%20quisiera%20agendar%20una%20cita" target="_blank" rel="noopener" id="waBubble"
   style="position:fixed;bottom:24px;right:24px;z-index:9999;width:58px;height:58px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.5);text-decoration:none;transition:transform .2s,box-shadow .2s"
   onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 6px 28px rgba(37,211,102,.65)'"
   onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 20px rgba(37,211,102,.5)'"
@@ -1673,12 +1699,18 @@ window.addEventListener('scroll',startCounters,{passive:true});
 setTimeout(startCounters,500);
 
 
-// LOADER — ocultar cuando carga la pagina
+// LOADER — ocultar cuando carga la pagina (mejorado: evento load + timeout)
 window.addEventListener('load', function(){
   setTimeout(function(){
     document.getElementById('pageLoader').classList.add('hidden');
-  }, 1300);
+  }, 500); // pequeño retardo para que se vea la animación completa
 });
+// fallback por si load ya ocurrió antes
+if (document.readyState === 'complete') {
+  setTimeout(function(){
+    document.getElementById('pageLoader').classList.add('hidden');
+  }, 500);
+}
 
 // SCROLL REVEAL
 var revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
