@@ -401,11 +401,16 @@ section{padding:5rem 1.5rem}
 #scrollBar{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,var(--teal),var(--mint),var(--teal));z-index:99999;transition:width .05s linear;box-shadow:0 0 8px rgba(26,86,196,.4)}
 
 /* CONFETI */
-.confeti-piece{position:fixed;width:10px;height:10px;top:-10px;border-radius:2px;opacity:0;pointer-events:none;z-index:999999;animation:confetiFall linear forwards}
+.confeti-piece{position:fixed;width:10px;height:10px;top:-10px;border-radius:2px;opacity:0;pointer-events:none;z-index:999999;animation:confetiFall cubic-bezier(.25,.46,.45,.94) forwards,confetiBounce ease-out forwards}
 @keyframes confetiFall{
   0%  {opacity:1;transform:translateY(0) rotate(0deg) scale(1)}
-  80% {opacity:1}
-  100%{opacity:0;transform:translateY(100vh) rotate(720deg) scale(.5)}
+  85% {opacity:1}
+  100%{opacity:0;transform:translateY(110vh) rotate(1080deg) scale(0)}
+}
+@keyframes confetiBounce{
+  0%   {filter:brightness(1) drop-shadow(0 0 0px rgba(26,86,196,.8))}
+  40%  {filter:brightness(1.1) drop-shadow(0 0 8px rgba(26,86,196,.6))}
+  100% {filter:brightness(1) drop-shadow(0 0 0px rgba(26,86,196,0))}
 }
 
 /* ANIMACION LOGO */
@@ -691,13 +696,13 @@ footer strong{color:rgba(255,255,255,.85)}
             <input type="text" id="f_dni" placeholder="12345678" maxlength="8" autocomplete="off"/>
             <span class="field-err" id="err_dni">El DNI debe tener 8 digitos numericos</span>
             <div id="dniInfo" style="display:none;margin-top:.5rem;background:#f0f6ff;border:1px solid #bdd4f5;border-radius:10px;padding:.8rem 1rem;font-size:.8rem;color:#0d1f3c;line-height:1.7">
-              <strong>Â¿Por quÃ© pedimos tu DNI?</strong><br/>
-              Tu DNI nos permite identificarte de forma segura, evitar duplicados y llevar tu historia clÃ­nica actualizada. Es como en cualquier clÃ­nica â€” es para tu beneficio.<br/>
+              <strong>¿Por qué pedimos tu DNI?</strong><br/>
+              Tu DNI nos permite identificarte de forma segura, evitar duplicados y llevar tu historia clínica actualizada. Es como en cualquier clínica — es para tu beneficio.<br/>
               <span style="color:#5b7aaa;font-size:.75rem">Tus datos son confidenciales y nunca se comparten con terceros.</span>
             </div>
             <button type="button" onclick="var d=document.getElementById('dniInfo');d.style.display=d.style.display==='none'?'block':'none'" style="margin-top:.4rem;background:none;border:none;color:var(--teal);font-size:.75rem;font-weight:600;cursor:pointer;padding:0;display:flex;align-items:center;gap:.3rem;font-family:'Outfit',sans-serif">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-              Â¿Por quÃ© necesitan mi DNI?
+              ¿Por qué necesitan mi DNI?
             </button>
           </div>
           <div class="fld">
@@ -1285,19 +1290,20 @@ function closeLB(){
 }
 // CONFETI
 function lanzarConfeti() {
-  var colores = ['#1a56c4','#bdd4f5','#f59e0b','#10b981','#f43f5e','#a855f7','#0d1f3c'];
+  var colores = ['#1a56c4','#bdd4f5','#f59e0b','#10b981','#f43f5e','#a855f7','#0d1f3c','#06b6d4','#ec4899'];
   var formas  = [2, 4, 50]; // border-radius: cuadrado, rombo, circulo
-  for (var i = 0; i < 120; i++) {
+  for (var i = 0; i < 180; i++) {
     (function(i) {
       setTimeout(function() {
         var p = document.createElement('div');
         p.className = 'confeti-piece';
         var color  = colores[Math.floor(Math.random() * colores.length)];
         var forma  = formas[Math.floor(Math.random() * formas.length)];
-        var size   = 6 + Math.random() * 10;
+        var size   = 5 + Math.random() * 12;
         var left   = Math.random() * 100;
-        var dur    = 2 + Math.random() * 2;
-        var delay  = Math.random() * 0.5;
+        var dur    = 3 + Math.random() * 2.5;
+        var delay  = Math.random() * 0.8;
+        var swingX = (Math.random() - 0.5) * 200;
         p.style.cssText = [
           'left:' + left + 'vw',
           'width:' + size + 'px',
@@ -1306,6 +1312,7 @@ function lanzarConfeti() {
           'border-radius:' + forma + 'px',
           'animation-duration:' + dur + 's',
           'animation-delay:' + delay + 's',
+          '--swing:' + swingX + 'px',
         ].join(';');
         document.body.appendChild(p);
         setTimeout(function(){ p.remove(); }, (dur + delay + 0.5) * 1000);
