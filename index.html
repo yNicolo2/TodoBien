@@ -15,7 +15,7 @@
 
 <!-- Open Graph (para compartir en redes) -->
 <meta property="og:type" content="business.business"/>
-<meta property="og:title" content="Consultorio Dental Todo Bien — San Juan de Lurigancho"/>
+<meta property="og:title" content="Consultorio Dental Todo Bien â€” San Juan de Lurigancho"/>
 <meta property="og:description" content="Cuidamos tu salud dental con tecnologia moderna y trato calido. Limpieza, blanqueamiento, ortodoncia, endodoncia y mas. Agenda tu cita online."/>
 <meta property="og:url" content="https://ynicolo2.github.io/TodoBien/"/>
 <meta property="og:image" content="https://ynicolo2.github.io/TodoBien/logo.png"/>
@@ -26,7 +26,7 @@
 <meta name="twitter:title" content="Consultorio Dental Todo Bien"/>
 <meta name="twitter:description" content="Tu dentista de confianza en San Juan de Lurigancho. Agenda tu cita online."/>
 
-<!-- Schema.org — le dice a Google exactamente que eres una clinica dental -->
+<!-- Schema.org â€” le dice a Google exactamente que eres una clinica dental -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -157,20 +157,87 @@ section{padding:5rem 1.5rem}
 .contact-list a:hover{color:var(--teal)}
 .contact-icon{width:42px;height:42px;background:var(--sage);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .support-note {
-  margin-top: 1rem;
-  padding: 0.7rem 0.9rem;
-  background: rgba(26,86,196,.05);
-  border-left: 3px solid var(--teal);
-  border-radius: 12px;
-  font-size: 0.75rem;
-  line-height: 1.5;
-  color: var(--muted);
+  margin-top: 1.5rem;
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(26,86,196,.08);
+  transition: transform .2s, box-shadow .2s, border-color .2s, max-height .3s ease;
+  overflow: hidden;
 }
-.support-note strong {
-  color: var(--teal);
+.support-note:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(26,86,196,.12);
+  border-color: #0d1f3c;
+}
+.support-header {
+  padding: 1rem 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+.support-header:hover {
+  background: rgba(26,86,196,.02);
+}
+.support-title {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex: 1;
+}
+.support-title strong {
+  color: var(--ink);
   font-weight: 700;
-  display: inline-block;
-  margin-bottom: 0.2rem;
+  font-size: 0.95rem;
+}
+.support-title svg {
+  color: #0d1f3c;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+}
+.support-toggle {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: var(--sage);
+  transition: background .2s, transform .3s;
+  flex-shrink: 0;
+  font-size: 1rem;
+  color: #0d1f3c;
+}
+.support-note.open .support-toggle {
+  transform: rotate(180deg);
+  background: var(--teal);
+  color: white;
+}
+.support-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .3s ease;
+  padding: 0 1.4rem;
+}
+.support-note.open .support-content {
+  max-height: 200px;
+  padding: 0 1.4rem 1.2rem 1.4rem;
+}
+.support-content div {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+}
+.support-content div span {
+  color: var(--teal);
+  font-weight: 600;
+}
+.support-content div:last-child {
+  margin-bottom: 0;
 }
 .cita-form{background:var(--cream);border:1px solid var(--border);border-radius:22px;padding:2.2rem;position:relative}
 .cita-form::before{content:'';position:absolute;top:-1px;left:20%;right:20%;height:2px;background:linear-gradient(90deg,transparent,var(--teal),transparent)}
@@ -390,7 +457,7 @@ section{padding:5rem 1.5rem}
 .antdes-side img{width:100%;height:200px;object-fit:cover;display:block;background:var(--sage)}
 .antdes-label{position:absolute;bottom:8px;left:8px;background:rgba(13,31,60,.7);color:white;font-size:.68rem;font-weight:700;padding:.25rem .6rem;border-radius:100px;letter-spacing:.5px}
 .antdes-divider{position:absolute;left:50%;top:0;bottom:0;width:3px;background:white;z-index:2;transform:translateX(-50%)}
-.antdes-divider::before{content:'↔';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:white;color:var(--teal);font-size:.9rem;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.antdes-divider::before{content:'â†”';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:white;color:var(--teal);font-size:.9rem;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.2)}
 .antdes-info{padding:1rem 1.2rem}
 .antdes-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;margin-bottom:.3rem}
 .antdes-desc{font-size:.8rem;color:var(--muted);line-height:1.6}
@@ -537,12 +604,12 @@ footer strong{color:rgba(255,255,255,.85)}
       </div>
       <!-- OFERTA DEL MES dentro del hero card -->
       <div style="margin-top:1rem;background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:12px;padding:.75rem 1rem;display:flex;align-items:center;gap:.7rem;box-shadow:0 3px 12px rgba(245,158,11,.3)">
-        <div style="font-size:1.2rem;flex-shrink:0">🦷</div>
+        <div style="font-size:1.2rem;flex-shrink:0"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M19 5c-1.5 0-2.35.46-3.1.84-.65.33-1.2.63-2.15.63-.96 0-1.51-.3-2.16-.63C10.85 5.46 10 5 8.5 5 5.42 5 3 7.42 3 10.5c0 3.78 2.5 10.5 4.5 10.5.74 0 1.14-.23 1.62-.51.52-.3 1.12-.65 2.38-.65s1.86.35 2.38.65c.48.28.88.51 1.62.51 2 0 4.5-6.72 4.5-10.5C20 7.42 17.58 5 19 5z"/></svg></div>
         <div style="flex:1;min-width:0">
           <div style="font-size:.62rem;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.8)">Oferta del mes</div>
-          <div style="font-size:.88rem;font-weight:700;color:white">Limpieza + Fluorización &mdash; <span style="font-size:1rem">S/. 90</span></div>
+          <div style="font-size:.88rem;font-weight:700;color:white">Limpieza + FluorizaciÃ³n &mdash; <span style="font-size:1rem">S/. 90</span></div>
         </div>
-        <a href="#cita" style="background:white;color:#d97706;font-size:.75rem;font-weight:800;padding:.38rem .8rem;border-radius:100px;text-decoration:none;white-space:nowrap;flex-shrink:0">Agendar →</a>
+        <a href="#cita" style="background:white;color:#d97706;font-size:.75rem;font-weight:800;padding:.38rem .8rem;border-radius:100px;text-decoration:none;white-space:nowrap;flex-shrink:0">Agendar â†’</a>
       </div>
     </div>
   </div>
@@ -585,10 +652,18 @@ footer strong{color:rgba(255,255,255,.85)}
         </div>
 
         <!-- NUEVO: RECUADRO DE HORARIOS DE SOPORTE WHATSAPP -->
-        <div class="support-note">
-        <strong><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-right:4px;"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> Soporte por WhatsApp</strong><br>
-        Lunes a Viernes: 5:30 p.m. – 8:30 p.m.<br>
-        Sábados y Domingos: 12:00 p.m. – 9:00 p.m.
+                <div class="support-note" id="supportCard">
+          <div class="support-header" onclick="document.getElementById('supportCard').classList.toggle('open')">
+            <div class="support-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="#0d1f3c"><path d="M12 1C6.48 1 2 5.48 2 11v7c0 1.1.9 2 2 2h2v-6H4v-3c0-4.42 3.58-8 8-8s8 3.58 8 8v3h-2v6h2c1.1 0 2-.9 2-2v-7c0-5.52-4.48-10-10-10zm-5 9c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zm10 0c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z"/></svg>
+              <strong>Soporte por WhatsApp</strong>
+            </div>
+            <div class="support-toggle">▼</div>
+          </div>
+          <div class="support-content">
+            <div>Lunes a Viernes: <span style="font-weight:600">5:30 p.m. – 8:30 p.m.</span></div>
+            <div>Sábados y Domingos: <span style="font-weight:600">12:00 p.m. – 9:00 p.m.</span></div>
+          </div>
         </div>
 
         <div class="cancel-banner">
@@ -616,13 +691,13 @@ footer strong{color:rgba(255,255,255,.85)}
             <input type="text" id="f_dni" placeholder="12345678" maxlength="8" autocomplete="off"/>
             <span class="field-err" id="err_dni">El DNI debe tener 8 digitos numericos</span>
             <div id="dniInfo" style="display:none;margin-top:.5rem;background:#f0f6ff;border:1px solid #bdd4f5;border-radius:10px;padding:.8rem 1rem;font-size:.8rem;color:#0d1f3c;line-height:1.7">
-              <strong>¿Por qué pedimos tu DNI?</strong><br/>
-              Tu DNI nos permite identificarte de forma segura, evitar duplicados y llevar tu historia clínica actualizada. Es como en cualquier clínica — es para tu beneficio.<br/>
+              <strong>Â¿Por quÃ© pedimos tu DNI?</strong><br/>
+              Tu DNI nos permite identificarte de forma segura, evitar duplicados y llevar tu historia clÃ­nica actualizada. Es como en cualquier clÃ­nica â€” es para tu beneficio.<br/>
               <span style="color:#5b7aaa;font-size:.75rem">Tus datos son confidenciales y nunca se comparten con terceros.</span>
             </div>
             <button type="button" onclick="var d=document.getElementById('dniInfo');d.style.display=d.style.display==='none'?'block':'none'" style="margin-top:.4rem;background:none;border:none;color:var(--teal);font-size:.75rem;font-weight:600;cursor:pointer;padding:0;display:flex;align-items:center;gap:.3rem;font-family:'Outfit',sans-serif">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-              ¿Por qué necesitan mi DNI?
+              Â¿Por quÃ© necesitan mi DNI?
             </button>
           </div>
           <div class="fld">
@@ -749,7 +824,7 @@ footer strong{color:rgba(255,255,255,.85)}
       <div class="porque-card">
         <div class="porque-icon">&#10084;&#65039;</div>
         <h3>Atencion Personalizada</h3>
-        <p>Cada paciente es unico. Te escuchamos, evaluamos y diseñamos el plan de tratamiento ideal para ti.</p>
+        <p>Cada paciente es unico. Te escuchamos, evaluamos y diseÃ±amos el plan de tratamiento ideal para ti.</p>
       </div>
       <div class="porque-card">
         <div class="porque-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg></div>
@@ -764,7 +839,7 @@ footer strong{color:rgba(255,255,255,.85)}
       <div class="porque-card">
         <div class="porque-icon">&#11088;</div>
         <h3>23 Anos de Experiencia</h3>
-        <p>Mas de dos decadas atendiendo familias limeñas con dedicacion, confianza y resultados comprobados.</p>
+        <p>Mas de dos decadas atendiendo familias limeÃ±as con dedicacion, confianza y resultados comprobados.</p>
       </div>
     </div>
   </div>
@@ -862,7 +937,7 @@ footer strong{color:rgba(255,255,255,.85)}
   </div>
 </section>
 
-<!-- BOTON FLOTANTE WHATSAPP (número actualizado) -->
+<!-- BOTON FLOTANTE WHATSAPP (nÃºmero actualizado) -->
 <a href="https://wa.me/51907145218?text=Hola%2C%20quisiera%20agendar%20una%20cita" target="_blank" rel="noopener" id="waBubble"
   style="position:fixed;bottom:24px;right:24px;z-index:9999;width:58px;height:58px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.5);text-decoration:none;transition:transform .2s,box-shadow .2s"
   onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 6px 28px rgba(37,211,102,.65)'"
@@ -895,7 +970,7 @@ footer strong{color:rgba(255,255,255,.85)}
       </div>
       <div class="testi-card">
         <div class="testi-stars"><svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="display:inline"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="display:inline"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="display:inline"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="display:inline"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="display:inline"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
-        <p class="testi-text">Llevo casi un año con mis brackets y el cambio es increible. Lo que mas me gusta es que el doctor responde rapido por WhatsApp cuando tengo dudas. Vale cada sol invertido, no se arrepientan.</p>
+        <p class="testi-text">Llevo casi un aÃ±o con mis brackets y el cambio es increible. Lo que mas me gusta es que el doctor responde rapido por WhatsApp cuando tengo dudas. Vale cada sol invertido, no se arrepientan.</p>
         <div class="testi-author"><div class="testi-avatar">Y</div><div><div class="testi-name">Yesenia M.</div><div class="testi-service">Ortodoncia y Brackets</div></div></div>
       </div>
       <div class="testi-card">
@@ -909,7 +984,7 @@ footer strong{color:rgba(255,255,255,.85)}
         <div class="testi-author"><div class="testi-avatar">D</div><div><div class="testi-name">Dante H.</div><div class="testi-service">Rehabilitacion Oral</div></div></div>
       </div>
       <div class="testi-card" style="border-color:var(--teal);position:relative">
-        <div style="position:absolute;top:-10px;left:1.2rem;background:var(--teal);color:white;font-size:.65rem;font-weight:800;padding:.2rem .7rem;border-radius:100px;letter-spacing:.8px;text-transform:uppercase"><svg width="18" height="18" viewBox="0 0 24 24" fill="#2d7d6f" style="flex-shrink:0"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Reseña real</div>
+        <div style="position:absolute;top:-10px;left:1.2rem;background:var(--teal);color:white;font-size:.65rem;font-weight:800;padding:.2rem .7rem;border-radius:100px;letter-spacing:.8px;text-transform:uppercase"><svg width="18" height="18" viewBox="0 0 24 24" fill="#2d7d6f" style="flex-shrink:0"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> ReseÃ±a real</div>
         <div class="testi-stars"><svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="display:inline"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="display:inline"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="display:inline"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="display:inline"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="display:inline"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
         <p class="testi-text">Usted si tiene paciencia, no como en otros lados que apurado me tienen.</p>
         <div class="testi-author"><div class="testi-avatar" style="background:var(--teal);color:white">P</div><div><div class="testi-name">Paciente verificado</div><div class="testi-service">Consultorio Todo Bien</div></div></div>
@@ -1005,24 +1080,24 @@ footer strong{color:rgba(255,255,255,.85)}
     <div class="antdes-grid reveal" id="antdesGrid">
       <div class="antdes-card" data-cat="blanq">
         <div class="antdes-imgs">
-          <div class="antdes-side"><div class="consult-foto-placeholder" style="height:200px;background:#f0f0f0"><div class="ph-icon">📷</div><div class="ph-text">Foto antes</div></div><span class="antdes-label">ANTES</span></div>
-          <div class="antdes-side"><div class="consult-foto-placeholder" style="height:200px;background:#e8f0fb"><div class="ph-icon">✨</div><div class="ph-text">Foto despues</div></div><span class="antdes-label">DESPUES</span></div>
+          <div class="antdes-side"><div class="consult-foto-placeholder" style="height:200px;background:#f0f0f0"><div class="ph-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="#5b7aaa"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div><div class="ph-text">Foto antes</div></div><span class="antdes-label">ANTES</span></div>
+          <div class="antdes-side"><div class="consult-foto-placeholder" style="height:200px;background:#e8f0fb"><div class="ph-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="#1a56c4"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div><div class="ph-text">Foto despues</div></div><span class="antdes-label">DESPUES</span></div>
           <div class="antdes-divider"></div>
         </div>
         <div class="antdes-info"><div class="antdes-title">Blanqueamiento dental</div><div class="antdes-desc">Paciente con manchas por cafe. 1 sesion de blanqueamiento profesional. Resultado inmediato.</div></div>
       </div>
       <div class="antdes-card" data-cat="ortod">
         <div class="antdes-imgs">
-          <div class="antdes-side"><div class="consult-foto-placeholder" style="height:200px;background:#f0f0f0"><div class="ph-icon">📷</div><div class="ph-text">Foto antes</div></div><span class="antdes-label">ANTES</span></div>
-          <div class="antdes-side"><div class="consult-foto-placeholder" style="height:200px;background:#e8f0fb"><div class="ph-icon">😁</div><div class="ph-text">Foto despues</div></div><span class="antdes-label">DESPUES</span></div>
+          <div class="antdes-side"><div class="consult-foto-placeholder" style="height:200px;background:#f0f0f0"><div class="ph-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="#5b7aaa"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div><div class="ph-text">Foto antes</div></div><span class="antdes-label">ANTES</span></div>
+          <div class="antdes-side"><div class="consult-foto-placeholder" style="height:200px;background:#e8f0fb"><div class="ph-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="#1a56c4"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.22 11.97l-2.83-2.83c.14-.4.22-.82.22-1.27 0-2.21-1.79-4-4-4s-4 1.79-4 4 1.79 4 4 4c.45 0 .87-.08 1.27-.22l2.83 2.83c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41z"/></svg></div><div class="ph-text">Foto despues</div></div><span class="antdes-label">DESPUES</span></div>
           <div class="antdes-divider"></div>
         </div>
-        <div class="antdes-info"><div class="antdes-title">Ortodoncia con brackets</div><div class="antdes-desc">Tratamiento de 14 meses. Correccion de apiñamiento dental y mordida cruzada.</div></div>
+        <div class="antdes-info"><div class="antdes-title">Ortodoncia con brackets</div><div class="antdes-desc">Tratamiento de 14 meses. Correccion de apiÃ±amiento dental y mordida cruzada.</div></div>
       </div>
       <div class="antdes-card" data-cat="rehab">
         <div class="antdes-imgs">
-          <div class="antdes-side"><div class="consult-foto-placeholder" style="height:200px;background:#f0f0f0"><div class="ph-icon">📷</div><div class="ph-text">Foto antes</div></div><span class="antdes-label">ANTES</span></div>
-          <div class="antdes-side"><div class="consult-foto-placeholder" style="height:200px;background:#e8f0fb"><div class="ph-icon">💎</div><div class="ph-text">Foto despues</div></div><span class="antdes-label">DESPUES</span></div>
+          <div class="antdes-side"><div class="consult-foto-placeholder" style="height:200px;background:#f0f0f0"><div class="ph-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="#5b7aaa"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div><div class="ph-text">Foto antes</div></div><span class="antdes-label">ANTES</span></div>
+          <div class="antdes-side"><div class="consult-foto-placeholder" style="height:200px;background:#e8f0fb"><div class="ph-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="#1a56c4"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div class="ph-text">Foto despues</div></div><span class="antdes-label">DESPUES</span></div>
           <div class="antdes-divider"></div>
         </div>
         <div class="antdes-info"><div class="antdes-title">Rehabilitacion oral completa</div><div class="antdes-desc">Coronas ceramicas en sector anterior. Recuperacion total de estetica y funcion masticatoria.</div></div>
@@ -1253,11 +1328,11 @@ function filtrarAntDes(cat,tabEl){
 }
 
 
-// ── KONAMI CODE ────────────────────────────────────────────
+// â”€â”€ KONAMI CODE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 var konamiSeq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
 var konamiPos = 0;
 
-// ── LUJAN SECRET TRIGGER ────────────────────────────────────
+// â”€â”€ LUJAN SECRET TRIGGER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 var _secretBuf = '';
 document.addEventListener('keydown', function(e){
   var tag = document.activeElement.tagName;
@@ -1279,7 +1354,7 @@ document.addEventListener('keydown', function(e){
   } else { konamiPos = 0; }
 });
 
-// ── DENTISTOMETRO ──────────────────────────────────────────
+// â”€â”€ DENTISTOMETRO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 var dentMsgs = [
   { emoji:'&#128512;', txt:'Apenas 1 mes. Vas bien! Aunque si ya tienes cosquillitas en las encias, no esperes mas.' },
   { emoji:'&#128528;', txt:'3 meses. Acceptable. El Dr. Lujan te recibe sin juzgarte, prometido.' },
@@ -1308,7 +1383,7 @@ function actualizarDent(val) {
 
 
 
-// ── AGENDA SECRETA ─────────────────────────────────────────────
+// â”€â”€ AGENDA SECRETA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 var AGENDA_PIN     = "irala";
 var agendaUnlocked = false;
 var agendaTabActual = 'hoy';
@@ -1549,7 +1624,7 @@ document.getElementById('checkBtn').addEventListener('click', async function(){
     if (!res.ok) throw new Error('HTTP ' + res.status);
     var data = await res.json();
     if (data.disponible) {
-      setSlot('libre', '✓ ' + formatH(hora) + ' del ' + formatF(fecha) + ' disponible');
+      setSlot('libre', 'âœ“ ' + formatH(hora) + ' del ' + formatF(fecha) + ' disponible');
       slotOK = true;
       document.getElementById('submitBtn').disabled = false;
       document.getElementById('btnText').textContent = 'Reservar mi cita';
@@ -1576,7 +1651,7 @@ function setSlot(type, msg) {
   }
 }
 
-// BOTON RESERVAR — abre modal con resumen
+// BOTON RESERVAR â€” abre modal con resumen
 document.getElementById('submitBtn').addEventListener('click', function(){
   if (!validarCampos()) { showMsg('Completa todos los campos obligatorios', 'error'); return; }
   if (!slotOK) { showMsg('Verifica la disponibilidad del horario primero', 'error'); return; }
@@ -1603,7 +1678,7 @@ document.getElementById('modalCancelBtn').addEventListener('click', closeModal);
 document.getElementById('confirmModal').addEventListener('click', function(e){ if (e.target===this) closeModal(); });
 document.addEventListener('keydown', function(e){ if (e.key==='Escape') closeModal(); });
 
-// CONFIRMAR — enviar cita
+// CONFIRMAR â€” enviar cita
 document.getElementById('modalConfirmBtn').addEventListener('click', async function(){
   closeModal();
   var nombre   = document.getElementById('f_nombre').value.trim();
@@ -1699,13 +1774,13 @@ window.addEventListener('scroll',startCounters,{passive:true});
 setTimeout(startCounters,500);
 
 
-// LOADER — ocultar cuando carga la pagina (mejorado: evento load + timeout)
+// LOADER â€” ocultar cuando carga la pagina (mejorado: evento load + timeout)
 window.addEventListener('load', function(){
   setTimeout(function(){
     document.getElementById('pageLoader').classList.add('hidden');
-  }, 500); // pequeño retardo para que se vea la animación completa
+  }, 500); // pequeÃ±o retardo para que se vea la animaciÃ³n completa
 });
-// fallback por si load ya ocurrió antes
+// fallback por si load ya ocurriÃ³ antes
 if (document.readyState === 'complete') {
   setTimeout(function(){
     document.getElementById('pageLoader').classList.add('hidden');
@@ -1766,7 +1841,7 @@ var agendaOv = document.getElementById('agendaOverlay');
 if(agendaOv) agendaOv.addEventListener('click', function(e){ if(e.target===this) cerrarAgenda(); });
 
 
-// ── ACCESO ADMIN: escribe "lujan" en cualquier parte ─────────
+// â”€â”€ ACCESO ADMIN: escribe "lujan" en cualquier parte â”€â”€â”€â”€â”€â”€â”€â”€â”€
 var adminBuf = '';
 
 
@@ -1819,7 +1894,7 @@ var adminBuf = '';
         <div class="agenda-pin-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div>
         <div class="agenda-pin-title">Agenda del Dr. Lujan</div>
         <p style="font-size:.83rem;color:var(--muted)">Ingresa la contrasena para continuar</p>
-        <input type="password" class="agenda-pin-input" id="agendaPinInput" placeholder="••••••" maxlength="20"
+        <input type="password" class="agenda-pin-input" id="agendaPinInput" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢" maxlength="20"
           onkeydown="if(event.key==='Enter')verificarPin()"/>
         <button class="agenda-pin-btn" onclick="verificarPin()">Entrar</button>
         <div class="agenda-pin-error" id="agendaPinError">Contrasena incorrecta. Intenta de nuevo.</div>
