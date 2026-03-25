@@ -469,6 +469,9 @@ function mostrarUltimoAcceso() { var ult = localStorage.getItem('ultimo_acceso')
 
 // ── AUTH ──────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function() {
+  // Verificar si ya está logeado
+  verifyLogin();
+  
   document.getElementById('lbtn').addEventListener('click', doLogin);
   document.getElementById('loginUser').addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
   document.getElementById('loginPass').addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
@@ -515,12 +518,21 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('dienteModal').addEventListener('click', function(e){ if(e.target===this) closeDM(); });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ cerrarEdit(); closeDM(); } });
 
-  // Delegación eventos para editar y confirmación
+  // Delegación eventos para cambios en checkboxes de confirmación
+  document.getElementById('tbCitas').addEventListener('change', function(e) {
+    if (e.target.classList.contains('confirma-chk')) {
+      var num = e.target.dataset.numero;
+      var checked = e.target.checked;
+      if (num) {
+        toggleConfirmacion(num, checked);
+      }
+    }
+  });
+  
+  // Delegación eventos para editar
   document.getElementById('tbCitas').addEventListener('click', function(e) {
     var btn = e.target.closest('[data-edit-num]');
     if (btn) abrirEdit(btn.dataset.editNum);
-    var chk = e.target.closest('.confirma-chk');
-    if (chk) toggleConfirmacion(chk.dataset.num, chk.checked);
   });
   document.getElementById('agGrid').addEventListener('click', function(e) {
     var cell = e.target.closest('[data-cita-num]');
@@ -571,10 +583,28 @@ document.addEventListener('DOMContentLoaded', function() {
   llenarSelsMes();
 });
 
+function verifyLogin() {
+  var loginData = localStorage.getItem('tb_admin_login');
+  if (loginData) {
+    try {
+      var data = JSON.parse(loginData);
+      if (data.user === USUARIO_VALIDO && data.pass === PASSWORD_VALIDO) {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('app').style.display = 'block';
+        guardarAcceso();
+        cargarDatos();
+        return;
+      }
+    } catch(e){}
+  }
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+}
 function doLogin() {
   var user = document.getElementById('loginUser').value;
   var pass = document.getElementById('loginPass').value;
   if (user === USUARIO_VALIDO && pass === PASSWORD_VALIDO) {
+    localStorage.setItem('tb_admin_login', JSON.stringify({user: user, pass: pass}));
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('app').style.display = 'block';
     guardarAcceso();
@@ -589,6 +619,7 @@ function doLogin() {
   }
 }
 function doLogout() {
+  localStorage.removeItem('tb_admin_login');
   document.getElementById('app').style.display = 'none';
   document.getElementById('loginScreen').style.display = 'flex';
   document.getElementById('loginUser').value = '';
@@ -603,8 +634,26 @@ function cargarDatos() {
     .then(function(d) {
       if (d.error) throw new Error(d.error);
       citas = d.citas || [];
-      // Asegurar campo confirmacion
-      citas.forEach(c => { if (c.confirmacion === undefined) c.confirmacion = false; });
+      
+      // IMPORTANTE: Preservar confirmaciones guardadas en localStorage
+      var citasEnCache = {};
+      try {
+        var cacheData = JSON.parse(localStorage.getItem('tb_citas_cache') || '[]');
+        cacheData.forEach(function(c) {
+          citasEnCache[c.numero] = c;
+        });
+      } catch(e){}
+      
+      // Mezclar: mantener datos del servidor pero preservar confirmacion local
+      citas.forEach(function(c) {
+        var cached = citasEnCache[c.numero];
+        if (cached && cached.confirmacion !== undefined) {
+          c.confirmacion = cached.confirmacion;
+        } else {
+          c.confirmacion = false;
+        }
+      });
+      
       var map = {};
       citas.forEach(function(c){ if(c.dni && !map[c.dni]) map[c.dni] = {dni:c.dni, nombre:c.nombre, telefono:c.telefono}; });
       pacs = Object.values(map);
@@ -623,7 +672,11 @@ function cargarDatos() {
       if (cached) {
         try {
           citas = JSON.parse(cached);
-          citas.forEach(c => { if (c.confirmacion === undefined) c.confirmacion = false; });
+          citas.forEach(c => { 
+            if (c.confirmacion === undefined || c.confirmacion === null) {
+              c.confirmacion = false;
+            }
+          });
           var m = {};
           citas.forEach(function(c){ if(c.dni&&!m[c.dni]) m[c.dni]={dni:c.dni,nombre:c.nombre,telefono:c.telefono}; });
           pacs = Object.values(m);
@@ -722,16 +775,62 @@ function renderCal() {
 
 // ── CONFIRMACION DE ASISTENCIA ──────────────────────────────
 function toggleConfirmacion(num, checked) {
-  var idx = citas.findIndex(c => String(c.numero)===String(num));
-  if (idx < 0) return;
-  citas[idx].confirmacion = checked;
-  try { localStorage.setItem('tb_citas_cache', JSON.stringify(citas)); } catch(e){}
-  filtrarCitas(); // actualizar tabla
+  console.log('toggleConfirmacion llamado:', {num, checked, total_citas: citas.length});
+  
+  // Convertir a número para búsqueda más confiable
+  var numBuscar = Number(num) || String(num);
+  var idx = citas.findIndex(function(c) { 
+    return Number(c.numero) === numBuscar || String(c.numero) === String(num);
+  });
+  
+  if (idx < 0) {
+    console.warn('❌ Cita no encontrada. Buscaba:', num, 'En array:', citas.map(c => c.numero));
+    toast('Error: Cita no encontrada', 'err');
+    return;
+  }
+  
+  console.log('✓ Cita encontrada en índice:', idx, 'Actualizando confirmacion de', citas[idx].confirmacion, 'a', checked);
+  
+  // Guardar cambio en memoria
+  citas[idx].confirmacion = checked ? true : false;
+  
+  // Guardar en localStorage
+  try { 
+    localStorage.setItem('tb_citas_cache', JSON.stringify(citas));
+    console.log('✓ Guardado en localStorage');
+  } catch(e){
+    console.error('❌ Error guardando en localStorage:', e);
+    toast('Error al guardar localmente', 'err');
+    return;
+  }
+  
+  // Mostrar cambio en la tabla
+  filtrarCitas();
+  
   // Enviar al backend
   var url = SCRIPT_URL + '?action=updateConfirmacion&numero=' + encodeURIComponent(num) +
             '&confirmacion=' + (checked ? 'true' : 'false') + '&t=' + Date.now();
-  fetch(url, {method:'GET', redirect:'follow'}).catch(()=>{});
-  toast(checked ? 'Confirmación guardada' : 'Confirmación desmarcada', 'ok');
+  
+  console.log('Enviando a backend:', url);
+  
+  fetch(url, {method:'GET', redirect:'follow'})
+    .then(function(r) { 
+      console.log('Respuesta del servidor:', r.status);
+      return r.ok ? r.json() : Promise.reject('HTTP '+r.status);
+    })
+    .then(function(d) {
+      console.log('Backend response:', d);
+      if (d.success || d.confirmacion !== undefined) {
+        toast(checked ? '✓ Cita confirmada' : '✓ Confirmación desmarcada', 'ok');
+      } else {
+        console.warn('Backend warning:', d);
+        toast('Guardado localmente', 'ok');
+      }
+    })
+    .catch(function(err) {
+      console.warn('Error al conectar con backend:', err);
+      toast('Guardado localmente (sin conexión)', 'warn');
+    });
 }
 
 // ── EDITAR CITA (igual) ───────────────────────────────────────────────
@@ -762,7 +861,7 @@ function renderTabla(arr) {
     var ec  = 'pill pill-' + (c.estado||'').replace(/ /g,'');
     var ep  = c.pago&&c.pago.indexOf('Pag')!==-1 ? 'pill pill-Pagado' : 'pill pill-Pendiente';
     var confirmado = c.confirmacion === true;
-    var chk = '<input type="checkbox" class="confirma-chk" data-num="'+esc(String(c.numero||''))+'" '+(confirmado?'checked':'')+' style="width:18px;height:18px;cursor:pointer"/>';
+    var chk = '<input type="checkbox" class="confirma-chk" data-numero="'+String(c.numero||'')+'" '+(confirmado?'checked':'')+' style="width:18px;height:18px;cursor:pointer"/>';
     return '<tr>' +
       '<td class="td-m">#' + pad2(String(c.numero||'').padStart(3,'0')) + '</td>' +
       '<td><div class="td-b">'+esc(c.nombre)+'</div><div class="td-sub">'+esc(c.telefono||'—')+'</div></td>' +
