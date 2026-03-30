@@ -34,6 +34,14 @@ input,select,textarea{font-family:'DM Sans',sans-serif;outline:none}
 .lbtn{width:100%;padding:.85rem;border-radius:100px;background:var(--teal);color:white;font-size:.9rem;font-weight:600;margin-top:.3rem;transition:background .2s}
 .lbtn:hover{background:var(--teal2)}
 .lerr{color:var(--red);font-size:.78rem;text-align:center;margin-top:.6rem;display:none}
+.captcha-row{display:flex;align-items:center;gap:.75rem;margin:1rem 0 0;font-size:.9rem;color:var(--ink)}
+.forgot-panel{display:none;flex-direction:column;gap:.85rem;background:rgba(248,251,255,.98);border:1px solid var(--border);border-radius:18px;padding:1.15rem;margin-top:1rem;box-shadow:0 14px 30px rgba(13,31,60,.1)}
+.forgot-panel .forgot-result{background:var(--sage);border-radius:14px;padding:.85rem;font-size:.88rem;color:var(--ink);line-height:1.6}
+.forgot-panel .help-text{font-size:.82rem;color:var(--muted)}
+.forgot-panel .help-text a{color:var(--teal);text-decoration:none}
+.captcha-row input{width:18px;height:18px;accent-color:var(--teal);cursor:pointer}
+.mobile-header{display:none;margin-bottom:1rem}
+.sidebar-toggle{display:none;margin-bottom:1rem}
 #app{display:none;min-height:100vh}
 .shell{display:flex;min-height:100vh}
 .sidebar{width:220px;flex-shrink:0;background:var(--ink);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
@@ -184,6 +192,23 @@ td{padding:.65rem .9rem;font-size:.82rem;vertical-align:middle}
 #toast.warn{background:var(--amber)}
 @keyframes up{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@media(max-width:850px){
+  #loginScreen{padding:.9rem;align-items:flex-start;}
+  .lcard{max-width:100%;width:100%;padding:2rem 1rem;margin-top:1rem;border-radius:16px;}
+  .lbrand-name{font-size:1.35rem}
+  .lsub{font-size:.75rem}
+  .lf label{font-size:.66rem}
+  .lbtn{font-size:.9rem;padding:.8rem}
+  .sb-nav{padding:.3rem 0}
+  .sidebar{position:fixed;left:0;top:0;width:220px;height:100vh;z-index:9998;transform:translateX(-100%);transition:transform .3s ease;}
+  .sidebar.open{transform:translateX(0)}
+  .content{padding:1rem .8rem 1.2rem;margin-left:0}
+  .shell{min-height:auto}
+  .stats{grid-template-columns:1fr;gap:.6rem}
+  .ag-cal{grid-template-columns:repeat(1,1fr)}
+  .mobile-header{display:block}
+  .sidebar-toggle{display:inline-flex;width:100%;justify-content:center;gap:.5rem}
+}
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:var(--cream)}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
@@ -210,7 +235,32 @@ td{padding:.65rem .9rem;font-size:.82rem;vertical-align:middle}
       <label>Contraseña</label>
       <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password"/>
     </div>
+    <div class="lf" style="display:flex;align-items:center;gap:.4rem;font-size:.83rem;">
+      <input type="checkbox" id="rememberMe" style="width:16px;height:16px;cursor:pointer;"/>
+      <label for="rememberMe" style="cursor:pointer;">Recordarme en este dispositivo</label>
+    </div>
     <button class="lbtn" id="lbtn">Ingresar al panel</button>
+    <div style="margin-top:.55rem;text-align:center;font-size:.82rem;"><a id="forgotPass" href="#" style="color:var(--teal);text-decoration:none;font-weight:600;">¿Olvidaste la contraseña?</a></div>
+    <div id="forgotPanel" class="forgot-panel" style="display:none;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:.6rem;flex-wrap:wrap;margin-bottom:.9rem;">
+        <div style="font-weight:700;color:var(--ink);">Recuperar contraseña</div>
+        <button id="forgotClose" style="background:none;border:none;color:var(--muted);font-size:1.1rem;cursor:pointer;">×</button>
+      </div>
+      <div id="forgotUserHint" style="font-size:.85rem;color:var(--muted);line-height:1.5;">Escribe tu usuario para saber qué contraseña mostrar.</div>
+      <div class="lf"><label>Usuario</label><input id="forgotUser" placeholder="Luquita o Musolini" autocomplete="username"/></div>
+      <div class="lf" style="display:flex;flex-direction:column;gap:.55rem;">
+        <div style="font-size:.78rem;color:var(--muted)">Completa el captcha para verificar que no eres un robot.</div>
+        <label class="captcha-row"><input type="checkbox" id="forgotChkRobot"/><span>No soy un robot</span></label>
+        <div style="display:flex;gap:.75rem;align-items:center;flex-wrap:wrap">
+          <span id="forgotCaptchaQuestion" style="font-size:.95rem;font-weight:700;color:var(--ink)">¿Cuánto es 3 + 4?</span>
+          <input id="forgotCaptchaAnswer" type="text" placeholder="Respuesta" style="flex:1;min-width:120px;padding:.65rem .9rem;border:1.5px solid var(--border);border-radius:var(--r-sm);font-size:.9rem;"/>
+        </div>
+        <span class="field-err" id="forgotCaptchaErr" style="display:none;color:var(--red);font-size:.78rem;">Marca el captcha y responde correctamente.</span>
+      </div>
+      <button class="lbtn" id="forgotSubmit" style="margin-top:0.8rem;">Mostrar contraseña</button>
+      <div id="forgotResult" class="forgot-result" style="display:none;"></div>
+      <div class="help-text">Necesitas ayuda? Llama a soporte: <a href="tel:+51907145218">+51 907145218</a></div>
+    </div>
     <div class="lerr" id="lerr">Usuario o contraseña incorrectos</div>
   </div>
 </div>
@@ -257,6 +307,7 @@ td{padding:.65rem .9rem;font-size:.82rem;vertical-align:middle}
     </nav>
 
     <main class="content">
+      <div class="mobile-header"><button id="sidebarToggle" class="btn btn-g sidebar-toggle">☰ Menú</button></div>
 
       <!-- INICIO -->
       <div id="panel-dashboard" class="panel active">
@@ -413,8 +464,14 @@ td{padding:.65rem .9rem;font-size:.82rem;vertical-align:middle}
 <script>
 // ========== CONFIGURACIÓN ==========
 var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzh7AiBKLSCqnDLQ5Sd3CVtvukzdYPuHuxK_nehxSeFymb2Bi4P8MoFGCPGL4Ij5UMq/exec";
-var USUARIO_VALIDO = "Luquita";
-var PASSWORD_VALIDO = "Irala2023";
+var ADMIN_USERS = [
+  {user: 'Luquita', pass: 'lucaguapo', doctor: 'Dr. Carlos Lujan'},
+  {user: 'Musolini', pass: 'musoguapo', doctor: 'Dra. Noelia Lujan'},
+  {user: 'Soporte', pass: 'irala', doctor: ''}
+];
+
+var currentAdmin = null;
+var currentAdminDoctor = '';
 
 var MESES_N = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
 var DIAS_N  = ["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"];
@@ -445,6 +502,7 @@ var CS = {
 };
 var SUP = [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28];
 var INF = [48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38];
+var captchaSum = 7;
 
 try { odonto = JSON.parse(localStorage.getItem('tb_odonto') || '{}'); } catch(e){}
 try { hClin  = JSON.parse(localStorage.getItem('tb_hclinica') || '{}'); } catch(e){}
@@ -471,10 +529,28 @@ function mostrarUltimoAcceso() { var ult = localStorage.getItem('ultimo_acceso')
 document.addEventListener('DOMContentLoaded', function() {
   // Verificar si ya está logeado
   verifyLogin();
+  generateCaptcha();
   
   document.getElementById('lbtn').addEventListener('click', doLogin);
   document.getElementById('loginUser').addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
   document.getElementById('loginPass').addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
+  document.getElementById('sidebarToggle').addEventListener('click', function(){ document.querySelector('.sidebar').classList.toggle('open'); });
+  document.getElementById('forgotPass').addEventListener('click', function(e){
+    e.preventDefault();
+    var panel = document.getElementById('forgotPanel');
+    if (panel.style.display === 'flex') {
+      panel.style.display = 'none';
+      return;
+    }
+    panel.style.display = 'flex';
+    document.getElementById('forgotUser').value = document.getElementById('loginUser').value || '';
+    document.getElementById('forgotResult').style.display = 'none';
+    document.getElementById('forgotCaptchaErr').style.display = 'none';
+    document.getElementById('forgotUserHint').textContent = document.getElementById('loginUser').value ? 'Parece que estás recuperando la cuenta de "' + document.getElementById('loginUser').value + '".' : 'Escribe tu usuario para saber qué contraseña mostrar.';
+    generateCaptcha();
+  });
+  document.getElementById('forgotClose').addEventListener('click', function(){ document.getElementById('forgotPanel').style.display='none'; });
+  document.getElementById('forgotSubmit').addEventListener('click', handleForgot);
   document.getElementById('sbOut').addEventListener('click', doLogout);
 
   // Nav
@@ -486,6 +562,7 @@ document.addEventListener('DOMContentLoaded', function() {
       document.querySelectorAll('.panel').forEach(function(x){ x.classList.remove('active'); });
       this.classList.add('active');
       document.getElementById('panel-'+p).classList.add('active');
+      if (window.innerWidth <= 850) document.querySelector('.sidebar').classList.remove('open');
       if (p==='agenda')       renderCal();
       if (p==='odontograma')  poblarSelPac();
       if (p==='estadisticas') setTimeout(renderEstadisticas, 100);
@@ -588,14 +665,19 @@ function verifyLogin() {
   if (loginData) {
     try {
       var data = JSON.parse(loginData);
-      if (data.user === USUARIO_VALIDO && data.pass === PASSWORD_VALIDO) {
+      var profile = findAdmin(data.user, data.pass);
+      if (profile && data.expires > Date.now()) {
+        currentAdmin = profile;
+        currentAdminDoctor = profile.doctor || '';
+        setAdminHeader();
         document.getElementById('loginScreen').style.display = 'none';
         document.getElementById('app').style.display = 'block';
         guardarAcceso();
         cargarDatos();
         return;
       }
-    } catch(e){}
+      localStorage.removeItem('tb_admin_login');
+    } catch(e){ localStorage.removeItem('tb_admin_login'); }
   }
   document.getElementById('loginScreen').style.display = 'flex';
   document.getElementById('app').style.display = 'none';
@@ -603,8 +685,14 @@ function verifyLogin() {
 function doLogin() {
   var user = document.getElementById('loginUser').value;
   var pass = document.getElementById('loginPass').value;
-  if (user === USUARIO_VALIDO && pass === PASSWORD_VALIDO) {
-    localStorage.setItem('tb_admin_login', JSON.stringify({user: user, pass: pass}));
+  var remember = document.getElementById('rememberMe').checked;
+  var profile = findAdmin(user, pass);
+  if (profile) {
+    currentAdmin = profile;
+    currentAdminDoctor = profile.doctor || '';
+    setAdminHeader();
+    var expires = Date.now() + (remember ? 30*24*60*60*1000 : 30*60*1000);
+    localStorage.setItem('tb_admin_login', JSON.stringify({user: user, pass: pass, expires: expires}));
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('app').style.display = 'block';
     guardarAcceso();
@@ -624,6 +712,71 @@ function doLogout() {
   document.getElementById('loginScreen').style.display = 'flex';
   document.getElementById('loginUser').value = '';
   document.getElementById('loginPass').value = '';
+  generateCaptcha();
+}
+
+function generateCaptcha() {
+  var a = Math.floor(Math.random() * 6) + 2;
+  var b = Math.floor(Math.random() * 6) + 3;
+  captchaSum = a + b;
+  var q = document.getElementById('forgotCaptchaQuestion');
+  var ans = document.getElementById('forgotCaptchaAnswer');
+  var chk = document.getElementById('forgotChkRobot');
+  if (q && ans && chk) {
+    q.textContent = '¿Cuánto es ' + a + ' + ' + b + '?';
+    ans.value = '';
+    chk.checked = false;
+    document.getElementById('forgotCaptchaErr').style.display = 'none';
+  }
+}
+
+function findAdmin(user, pass) {
+  return ADMIN_USERS.find(function(item){ return item.user === user && item.pass === pass; });
+}
+function findAdminByUser(user) {
+  if (!user) return null;
+  return ADMIN_USERS.find(function(item){ return item.user.toLowerCase() === user.toLowerCase(); });
+}
+function authenticate(user, pass) {
+  return !!findAdmin(user, pass);
+}
+function setAdminHeader() {
+  var subtitle = document.querySelector('.sb-brand-sub');
+  var title = document.querySelector('#panel-dashboard .ptitle');
+  var displayName = currentAdminDoctor || (currentAdmin ? currentAdmin.user : 'secretaria');
+  if (subtitle) {
+    if (currentAdmin && currentAdmin.user === 'Soporte') {
+      subtitle.textContent = 'Soporte · Todos los doctores';
+    } else {
+      subtitle.textContent = displayName + ' · Secretaría';
+    }
+  }
+  if (title) title.innerHTML = 'Buenos días, <strong>' + displayName + '</strong>';
+}
+
+function handleForgot() {
+  var user = String(document.getElementById('forgotUser').value || '').trim();
+  var isHuman = document.getElementById('forgotChkRobot').checked;
+  var answer = parseInt(document.getElementById('forgotCaptchaAnswer').value, 10);
+  var err = document.getElementById('forgotCaptchaErr');
+  var result = document.getElementById('forgotResult');
+  if (!isHuman || answer !== captchaSum) {
+    err.style.display = 'block';
+    result.style.display = 'none';
+    generateCaptcha();
+    return;
+  }
+  err.style.display = 'none';
+  var found = ADMIN_USERS.find(function(item){ return item.user.toLowerCase() === user.toLowerCase(); });
+  if (found) {
+    var doctorLabel = found.doctor ? found.doctor : 'Todos los doctores';
+    result.innerHTML = '<strong>Usuario:</strong> ' + found.user + '<br/><strong>Doctor asignado:</strong> ' + doctorLabel + '<br/><strong>Contraseña:</strong> <span style="font-family:monospace;">' + found.pass + '</span>';
+  } else if (!user) {
+    result.innerHTML = '<strong>Ingresa tu usuario:</strong> Luquita o Musolini.';
+  } else {
+    result.innerHTML = '<strong>No reconozco ese usuario.</strong> Usa Luquita o Musolini.';
+  }
+  result.style.display = 'block';
 }
 
 // ── DATA ──────────────────────────────────────────────────────
@@ -633,7 +786,12 @@ function cargarDatos() {
     .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
     .then(function(d) {
       if (d.error) throw new Error(d.error);
-      citas = d.citas || [];
+      var allCitas = d.citas || [];
+      if (currentAdminDoctor && allCitas.some(function(c){ return c.doctor !== undefined && c.doctor !== null; })) {
+        citas = allCitas.filter(function(c){ return c.doctor === currentAdminDoctor; });
+      } else {
+        citas = allCitas;
+      }
       
       // IMPORTANTE: Preservar confirmaciones guardadas en localStorage
       var citasEnCache = {};

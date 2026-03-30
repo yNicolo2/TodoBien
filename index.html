@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8"/>
@@ -16,7 +16,7 @@
 <!-- Open Graph (para compartir en redes) -->
 <meta property="og:type" content="business.business"/>
 <meta property="og:title" content="Consultorio Dental Todo Bien â€” San Juan de Lurigancho"/>
-<meta property="og:description" content="Cuidamos tu salud dental con tecnologia moderna y trato calido. Limpieza, blanqueamiento, ortodoncia, endodoncia y mas. Agenda tu cita online."/>
+<meta property="og:description" content="Cuidamos tu salud dental con tecnología moderna y trato cálido. Limpieza, blanqueamiento, ortodoncia, endodoncia y más. Agenda tu cita online."/>
 <meta property="og:url" content="https://ynicolo2.github.io/TodoBien/"/>
 <meta property="og:image" content="https://ynicolo2.github.io/TodoBien/logo.png"/>
 <meta property="og:locale" content="es_PE"/>
@@ -223,14 +223,48 @@ section{padding:5rem 1.5rem}
   padding: 0 1.4rem;
 }
 .support-note.open .support-content {
-  max-height: 200px;
+  max-height: 240px;
   padding: 0 1.4rem 1.2rem 1.4rem;
 }
 .support-content div {
-  font-size: 0.88rem;
+  font-size: .88rem;
   line-height: 1.7;
   color: var(--ink);
-  margin-bottom: 0.5rem;
+  margin-bottom: .5rem;
+}
+.support-content div span { color: var(--teal); font-weight: 600; }
+
+@media (max-width: 960px) {
+  .support-note {
+    margin: 0 10px 10px;
+    border-radius: 14px;
+    position: fixed;
+    left: 10px;
+    right: 10px;
+    bottom: 100px;
+    max-width: calc(100% - 20px);
+    z-index: 9998;
+    opacity: .97;
+  }
+  .support-header {padding: .9rem 1rem;}
+  .support-title strong {font-size: .9rem;}
+  .support-toggle {width: 30px; height: 30px; font-size: .95rem;}
+  .support-content {font-size: .87rem;}
+  .support-note.open .support-content { max-height: 200px; }
+  .mobile-whatsapp-call {
+    position: fixed; bottom: 14px; right: 14px; z-index: 9999;
+    background: #25d366; color: white; border-radius: 999px;
+    display: flex; align-items: center; gap: .45rem; padding: .65rem .9rem;
+    box-shadow: 0 6px 24px rgba(0,0,0,.23); text-decoration: none; font-weight:700;
+  }
+}
+
+@media (max-width: 600px) {
+  .support-note {padding: .05rem;}
+  .support-header {gap: .45rem;}
+  .support-title svg {width: 18px; height: 18px;}
+  .support-title strong {font-size: .86rem;}
+  .support-toggle {width: 26px; height: 26px;}
 }
 .support-content div span {
   color: var(--teal);
@@ -586,9 +620,9 @@ footer strong{color:rgba(255,255,255,.85)}
 <div class="hero">
   <div class="hero-text">
     <div class="hero-badge">Clinica Dental &middot; Lima, Peru</div>
-    <div style="display:inline-flex;align-items:center;gap:.5rem;font-size:.8rem;color:var(--muted);margin-bottom:.8rem;animation:fadeUp .8s .1s cubic-bezier(.22,1,.36,1) both"><span style="color:var(--teal);font-weight:700"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.36C18 2.54 15.46 0 12 0S6 2.54 6 4.64c0 .48.11.92.18 1.36H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg></span> Atendido por el <strong style="color:var(--ink)">Dr. Lujan</strong> &mdash; Cirujano Dentista</div>
+    <div style="display:inline-flex;align-items:center;gap:.5rem;font-size:.8rem;color:var(--muted);margin-bottom:.8rem;animation:fadeUp .8s .1s cubic-bezier(.22,1,.36,1) both"><span style="color:var(--teal);font-weight:700"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.36C18 2.54 15.46 0 12 0S6 2.54 6 4.64c0 .48.11.92.18 1.36H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg></span> Atendido por la <strong style="color:var(--ink)">Dra. Noelia Lujan</strong> &mdash; Cirujana Dentista</div>
     <h1>Tu sonrisa<br>merece lo<br><em>mejor</em></h1>
-    <p class="hero-desc">En Todo Bien cuidamos tu salud dental con tecnologia moderna y el trato calido que mereces.</p>
+    <p class="hero-desc">En Todo Bien cuidamos tu salud dental con tecnología moderna y el trato cálido que mereces.</p>
     <div class="hero-btns">
       <a href="#cita" class="btn-primary">Reservar cita &rarr;</a>
       <a href="#servicios" class="btn-outline">Ver servicios</a>
@@ -597,9 +631,9 @@ footer strong{color:rgba(255,255,255,.85)}
   <div class="hero-visual">
     <div class="hero-card">
       <div class="stat-row">
-        <div class="stat"><div class="stat-num"><span class="counter" data-target="23" data-suffix="+">0</span></div><div class="stat-label">Anos exp.</div></div>
+        <div class="stat"><div class="stat-num"><span class="counter" data-target="23" data-suffix="+">0</span></div><div class="stat-label">Años exp.</div></div>
         <div class="stat"><div class="stat-num"><span class="counter" data-target="4000" data-suffix="+" data-format="k">0</span></div><div class="stat-label">Pacientes</div></div>
-        <div class="stat"><div class="stat-num"><span class="counter" data-target="98" data-suffix="%">0</span></div><div class="stat-label">Satisfaccion</div></div>
+        <div class="stat"><div class="stat-num"><span class="counter" data-target="98" data-suffix="%">0</span></div><div class="stat-label">Satisfacción</div></div>
       </div>
       <div class="services-mini">
         <div class="service-item"><div class="service-dot"></div><span class="service-name">Limpieza dental</span></div>
@@ -612,7 +646,7 @@ footer strong{color:rgba(255,255,255,.85)}
         <div style="font-size:1.2rem;flex-shrink:0"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M19 5c-1.5 0-2.35.46-3.1.84-.65.33-1.2.63-2.15.63-.96 0-1.51-.3-2.16-.63C10.85 5.46 10 5 8.5 5 5.42 5 3 7.42 3 10.5c0 3.78 2.5 10.5 4.5 10.5.74 0 1.14-.23 1.62-.51.52-.3 1.12-.65 2.38-.65s1.86.35 2.38.65c.48.28.88.51 1.62.51 2 0 4.5-6.72 4.5-10.5C20 7.42 17.58 5 19 5z"/></svg></div>
         <div style="flex:1;min-width:0">
           <div style="font-size:.62rem;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,255,255,.8)">Oferta del mes</div>
-          <div style="font-size:.88rem;font-weight:700;color:white">Limpieza + FluorizaciÃ³n &mdash; <span style="font-size:1rem">S/. 90</span></div>
+          <div style="font-size:.88rem;font-weight:700;color:white">Limpieza + Fluorización &mdash; <span style="font-size:1rem">S/. 90</span></div>
         </div>
         <a href="#cita" style="background:white;color:#d97706;font-size:.75rem;font-weight:800;padding:.38rem .8rem;border-radius:100px;text-decoration:none;white-space:nowrap;flex-shrink:0">Agendar â†’</a>
       </div>
@@ -623,7 +657,7 @@ footer strong{color:rgba(255,255,255,.85)}
   <div class="section-header">
     <div class="section-tag">Nuestros servicios</div>
     <h2>Todo lo que tu<br>sonrisa <em>necesita</em></h2>
-    <p>Tratamientos completos para toda la familia con tecnologia de ultima generacion.</p>
+    <p>Tratamientos completos para toda la familia con tecnología de última generación.</p>
   </div>
   <div class="services-grid reveal">
     <div class="service-card"><div class="service-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M19 5c-1.5 0-2.35.46-3.1.84-.65.33-1.2.63-2.15.63-.96 0-1.51-.3-2.16-.63C10.85 5.46 10 5 8.5 5 5.42 5 3 7.42 3 10.5c0 3.78 2.5 10.5 4.5 10.5.74 0 1.14-.23 1.62-.51.52-.3 1.12-.65 2.38-.65s1.86.35 2.38.65c.48.28.88.51 1.62.51 2 0 4.5-6.72 4.5-10.5C20 7.42 17.58 5 19 5z" opacity=".3"/><path d="M19 3c-2.05 0-3.23.64-4.07 1.06-.65.33-1.06.54-1.68.54-.62 0-1.04-.21-1.69-.54C10.73 3.64 9.55 3 7.5 3 3.92 3 1 5.92 1 9.5c0 4.5 2.72 12.5 5.5 12.5 1.04 0 1.71-.4 2.27-.73.46-.27.85-.5 1.73-.5.88 0 1.27.23 1.73.5.56.33 1.23.73 2.27.73 2.78 0 5.5-8 5.5-12.5C20 5.92 17.08 3 19 3zm0 0"/></svg></div><h3>Limpieza y Prevencion</h3><p>Profilaxis, detartraje y fluorizacion para mantener tus dientes sanos y brillantes.</p></div>
@@ -641,10 +675,10 @@ footer strong{color:rgba(255,255,255,.85)}
         <div class="section-tag">Reserva tu cita</div>
         <h2>Agenda tu visita<br><em>hoy mismo</em></h2>
         <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem;flex-wrap:wrap">
-          <div class="years-badge" style="margin-bottom:0"><div class="years-num">23</div><div class="years-text">anos de<br>experiencia</div></div>
+          <div class="years-badge" style="margin-bottom:0"><div class="years-num">23</div><div class="years-text">años de<br>experiencia</div></div>
           <div style="background:white;border:1.5px solid var(--border);border-radius:14px;padding:.8rem 1.1rem">
             <div style="font-size:.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:.2rem">Tu doctor</div>
-            <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink)">Dr. Lujan</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ink)">Dra. Noelia Lujan</div>
             <div style="font-size:.75rem;color:var(--muted)">Cirujano Dentista</div>
           </div>
         </div>
@@ -671,9 +705,14 @@ footer strong{color:rgba(255,255,255,.85)}
           </div>
         </div>
 
+        <a class="mobile-whatsapp-call" href="https://wa.me/51907145218?text=Hola%20Todo%20Bien%2C%20quiero%20consultar%20una%20cita" target="_blank" rel="noopener noreferrer">
+          <svg width="18" height="18"viewBox="0 0 24 24" fill="white"><path d="M20.52 3.48a11.94 11.94 0 00-16.9 0 11.94 11.94 0 000 16.9l-1.3 4.75 4.86-1.28a11.94 11.94 0 006.9 2.05h.01a11.95 11.95 0 0010.53-5.72 11.94 11.94 0 00-3.9-16.7zm-1.55 14.74a9.67 9.67 0 01-8.21 4.23h-.01c-2.4 0-4.7-.74-6.64-2.13L3.86 20l1.2-4.37a9.7 9.7 0 012.33-4.17 9.64 9.64 0 0113.78 0 9.67 9.67 0 01.8 13.76z"/></svg>
+          WhatsApp Soporte
+        </a>
+
         <div class="cancel-banner">
           <div class="cancel-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg></div>
-          <div class="cancel-text"><strong>Politica de cancelacion:</strong> Si no puedes asistir, avisanos con al menos <strong>24 horas de anticipacion</strong> por WhatsApp. Asi podemos darle tu horario a otro paciente. Gracias por tu consideracion.</div>
+          <div class="cancel-text"><strong>Política de cancelación:</strong> Si no puedes asistir, avísanos con al menos <strong>24 horas de anticipación</strong> por WhatsApp. Así podemos darle tu horario a otro paciente. Gracias por tu consideración.</div>
         </div>
       </div>
       <div class="cita-form reveal-right">
@@ -718,6 +757,15 @@ footer strong{color:rgba(255,255,255,.85)}
               <option>Consulta general</option>
             </select>
             <span class="field-err" id="err_servicio">Selecciona un servicio</span>
+          </div>
+          <div class="fld">
+            <label>Elige doctor <span class="req">*</span></label>
+            <select id="f_doctor">
+              <option value="" disabled selected>Selecciona doctor...</option>
+              <option value="Dr. Carlos Lujan">Dr. Carlos Lujan</option>
+              <option value="Dra. Noelia Lujan">Dra. Noelia Lujan</option>
+            </select>
+            <span class="field-err" id="err_doctor">Selecciona un doctor</span>
           </div>
           <div class="form-row">
             <div class="fld">
@@ -775,7 +823,7 @@ footer strong{color:rgba(255,255,255,.85)}
             <label style="display:flex;align-items:flex-start;gap:.75rem;cursor:pointer">
               <input type="checkbox" id="f_consent" style="margin-top:.2rem;width:17px;height:17px;accent-color:var(--teal);flex-shrink:0;cursor:pointer"/>
               <span style="font-size:.8rem;color:var(--ink);line-height:1.65">
-                Acepto que mis datos personales sean utilizados para coordinar mi atencion en el
+                Acepto que mis datos personales sean utilizados para coordinar mi atención en el
                 <strong>Consultorio Dental Todo Bien</strong>. Entiendo que la informacion proporcionada
                 es confidencial y que tengo derecho a solicitar su eliminacion en cualquier momento.
                 He leido y acepto la
@@ -792,7 +840,7 @@ footer strong{color:rgba(255,255,255,.85)}
             <span class="spinner" id="submitSpinner"></span>
             <span id="btnText">Verifica disponibilidad primero</span>
           </button>
-          <div class="form-msg success" id="successMsg"><svg width="18" height="18" viewBox="0 0 24 24" fill="#2d7d6f" style="flex-shrink:0"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Cita reservada con exito! Te contactaremos pronto para confirmar.</div>
+          <div class="form-msg success" id="successMsg"><svg width="18" height="18" viewBox="0 0 24 24" fill="#2d7d6f" style="flex-shrink:0"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Cita reservada con éxito! Te contactaremos pronto para confirmar.</div>
           <div class="form-msg error" id="errorMsg"></div>
         </form>
         <div class="saved-section" id="savedSection">
@@ -813,23 +861,23 @@ footer strong{color:rgba(255,255,255,.85)}
     <div class="section-header">
       <div class="section-tag">Por que elegirnos</div>
       <h2>Tu sonrisa en <em>buenas manos</em></h2>
-      <p>Nos comprometemos a brindarte la mejor atencion dental con calidez y tecnologia de avanzada.</p>
+      <p>Nos comprometemos a brindarte la mejor atención dental con calidez y tecnología de avanzada.</p>
     </div>
     <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem">
       <div class="porque-card">
         <div class="porque-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg></div>
-        <h3>Tecnologia Moderna</h3>
-        <p>Equipos de ultima generacion para diagnosticos precisos y tratamientos mas comodos y eficientes.</p>
+        <h3>Tecnología Moderna</h3>
+        <p>Equipos de última generación para diagnósticos precisos y tratamientos más cómodos y eficientes.</p>
       </div>
       <div class="porque-card">
         <div class="porque-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></div>
         <h3>Especialistas Certificados</h3>
-        <p>Nuestros profesionales estan altamente capacitados y en constante actualizacion con las ultimas tecnicas.</p>
+        <p>Nuestros profesionales están altamente capacitados y en constante actualización con las últimas técnicas.</p>
       </div>
       <div class="porque-card">
         <div class="porque-icon">&#10084;&#65039;</div>
-        <h3>Atencion Personalizada</h3>
-        <p>Cada paciente es unico. Te escuchamos, evaluamos y diseÃ±amos el plan de tratamiento ideal para ti.</p>
+        <h3>Atención Personalizada</h3>
+        <p>Cada paciente es único. Te escuchamos, evaluamos y diseñamos el plan de tratamiento ideal para ti.</p>
       </div>
       <div class="porque-card">
         <div class="porque-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg></div>
@@ -839,12 +887,12 @@ footer strong{color:rgba(255,255,255,.85)}
       <div class="porque-card">
         <div class="porque-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div>
         <h3>Ambiente Seguro</h3>
-        <p>Instalaciones esterilizadas bajo los mas altos estandares de bioseguridad para tu tranquilidad.</p>
+        <p>Instalaciones esterilizadas bajo los más altos estándares de bioseguridad para tu tranquilidad.</p>
       </div>
       <div class="porque-card">
         <div class="porque-icon">&#11088;</div>
-        <h3>23 Anos de Experiencia</h3>
-        <p>Mas de dos decadas atendiendo familias limeÃ±as con dedicacion, confianza y resultados comprobados.</p>
+        <h3>23 Años de Experiencia</h3>
+        <p>Más de dos décadas atendiendo familias limeñas con dedicación, confianza y resultados comprobados.</p>
       </div>
     </div>
   </div>
@@ -869,7 +917,7 @@ footer strong{color:rgba(255,255,255,.85)}
               <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
             </div>
             <div>
-              <h3 style="font-family:Cormorant Garamond,serif;font-size:1.35rem;font-weight:600;color:var(--ink)">Horarios de atencion</h3>
+              <h3 style="font-family:Cormorant Garamond,serif;font-size:1.35rem;font-weight:600;color:var(--ink)">Horarios de atención</h3>
               <div style="font-size:.75rem;color:var(--muted);margin-top:.1rem">Lunes a Sabado</div>
             </div>
           </div>
@@ -975,7 +1023,7 @@ footer strong{color:rgba(255,255,255,.85)}
       </div>
       <div class="testi-card">
         <div class="testi-stars"><svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="display:inline"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="display:inline"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="display:inline"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="display:inline"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="display:inline"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
-        <p class="testi-text">Llevo casi un aÃ±o con mis brackets y el cambio es increible. Lo que mas me gusta es que el doctor responde rapido por WhatsApp cuando tengo dudas. Vale cada sol invertido, no se arrepientan.</p>
+        <p class="testi-text">Llevo casi un año con mis brackets y el cambio es increíble. Lo que más me gusta es que el doctor responde rápido por WhatsApp cuando tengo dudas. Vale cada sol invertido, no se arrepientan.</p>
         <div class="testi-author"><div class="testi-avatar">Y</div><div><div class="testi-name">Yesenia M.</div><div class="testi-service">Ortodoncia y Brackets</div></div></div>
       </div>
       <div class="testi-card">
@@ -989,7 +1037,7 @@ footer strong{color:rgba(255,255,255,.85)}
         <div class="testi-author"><div class="testi-avatar">D</div><div><div class="testi-name">Dante H.</div><div class="testi-service">Rehabilitacion Oral</div></div></div>
       </div>
       <div class="testi-card" style="border-color:var(--teal);position:relative">
-        <div style="position:absolute;top:-10px;left:1.2rem;background:var(--teal);color:white;font-size:.65rem;font-weight:800;padding:.2rem .7rem;border-radius:100px;letter-spacing:.8px;text-transform:uppercase"><svg width="18" height="18" viewBox="0 0 24 24" fill="#2d7d6f" style="flex-shrink:0"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> ReseÃ±a real</div>
+        <div style="position:absolute;top:-10px;left:1.2rem;background:var(--teal);color:white;font-size:.65rem;font-weight:800;padding:.2rem .7rem;border-radius:100px;letter-spacing:.8px;text-transform:uppercase"><svg width="18" height="18" viewBox="0 0 24 24" fill="#2d7d6f" style="flex-shrink:0"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Reseña real</div>
         <div class="testi-stars"><svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="display:inline"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="display:inline"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="display:inline"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="display:inline"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" style="display:inline"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
         <p class="testi-text">Usted si tiene paciencia, no como en otros lados que apurado me tienen.</p>
         <div class="testi-author"><div class="testi-avatar" style="background:var(--teal);color:white">P</div><div><div class="testi-name">Paciente verificado</div><div class="testi-service">Consultorio Todo Bien</div></div></div>
@@ -1097,7 +1145,7 @@ footer strong{color:rgba(255,255,255,.85)}
           <div class="antdes-side"><div class="consult-foto-placeholder" style="height:200px;background:#e8f0fb"><div class="ph-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="#1a56c4"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.22 11.97l-2.83-2.83c.14-.4.22-.82.22-1.27 0-2.21-1.79-4-4-4s-4 1.79-4 4 1.79 4 4 4c.45 0 .87-.08 1.27-.22l2.83 2.83c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41z"/></svg></div><div class="ph-text">Foto despues</div></div><span class="antdes-label">DESPUES</span></div>
           <div class="antdes-divider"></div>
         </div>
-        <div class="antdes-info"><div class="antdes-title">Ortodoncia con brackets</div><div class="antdes-desc">Tratamiento de 14 meses. Correccion de apiÃ±amiento dental y mordida cruzada.</div></div>
+        <div class="antdes-info"><div class="antdes-title">Ortodoncia con brackets</div><div class="antdes-desc">Tratamiento de 14 meses. Corrección de apiñamiento dental y mordida cruzada.</div></div>
       </div>
       <div class="antdes-card" data-cat="rehab">
         <div class="antdes-imgs">
@@ -1105,7 +1153,7 @@ footer strong{color:rgba(255,255,255,.85)}
           <div class="antdes-side"><div class="consult-foto-placeholder" style="height:200px;background:#e8f0fb"><div class="ph-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="#1a56c4"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div class="ph-text">Foto despues</div></div><span class="antdes-label">DESPUES</span></div>
           <div class="antdes-divider"></div>
         </div>
-        <div class="antdes-info"><div class="antdes-title">Rehabilitacion oral completa</div><div class="antdes-desc">Coronas ceramicas en sector anterior. Recuperacion total de estetica y funcion masticatoria.</div></div>
+        <div class="antdes-info"><div class="antdes-title">Rehabilitación oral completa</div><div class="antdes-desc">Coronas cerámicas en sector anterior. Recuperación total de estética y función masticatoria.</div></div>
       </div>
     </div>
   </div>
@@ -1117,25 +1165,29 @@ footer strong{color:rgba(255,255,255,.85)}
     <div class="section-header">
       <div class="section-tag">Nuestras instalaciones</div>
       <h2>Conoce nuestro <em>consultorio</em></h2>
-      <p>Un espacio limpio, moderno y pensado para que te sientas comodo desde que entras.</p>
-      <div style="margin-top:.8rem" class="wip-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg> Fotos del consultorio proximamente</div>
+      <p>Un espacio limpio, moderno y pensado para que te sientas cómodo desde que entras.</p>
+      <div style="margin-top:.8rem" class="wip-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="#0d1f3c"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 2a1 1 0 011 1 1 1 0 11-2 0 1 1 0 011-1zm0 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg> Fotos del consultorio agregadas</div>
     </div>
     <div class="consult-grid reveal">
-      <div class="consult-foto ref-img" onclick="openLB(this.querySelector('img')?.src || '')">
-        <div class="consult-foto-placeholder"><div class="ph-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></div><div class="ph-text">Sala de espera</div></div>
+      <div class="consult-foto ref-img" onclick="openLB('espera1.jpg')">
+        <img src="espera1.jpg" alt="Sala de espera 1 en Consultorio Dental Todo Bien" loading="lazy"/>
+        <span style="position:absolute;bottom:10px;left:10px;background:rgba(0,0,0,.6);color:white;font-size:.74rem;padding:.3rem .65rem;border-radius:8px;letter-spacing:.3px">Sala de espera 1</span>
       </div>
-      <div class="consult-foto ref-img" onclick="openLB(this.querySelector('img')?.src || '')">
-        <div class="consult-foto-placeholder"><div class="ph-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg></div><div class="ph-text">Sala de atencion</div></div>
+      <div class="consult-foto ref-img" onclick="openLB('espera2.jpg')">
+        <img src="espera2.jpg" alt="Sala de espera 2 en Consultorio Dental Todo Bien" loading="lazy"/>
+        <span style="position:absolute;bottom:10px;left:10px;background:rgba(0,0,0,.6);color:white;font-size:.74rem;padding:.3rem .65rem;border-radius:8px;letter-spacing:.3px">Sala de espera 2</span>
       </div>
-      <div class="consult-foto ref-img" onclick="openLB(this.querySelector('img')?.src || '')">
-        <div class="consult-foto-placeholder"><div class="ph-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M9 3L5 6.99h3V14h2V6.99h3L9 3zm7 14.01V10h-2v7.01h-3L15 21l4-3.99h-3z"/></svg></div><div class="ph-text">Equipos modernos</div></div>
+      <div class="consult-foto ref-img" onclick="openLB('consu1.jpg')">
+        <img src="consu1.jpg" alt="Consultorio 1 de Consultorio Dental Todo Bien" loading="lazy"/>
+        <span style="position:absolute;bottom:10px;left:10px;background:rgba(0,0,0,.6);color:white;font-size:.74rem;padding:.3rem .65rem;border-radius:8px;letter-spacing:.3px">Consultorio 1</span>
       </div>
-      <div class="consult-foto ref-img" onclick="openLB(this.querySelector('img')?.src || '')">
-        <div class="consult-foto-placeholder"><div class="ph-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg></div><div class="ph-text">Recepcion</div></div>
+      <div class="consult-foto ref-img" onclick="openLB('consu2.jpg')">
+        <img src="consu2.jpg" alt="Consultorio 2 de Consultorio Dental Todo Bien" loading="lazy"/>
+        <span style="position:absolute;bottom:10px;left:10px;background:rgba(0,0,0,.6);color:white;font-size:.74rem;padding:.3rem .65rem;border-radius:8px;letter-spacing:.3px">Consultorio 2</span>
       </div>
     </div>
     <p style="text-align:center;margin-top:1.2rem;font-size:.82rem;color:var(--muted)">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 5h-3.17L15 3H9L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-8 13c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.65 0-3 1.35-3 3s1.35 3 3 3 3-1.35 3-3-1.35-3-3-3z"/></svg> Cuando tengas las fotos, reemplaza los placeholders en el HTML con <code style="background:var(--sage);padding:.1rem .4rem;border-radius:4px;font-size:.78rem">img src="foto1.jpg"</code>
+      Todas las fotos del consultorio ahora se muestran aquí con los espacios reales del centro. Haz clic para ampliar y ver en detalle.
     </p>
   </div>
 </section>
@@ -1143,7 +1195,7 @@ footer strong{color:rgba(255,255,255,.85)}
   <div style="max-width:900px;margin:0 auto">
     <div style="text-align:center;margin-bottom:1.5rem">
       <div class="section-tag">Metodos de pago</div>
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300">Paganos como <em style="font-style:italic;color:var(--teal)">te sea mas facil</em></h2>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300">Páganos como <em style="font-style:italic;color:var(--teal)">te sea más fácil</em></h2>
     </div>
     <div class="pagos-grid reveal">
 
@@ -1201,9 +1253,9 @@ footer strong{color:rgba(255,255,255,.85)}
 <footer>
   <p>&copy; 2026 <strong>Todo Bien Clinica Dental</strong> &middot; Lima, Peru<br>Todos los derechos reservados</p>
   <p style="margin-top:.8rem">
-    <a href="#" onclick="document.getElementById('privacyModal').style.display='flex';document.body.style.overflow='hidden';return false" style="color:rgba(255,255,255,.35);font-size:.75rem;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.15);padding-bottom:1px;transition:color .2s" onmouseover="this.style.color='rgba(255,255,255,.7)'" onmouseout="this.style.color='rgba(255,255,255,.35)'">Politica de Privacidad</a>
+    <a href="#" onclick="document.getElementById('privacyModal').style.display='flex';document.body.style.overflow='hidden';return false" style="color:rgba(255,255,255,.35);font-size:.75rem;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.15);padding-bottom:1px;transition:color .2s" onmouseover="this.style.color='rgba(255,255,255,.7)'" onmouseout="this.style.color='rgba(255,255,255,.35)'">Política de Privacidad</a>
     <span style="color:rgba(255,255,255,.15);margin:0 .5rem">&middot;</span>
-    <a href="#" onclick="document.getElementById('privacyModal').style.display='flex';document.body.style.overflow='hidden';return false" style="color:rgba(255,255,255,.35);font-size:.75rem;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.15);padding-bottom:1px;transition:color .2s" onmouseover="this.style.color='rgba(255,255,255,.7)'" onmouseout="this.style.color='rgba(255,255,255,.35)'">Terminos de uso</a>
+    <a href="#" onclick="document.getElementById('privacyModal').style.display='flex';document.body.style.overflow='hidden';return false" style="color:rgba(255,255,255,.35);font-size:.75rem;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.15);padding-bottom:1px;transition:color .2s" onmouseover="this.style.color='rgba(255,255,255,.7)'" onmouseout="this.style.color='rgba(255,255,255,.35)'">Términos de uso</a>
   </p>
   <!-- mensaje para extorsionadores -->
   <p style="margin-top:2rem;font-size:.72rem;color:rgba(255,255,255,.18);letter-spacing:.3px;font-style:italic">
@@ -1223,8 +1275,8 @@ footer strong{color:rgba(255,255,255,.85)}
         Cuando agendas una cita recopilamos tu nombre, numero de telefono, DNI y el servicio de interes. Estos datos se usan unicamente para confirmar y gestionar tu cita.
       </div>
       <div>
-        <strong>2. Uso de la informacion</strong><br/>
-        Tu informacion personal nunca sera vendida, compartida ni cedida a terceros. Solo el personal del Consultorio Dental Todo Bien tendra acceso a tus datos para fines de atencion medica.
+        <strong>2. Uso de la información</strong><br/>
+        Tu información personal nunca será vendida, compartida ni cedida a terceros. Solo el personal del Consultorio Dental Todo Bien tendrá acceso a tus datos para fines de atención médica.
       </div>
       <div>
         <strong>3. Almacenamiento</strong><br/>
@@ -1264,6 +1316,7 @@ footer strong{color:rgba(255,255,255,.85)}
     <div style="background:var(--cream);border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.3rem;display:flex;flex-direction:column;gap:.7rem;margin-bottom:1.3rem">
       <div style="display:flex;align-items:center;gap:.7rem;font-size:.88rem"><div style="width:30px;height:30px;background:rgba(26,86,196,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div><div><div style="color:var(--muted);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px">Paciente</div><div style="color:var(--ink);font-weight:700" id="md_nombre"></div></div></div>
       <div style="display:flex;align-items:center;gap:.7rem;font-size:.88rem"><div style="width:30px;height:30px;background:rgba(26,86,196,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M19 5c-1.5 0-2.35.46-3.1.84-.65.33-1.2.63-2.15.63-.96 0-1.51-.3-2.16-.63C10.85 5.46 10 5 8.5 5 5.42 5 3 7.42 3 10.5c0 3.78 2.5 10.5 4.5 10.5.74 0 1.14-.23 1.62-.51.52-.3 1.12-.65 2.38-.65s1.86.35 2.38.65c.48.28.88.51 1.62.51 2 0 4.5-6.72 4.5-10.5C20 7.42 17.58 5 19 5z" opacity=".3"/><path d="M19 3c-2.05 0-3.23.64-4.07 1.06-.65.33-1.06.54-1.68.54-.62 0-1.04-.21-1.69-.54C10.73 3.64 9.55 3 7.5 3 3.92 3 1 5.92 1 9.5c0 4.5 2.72 12.5 5.5 12.5 1.04 0 1.71-.4 2.27-.73.46-.27.85-.5 1.73-.5.88 0 1.27.23 1.73.5.56.33 1.23.73 2.27.73 2.78 0 5.5-8 5.5-12.5C20 5.92 17.08 3 19 3zm0 0"/></svg></div><div><div style="color:var(--muted);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px">Servicio</div><div style="color:var(--ink);font-weight:700" id="md_servicio"></div></div></div>
+      <div style="display:flex;align-items:center;gap:.7rem;font-size:.88rem"><div style="width:30px;height:30px;background:rgba(26,86,196,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div><div><div style="color:var(--muted);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px">Doctor</div><div style="color:var(--ink);font-weight:700" id="md_doctor"></div></div></div>
       <div style="display:flex;align-items:center;gap:.7rem;font-size:.88rem"><div style="width:30px;height:30px;background:rgba(26,86,196,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg></div><div><div style="color:var(--muted);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px">Fecha</div><div style="color:var(--ink);font-weight:700" id="md_fecha"></div></div></div>
       <div style="display:flex;align-items:center;gap:.7rem;font-size:.88rem"><div style="width:30px;height:30px;background:rgba(26,86,196,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg></div><div><div style="color:var(--muted);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px">Hora</div><div style="color:var(--ink);font-weight:700" id="md_hora"></div></div></div>
       <div style="display:flex;align-items:center;gap:.7rem;font-size:.88rem"><div style="width:30px;height:30px;background:rgba(26,86,196,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div><div><div style="color:var(--muted);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px">Telefono</div><div style="color:var(--ink);font-weight:700" id="md_telefono"></div></div></div>
@@ -1363,7 +1416,7 @@ document.addEventListener('keydown', function(e){
 
 // â”€â”€ DENTISTOMETRO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 var dentMsgs = [
-  { emoji:'&#128512;', txt:'Apenas 1 mes. Vas bien! Aunque si ya tienes cosquillitas en las encias, no esperes mas.' },
+  { emoji:'&#128512;', txt:'Apenas 1 mes. Vas bien! Aunque si ya tienes cosquillitas en las encías, no esperes más.' },
   { emoji:'&#128528;', txt:'3 meses. Acceptable. El Dr. Lujan te recibe sin juzgarte, prometido.' },
   { emoji:'&#128533;', txt:'6 meses. Eso ya es el limite recomendado. Tu sarro te esta mirando fijamente ahora mismo.' },
   { emoji:'&#128552;', txt:'1 ano. Amigo/a... el sarro ya tiene nombre propio. Se llama Roberto y paga alquiler.' },
@@ -1372,7 +1425,7 @@ var dentMsgs = [
   { emoji:'&#128169;', txt:'2 anos y medio. Houston, tenemos un problema. Ven pronto, hay descuento por valiente.' },
   { emoji:'&#129354;', txt:'3 anos. El Dr. Lujan va a necesitar casco, linterna y pico para la excavacion. Te esperamos igual.' },
   { emoji:'&#128293;', txt:'4 anos. A estas alturas tus muelas del juicio ya sacaron su propia sabiduria. URGENTE.' },
-  { emoji:'&#128128;', txt:'5 anos o mas. Leyenda. Mito. El Dr. Lujan te dedicara una placa en la pared. Ven YA por favor.' },
+  { emoji:'&#128128;', txt:'5 años o más. Leyenda. Mito. El Dr. Luján te dedicará una placa en la pared. Ven YA por favor.' },
   { emoji:'&#128123;', txt:'Nunca en tu vida. Respetamos tu coraje. El consultorio tiene extintor, desfibrilador y mucha paciencia. Te esperamos.' },
 ];
 function actualizarDent(val) {
@@ -1595,6 +1648,7 @@ function validarCampos() {
   var telefono = document.getElementById('f_telefono').value.trim();
   var dni      = document.getElementById('f_dni').value.trim();
   var servicio = document.getElementById('f_servicio').value;
+  var doctor   = document.getElementById('f_doctor').value;
   var fecha    = document.getElementById('f_fecha').value;
   var hora     = document.getElementById('f_hora').value;
   var ok = true;
@@ -1602,6 +1656,7 @@ function validarCampos() {
   fieldErr('telefono', !telefono);           if (!telefono)            ok = false;
   fieldErr('dni',      !/^[0-9]{8}$/.test(dni)); if (!/^[0-9]{8}$/.test(dni)) ok = false;
   fieldErr('servicio', !servicio);           if (!servicio)            ok = false;
+  fieldErr('doctor',   !doctor);             if (!doctor)              ok = false;
   fieldErr('fecha',    !fecha);              if (!fecha)               ok = false;
   fieldErr('hora',     !hora);               if (!hora)                ok = false;
   return ok;
@@ -1609,7 +1664,7 @@ function validarCampos() {
 ['nombre','telefono','dni'].forEach(function(id){
   document.getElementById('f_' + id).addEventListener('input', function(){ fieldErr(id, false); });
 });
-['servicio','hora','fecha'].forEach(function(id){
+['servicio','doctor','hora','fecha'].forEach(function(id){
   document.getElementById('f_' + id).addEventListener('change', function(){ fieldErr(id, false); });
 });
 
@@ -1631,7 +1686,7 @@ document.getElementById('checkBtn').addEventListener('click', async function(){
     if (!res.ok) throw new Error('HTTP ' + res.status);
     var data = await res.json();
     if (data.disponible) {
-      setSlot('libre', 'âœ“ ' + formatH(hora) + ' del ' + formatF(fecha) + ' disponible');
+      setSlot('libre', '✓ ' + formatH(hora) + ' del ' + formatF(fecha) + ' disponible');
       slotOK = true;
       document.getElementById('submitBtn').disabled = false;
       document.getElementById('btnText').textContent = 'Reservar mi cita';
@@ -1641,7 +1696,7 @@ document.getElementById('checkBtn').addEventListener('click', async function(){
       setSlot('ocupado', msg);
     }
   } catch(err) {
-    setSlot('ocupado', err.name === 'AbortError' ? 'Servidor tardo. Intenta de nuevo.' : 'No se pudo verificar.');
+    setSlot('ocupado', err.name === 'AbortError' ? 'Servidor se demoró. Intenta de nuevo.' : 'No se pudo verificar.');
   } finally {
     document.getElementById('checkBtn').disabled = false;
   }
@@ -1673,10 +1728,11 @@ document.getElementById('submitBtn').addEventListener('click', function(){
   }
   document.getElementById('md_nombre').textContent   = document.getElementById('f_nombre').value.trim();
   document.getElementById('md_servicio').textContent = document.getElementById('f_servicio').value;
+  document.getElementById('md_doctor').textContent  = document.getElementById('f_doctor').value;
   document.getElementById('md_fecha').textContent    = formatF(document.getElementById('f_fecha').value);
   document.getElementById('md_hora').textContent     = formatH(document.getElementById('f_hora').value);
   document.getElementById('md_telefono').textContent = document.getElementById('f_telefono').value.trim();
-  document.getElementById('md_dni').textContent     = document.getElementById('f_dni').value.trim();
+  document.getElementById('md_dni').textContent      = document.getElementById('f_dni').value.trim();
   openModal();
 });
 
@@ -1692,6 +1748,7 @@ document.getElementById('modalConfirmBtn').addEventListener('click', async funct
   var telefono = document.getElementById('f_telefono').value.trim();
   var dni      = document.getElementById('f_dni').value.trim();
   var servicio = document.getElementById('f_servicio').value;
+  var doctor   = document.getElementById('f_doctor').value;
   var fecha    = document.getElementById('f_fecha').value;
   var hora     = document.getElementById('f_hora').value;
   document.getElementById('submitBtn').disabled = true;
@@ -1702,7 +1759,7 @@ document.getElementById('modalConfirmBtn').addEventListener('click', async funct
   var n  = new Date();
   var fe = n.getDate()+'/'+(n.getMonth()+1)+'/'+n.getFullYear()+' '+n.getHours()+':'+String(n.getMinutes()).padStart(2,'0');
   var consentFecha = new Date().toLocaleDateString('es-PE') + ' ' + new Date().toLocaleTimeString('es-PE');
-  var p  = new URLSearchParams({action:'save',nombre:nombre,telefono:telefono,dni:dni,consentimiento:consentFecha,
+  var p  = new URLSearchParams({action:'save',nombre:nombre,telefono:telefono,dni:dni,doctor:doctor,consentimiento:consentFecha,
     servicio:servicio,fecha_pref:fecha,hora_pref:hora,
     comentario:document.getElementById('f_comentario').value.trim(),fecha_envio:fe,t:Date.now()});
   try {
@@ -1713,7 +1770,7 @@ document.getElementById('modalConfirmBtn').addEventListener('click', async funct
     if (!res.ok) throw new Error('HTTP '+res.status);
     var r = await res.json();
     if (r.success) {
-      saveLocal({nombre:nombre,telefono:telefono,dni:dni,servicio:servicio,fecha_pref:fecha,hora_pref:hora});
+      saveLocal({nombre:nombre,telefono:telefono,dni:dni,doctor:doctor,servicio:servicio,fecha_pref:fecha,hora_pref:hora});
       document.getElementById('successMsg').style.display = 'block';
       lanzarConfeti();
       document.getElementById('slotStatus').className = 'slot-status';
@@ -1728,7 +1785,7 @@ document.getElementById('modalConfirmBtn').addEventListener('click', async funct
     }
   } catch(err) {
     if (err.name==='AbortError') {
-      showMsg('Servidor muy lento. Tu cita pudo haberse guardado — recarga la página en 10 segundos para verificar.','error');
+      showMsg('Servidor se demoró. Tu cita pudo haberse guardado — recarga la página en 10 segundos para verificar.','error');
     } else {
       showMsg('Error de red. Verifica tu conexion.','error');
     }
@@ -1753,13 +1810,13 @@ function renderSaved(){
   var list=getCitas(),sec=document.getElementById('savedSection'),ul=document.getElementById('savedList');
   if(!list.length){sec.style.display='none';return;}
   sec.style.display='block';
-  ul.innerHTML=list.map(function(c){return '<div class="saved-item"><div><div class="saved-name">'+esc(c.nombre)+'</div><div class="saved-detail">'+esc(c.servicio)+' &middot; '+esc(c.fecha_pref)+' &middot; '+esc(formatH(c.hora_pref||'00:00'))+'</div></div><span class="saved-badge">Confirmada</span></div>';}).join('');
+  ul.innerHTML=list.map(function(c){return '<div class="saved-item"><div><div class="saved-name">'+esc(c.nombre)+'</div><div class="saved-detail">'+esc(c.servicio)+' · '+esc(c.doctor||'')+' · '+esc(c.fecha_pref)+' · '+esc(formatH(c.hora_pref||'00:00'))+'</div></div><span class="saved-badge">Confirmada</span></div>';}).join('');
 }
 renderSaved();
 
 // LIGHTBOX
 document.getElementById('lightbox').addEventListener('click',function(e){if(e.target===this)closeLB();});
-document.querySelectorAll('.ref-img').forEach(function(img){img.addEventListener('click',function(){openLB(this.src);});});
+document.querySelectorAll('.ref-img').forEach(function(card){card.addEventListener('click',function(){var img=this.querySelector('img'); if(img) openLB(img.src);});});
 
 // CONTADOR ANIMADO
 var countersStarted=false;
@@ -1785,7 +1842,7 @@ window.addEventListener('scroll',startCounters,{passive:true});
 setTimeout(startCounters,500);
 
 
-// LOADER â€” ocultar cuando carga la pagina (mejorado: evento load + timeout)
+// LOADER — ocultar cuando carga la página (mejorado: evento load + timeout)
 window.addEventListener('load', function(){
   setTimeout(function(){
     document.getElementById('pageLoader').classList.add('hidden');
@@ -1875,7 +1932,7 @@ var adminBuf = '';
       <span>6 meses</span>
       <span>1 ano</span>
       <span>2+ anos</span>
-      <span>Jamas</span>
+      <span>Jamás</span>
     </div>
     <div class="dent-resultado" id="dentResultado">
       <div>
@@ -1940,4 +1997,9 @@ var adminBuf = '';
 
 </body>
 </html>
+
+
+
+
+
 
