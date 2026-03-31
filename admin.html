@@ -463,7 +463,7 @@ td{padding:.65rem .9rem;font-size:.82rem;vertical-align:middle}
 
 <script>
 // ========== CONFIGURACIÓN ==========
-var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx-fVRWIz1wmlW2XUSbqWPr9qM-TlBoDfz_8IYj_Ev4Idu8gBhRgewoChhR97Zu9ll0/exec";
+var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz4qAHObjeQUGoMRGepkDg6sZIzW4YqDbXoDR075Uz7VX4Na8ZuWBflQD67hk4GsGY3/exec";
 var ADMIN_USERS = [
   {user: 'Luquita', pass: 'lucaguapo', doctor: 'Dr. Carlos Lujan'},
   {user: 'Musolini', pass: 'musoguapo', doctor: 'Dra. Noelia Lujan'},
@@ -479,6 +479,101 @@ var citas = [], pacs = [], odonto = {}, hClin = {};
 var curDiente = null, curDNI = null, curEditIdx = null, repIdx = null;
 var calMes, calAnio;
 var chartMesObj = null, chartServObj = null, chartPagoObj = null;
+var syncInterval = null;
+var lastSyncTimestamp = 0;
+var pendingLocalChanges = {}; // Almacena cambios locales pendientes de sincronizar
+
+// Iniciar polling de sincronización cada 15 segundos
+function startSyncPolling() {
+  if (syncInterval) clearInterval(syncInterval);
+  syncInterval = setInterval(function() {
+    syncFromServer();
+  }, 15000); // 15 segundos
+}
+
+// Detener polling al cerrar sesión
+function stopSyncPolling() {
+  if (syncInterval) {
+    clearInterval(syncInterval);
+    syncInterval = null;
+  }
+}
+
+// Sincronizar datos desde el servidor preservando cambios locales
+function syncFromServer() {
+  // Solo sincronizar si hay sesión activa
+  if (!currentAdmin) return;
+  
+  var currentConfirmaciones = {};
+  // Guardar estado actual de confirmaciones locales
+  citas.forEach(function(c) {
+    currentConfirmaciones[String(c.numero)] = c.confirmacion;
+  });
+  
+  setSt('Sincronizando...', '');
+  
+  fetch(SCRIPT_URL + '?action=getCitas&t=' + Date.now(), {redirect:'follow'})
+    .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
+    .then(function(d) {
+      if (d.error) return;
+      var allCitas = d.citas || [];
+      var filterDoctor = normalizeText(currentAdminDoctor);
+      
+      // Filtrar por doctor
+      if (filterDoctor) {
+        allCitas = allCitas.filter(function(c){
+          var docNormal = normalizeText(c.doctor);
+          var match = docNormal === filterDoctor;
+          if (!match) {
+            if (filterDoctor.indexOf('carlos') !== -1 && docNormal.indexOf('carlos') !== -1) match = true;
+            if (filterDoctor.indexOf('noelia') !== -1 && docNormal.indexOf('noelia') !== -1) match = true;
+          }
+          return match;
+        });
+      }
+      
+      // Preservar confirmaciones locales (importante para sincronización)
+      var changedCount = 0;
+      allCitas.forEach(function(c) {
+        var num = String(c.numero);
+        // Si hay un cambio local pendiente, mantenerlo
+        if (currentConfirmaciones[num] !== undefined && pendingLocalChanges[num] !== undefined) {
+          c.confirmacion = currentConfirmaciones[num];
+          delete pendingLocalChanges[num];
+        } else if (currentConfirmaciones[num] !== undefined) {
+          // Mantener confirmación local si existe
+          c.confirmacion = currentConfirmaciones[num];
+        } else {
+          c.confirmacion = false;
+        }
+      });
+      
+      // Actualizar array de citas
+      citas = allCitas;
+      
+      // Actualizar pacientes
+      var map = {};
+      citas.forEach(function(c){ if(c.dni && !map[c.dni]) map[c.dni] = {dni:c.dni, nombre:c.nombre, telefono:c.telefono}; });
+      pacs = Object.values(map);
+      
+      // Guardar en localStorage
+      try { localStorage.setItem('tb_citas_cache', JSON.stringify(citas)); } catch(e){}
+      
+      // Actualizar UI
+      renderDash(); filtrarCitas();
+      if (document.getElementById('panel-agenda').classList.contains('active')) renderCal();
+      
+      setSt('Sincronizado ' + hStr(), 'ok');
+    })
+    .catch(function() {
+      // No hacer nada si falla, continuar con datos locales
+    });
+}
+
+// Marcar un cambio como pendiente de sincronización
+function markPendingChange(num, value) {
+  pendingLocalChanges[String(num)] = value;
+}
 
 var EST = [
   {l:"Sano",       bg:"#dcfce7", c:"#166534"},
@@ -696,6 +791,7 @@ function doLogin() {
     document.getElementById('app').style.display = 'block';
     guardarAcceso();
     cargarDatos();
+    startSyncPolling(); // Iniciar sincronización automática
   } else {
     var e = document.getElementById('lerr');
     e.style.display = 'block';
@@ -706,6 +802,7 @@ function doLogin() {
   }
 }
 function doLogout() {
+  stopSyncPolling(); // Detener sincronización automática
   localStorage.removeItem('tb_admin_login');
   document.getElementById('app').style.display = 'none';
   document.getElementById('loginScreen').style.display = 'flex';
@@ -1222,4 +1319,3 @@ function abrirLoteAtendidas() {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 </body>
 </html>
-
