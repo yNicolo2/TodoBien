@@ -787,11 +787,31 @@ function cargarDatos() {
       if (d.error) throw new Error(d.error);
       var allCitas = d.citas || [];
       var filterDoctor = normalizeText(currentAdminDoctor);
+      
+      // Debug: mostrar informacion de filtrado
+      console.log('Filtrando citas - currentAdminDoctor:', currentAdminDoctor);
+      console.log('Filtrando citas - filterDoctor normalizado:', filterDoctor);
+      
       if (filterDoctor) {
-        citas = allCitas.filter(function(c){ return normalizeText(c.doctor) === filterDoctor; });
+        citas = allCitas.filter(function(c){ 
+          var docNormal = normalizeText(c.doctor);
+          // Comparacion mas flexible: verificar si el doctor normalizado contiene las palabras clave
+          var match = docNormal === filterDoctor;
+          // Tambien verificar coincidencias parciales para manejar variaciones
+          if (!match) {
+            if (filterDoctor.indexOf('carlos') !== -1 && docNormal.indexOf('carlos') !== -1) match = true;
+            if (filterDoctor.indexOf('noelia') !== -1 && docNormal.indexOf('noelia') !== -1) match = true;
+          }
+          if (!match) {
+            console.log('Cita NO coincide - doctor:', c.doctor, '-> normalizado:', docNormal);
+          }
+          return match;
+        });
       } else {
         citas = allCitas;
       }
+      
+      console.log('Citas filtradas:', citas.length, 'de', allCitas.length, 'totales');
       
       // IMPORTANTE: Preservar confirmaciones guardadas en localStorage
       var citasEnCache = {};
@@ -986,6 +1006,8 @@ function toggleConfirmacion(num, checked) {
       console.log('Backend response:', d);
       if (d.success || d.confirmacion !== undefined) {
         toast(checked ? '✓ Cita confirmada' : '✓ Confirmación desmarcada', 'ok');
+        // Recargar datos desde el servidor para sincronizar con otros usuarios
+        cargarDatos();
       } else {
         console.warn('Backend warning:', d);
         toast('Guardado localmente', 'ok');
@@ -1019,6 +1041,7 @@ function renderTabla(arr) {
   var tb = document.getElementById('tbCitas');
   if (!arr.length) { tb.innerHTML='<tr><td colspan="10"><div class="empty"><div class="empty-txt">Sin citas</div></div></td></tr>'; return; }
   var s = arr.slice().sort(function(a,b){ var da=a.fecha+' '+a.hora, db=b.fecha+' '+b.hora; return db<da?-1:db>da?1:0; });
+  var esSoporte = currentAdmin && currentAdmin.user === 'Soporte';
   tb.innerHTML = s.map(function(c) {
     var col = CS[c.servicio] || {bg:'#e8f0fb', c:'#0f3a8a'};
     var fp  = (c.fecha||'').split('-'), fd = fp.length===3 ? fp[2]+'/'+fp[1]+'/'+fp[0] : c.fecha||'—';
@@ -1026,6 +1049,10 @@ function renderTabla(arr) {
     var ep  = c.pago&&c.pago.indexOf('Pag')!==-1 ? 'pill pill-Pagado' : 'pill pill-Pendiente';
     var confirmado = c.confirmacion === true;
     var chk = '<input type="checkbox" class="confirma-chk" data-numero="'+String(c.numero||'')+'" '+(confirmado?'checked':'')+' style="width:18px;height:18px;cursor:pointer"/>';
+    // Para Soporte, mostrar nombre del doctor en la columna Confirmar
+    var confCell = esSoporte 
+      ? '<td style="text-align:center"><div style="display:flex;flex-direction:column;align-items:center;gap:2px">'+chk+'<span style="font-size:.62rem;color:var(--muted);font-weight:600">'+esc(c.doctor||'—')+'</span></div></td>'
+      : '<td style="text-align:center">'+chk+'</td>';
     return '<tr>' +
       '<td class="td-m">#' + pad2(String(c.numero||'').padStart(3,'0')) + '</td>' +
       '<td><div class="td-b">'+esc(c.nombre)+'</div><div class="td-sub">'+esc(c.telefono||'—')+'</div></td>' +
@@ -1035,7 +1062,7 @@ function renderTabla(arr) {
       '<td class="td-m">'+fmt12(c.hora)+'</td>' +
       '<td><span class="'+ec+'">'+esc(c.estado||'—')+'</span></td>' +
       '<td><span class="'+ep+'" style="font-size:.68rem">'+esc(c.pago||'Pendiente')+'</span></td>' +
-      '<td style="text-align:center">'+chk+'</td>' +
+      confCell +
       '<td><button class="btn btn-sm btn-blue" data-edit-num="'+esc(String(c.numero||''))+'">Editar</button></td>' +
     '</tr>';
   }).join('');
@@ -1133,4 +1160,3 @@ function abrirLoteAtendidas() {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 </body>
 </html>
-
