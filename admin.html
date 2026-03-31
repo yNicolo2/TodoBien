@@ -991,11 +991,31 @@ function toggleConfirmacion(num, checked) {
   // Mostrar cambio en la tabla
   filtrarCitas();
   
-  // Enviar al backend
+  // Enviar al backend con barrita de carga
   var url = SCRIPT_URL + '?action=updateConfirmacion&numero=' + encodeURIComponent(num) +
             '&confirmacion=' + (checked ? 'true' : 'false') + '&t=' + Date.now();
   
   console.log('Enviando a backend:', url);
+  
+  // Buscar el checkbox y agregar barrita de carga
+  var checkbox = document.querySelector('.confirma-chk[data-numero="' + String(num) + '"]');
+  if (checkbox) {
+    var container = checkbox.closest('td');
+    if (container) {
+      // Crear o encontrar barrita de carga
+      var loader = container.querySelector('.sync-loader');
+      if (!loader) {
+        loader = document.createElement('div');
+        loader.className = 'sync-loader';
+        loader.style.cssText = 'display:inline-flex;align-items:center;gap:.4rem;margin-left:.5rem;font-size:.7rem;color:var(--muted);';
+        loader.innerHTML = '<span style="width:8px;height:8px;border-radius:50%;background:var(--muted);animation:blink 1s infinite"></span><span>Guardando...</span>';
+        container.appendChild(loader);
+      } else {
+        loader.style.display = 'inline-flex';
+        loader.innerHTML = '<span style="width:8px;height:8px;border-radius:50%;background:var(--muted);animation:blink 1s infinite"></span><span>Guardando...</span>';
+      }
+    }
+  }
   
   fetch(url, {method:'GET', redirect:'follow'})
     .then(function(r) { 
@@ -1005,17 +1025,59 @@ function toggleConfirmacion(num, checked) {
     .then(function(d) {
       console.log('Backend response:', d);
       if (d.success || d.confirmacion !== undefined) {
-        toast(checked ? '✓ Cita confirmada' : '✓ Confirmación desmarcada', 'ok');
+        // Mostrar sincronizado en verde
+        if (checkbox) {
+          var container = checkbox.closest('td');
+          if (container) {
+            var loader = container.querySelector('.sync-loader');
+            if (loader) {
+              loader.innerHTML = '<span style="width:8px;height:8px;border-radius:50%;background:var(--green)"></span><span style="color:var(--green);font-weight:600">Sincronizado</span>';
+              setTimeout(function() {
+                if (loader && loader.parentNode) {
+                  loader.parentNode.removeChild(loader);
+                }
+              }, 2000);
+            }
+          }
+        }
         // Recargar datos desde el servidor para sincronizar con otros usuarios
         cargarDatos();
       } else {
         console.warn('Backend warning:', d);
-        toast('Guardado localmente', 'ok');
+        // Mostrar advertencia
+        if (checkbox) {
+          var container = checkbox.closest('td');
+          if (container) {
+            var loader = container.querySelector('.sync-loader');
+            if (loader) {
+              loader.innerHTML = '<span style="width:8px;height:8px;border-radius:50%;background:var(--amber)"></span><span style="color:var(--amber);font-weight:600">Local</span>';
+              setTimeout(function() {
+                if (loader && loader.parentNode) {
+                  loader.parentNode.removeChild(loader);
+                }
+              }, 2000);
+            }
+          }
+        }
       }
     })
     .catch(function(err) {
       console.warn('Error al conectar con backend:', err);
-      toast('Guardado localmente (sin conexión)', 'warn');
+      // Mostrar error de conexión
+      if (checkbox) {
+        var container = checkbox.closest('td');
+        if (container) {
+          var loader = container.querySelector('.sync-loader');
+          if (loader) {
+            loader.innerHTML = '<span style="width:8px;height:8px;border-radius:50%;background:var(--red)"></span><span style="color:var(--red);font-weight:600">Sin conexión</span>';
+            setTimeout(function() {
+              if (loader && loader.parentNode) {
+                loader.parentNode.removeChild(loader);
+              }
+            }, 2000);
+          }
+        }
+      }
     });
 }
 
@@ -1160,3 +1222,4 @@ function abrirLoteAtendidas() {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 </body>
 </html>
+
