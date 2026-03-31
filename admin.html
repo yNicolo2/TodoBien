@@ -463,7 +463,7 @@ td{padding:.65rem .9rem;font-size:.82rem;vertical-align:middle}
 
 <script>
 // ========== CONFIGURACIÓN ==========
-var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyWlCHIBzMZ27UDK9hFWLoW4MzKRm4odTQFrMg5FhXkQHUGqxMt2fCxi2Hk3W_aUl3t/exec";
+var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx8yQfJl719xo5dOS2qqELezU5iKvA7fa2yB6qHCNgginDkE3auukZeivQXvIRf8HvG/exec";
 var ADMIN_USERS = [
   {user: 'Luquita', pass: 'lucaguapo', doctor: 'Dr. Carlos Lujan'},
   {user: 'Musolini', pass: 'musoguapo', doctor: 'Dra. Noelia Lujan'},
@@ -481,7 +481,10 @@ var calMes, calAnio;
 var chartMesObj = null, chartServObj = null, chartPagoObj = null;
 var syncInterval = null;
 var lastSyncTimestamp = 0;
-var pendingLocalChanges = {}; // Almacena cambios locales pendientes de sincronizar
+var pendingLocalChanges = {}; // Cambios locales en espera de confirmación del servidor
+var serverConfirmaciones = {}; // Último estado conocido del servidor (por número)
+var lastServerTimestamp = 0; // Timestamp devuelto por el servidor
+var lastSyncTime = 0; // Última vez que se sincronizó correctamente
 
 // Iniciar polling de sincronización cada 15 segundos
 function startSyncPolling() {
@@ -1319,3 +1322,4 @@ function abrirLoteAtendidas() {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 </body>
 </html>
+
