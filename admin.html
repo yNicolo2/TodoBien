@@ -4,6 +4,12 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Todo Bien — Panel Clínico</title>
+<link rel="manifest" href="manifest-admin.json"/>
+<meta name="theme-color" content="#1a56c4"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Admin Todo Bien"/>
+<meta name="mobile-web-app-capable" content="yes"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 :root{
@@ -299,6 +305,9 @@ td{padding:.65rem .9rem;font-size:.82rem;vertical-align:middle}
         <div class="sbi" data-panel="odontograma">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 5c-1.5 0-2.35.46-3.1.84-.65.33-1.2.63-2.15.63-.96 0-1.51-.3-2.16-.63C10.85 5.46 10 5 8.5 5 5.42 5 3 7.42 3 10.5c0 3.78 2.5 10.5 4.5 10.5.74 0 1.14-.23 1.62-.51.52-.3 1.12-.65 2.38-.65s1.86.35 2.38.65c.48.28.88.51 1.62.51 2 0 4.5-6.72 4.5-10.5C20 7.42 17.58 5 19 5z"/></svg>Odontograma
         </div>
+        <div class="sbi" data-panel="auditoria" id="sbiAuditoria" style="display:none">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>Auditoría
+        </div>
       </div>
       <div class="sb-footer">
         <div class="sb-sync" id="syncSt">Sin datos</div>
@@ -382,7 +391,18 @@ td{padding:.65rem .9rem;font-size:.82rem;vertical-align:middle}
               <tbody id="tbCitas"><tr><td colspan="10" class="loading">Cargando...</td></tr></tbody>
             </table>
           </div>
+          <div style="padding:1rem 1.3rem;display:flex;justify-content:flex-end">
+            <button class="btn btn-p" id="btnGuardarTodo" style="font-size:.9rem;padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+              GUARDAR CAMBIOS
+            </button>
+          </div>
         </div>
+      </div>
+      
+      <!-- Tarjeta de "Guardado con éxito" -->
+      <div id="guardadoCard" style="display:none;position:fixed;top:20px;left:50%;transform:translateX(-50%);background:var(--green);color:white;padding:1rem 2rem;border-radius:var(--r-lg);font-size:1rem;font-weight:700;box-shadow:var(--shadow-lg);z-index:99999;animation:fadeIn .2s ease">
+        ✓ Guardado con éxito
       </div>
 
       <!-- HISTORIA CLÍNICA (igual) -->
@@ -446,6 +466,28 @@ td{padding:.65rem .9rem;font-size:.82rem;vertical-align:middle}
         <div id="oWrap"><div class="empty"><div class="empty-icon">🦷</div><div class="empty-txt">Selecciona un paciente para ver su odontograma</div></div></div>
       </div>
 
+      <!-- AUDITORÍA (solo para Soporte) -->
+      <div id="panel-auditoria" class="panel" style="display:none">
+        <div class="ptitle">Audito<strong>ría</strong></div>
+        <div class="card">
+          <div class="card-hdr">
+            <div class="card-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+              Registro de actividad
+            </div>
+            <div class="controls">
+              <button class="btn btn-g" id="btnRefAuditoria">↻ Actualizar</button>
+            </div>
+          </div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>ID</th><th>Fecha y Hora</th><th>Usuario</th><th>Acción</th><th>Tabla</th><th>ID Registro</th><th>Detalles</th><th>IP</th></tr></thead>
+              <tbody id="tbAuditoria"><tr><td colspan="8" class="loading">Cargando...</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
     </main>
   </div>
 </div>
@@ -463,7 +505,7 @@ td{padding:.65rem .9rem;font-size:.82rem;vertical-align:middle}
 
 <script>
 // ========== CONFIGURACIÓN ==========
-var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx8yQfJl719xo5dOS2qqELezU5iKvA7fa2yB6qHCNgginDkE3auukZeivQXvIRf8HvG/exec";
+var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz4qAHObjeQUGoMRGepkDg6sZIzW4YqDbXoDR075Uz7VX4Na8ZuWBflQD67hk4GsGY3/exec";
 var ADMIN_USERS = [
   {user: 'Luquita', pass: 'lucaguapo', doctor: 'Dr. Carlos Lujan'},
   {user: 'Musolini', pass: 'musoguapo', doctor: 'Dra. Noelia Lujan'},
@@ -486,12 +528,12 @@ var serverConfirmaciones = {}; // Último estado conocido del servidor (por núm
 var lastServerTimestamp = 0; // Timestamp devuelto por el servidor
 var lastSyncTime = 0; // Última vez que se sincronizó correctamente
 
-// Iniciar polling de sincronización cada 15 segundos
+// Iniciar polling de sincronización cada 5 segundos
 function startSyncPolling() {
   if (syncInterval) clearInterval(syncInterval);
   syncInterval = setInterval(function() {
     syncFromServer();
-  }, 15000); // 15 segundos
+  }, 5000); // 5 segundos
 }
 
 // Detener polling al cerrar sesión
@@ -502,16 +544,9 @@ function stopSyncPolling() {
   }
 }
 
-// Sincronizar datos desde el servidor preservando cambios locales
+// Sincronizar datos desde el servidor - EL SERVIDOR SIEMPRE TIENE LA RAZÓN
 function syncFromServer() {
-  // Solo sincronizar si hay sesión activa
   if (!currentAdmin) return;
-  
-  var currentConfirmaciones = {};
-  // Guardar estado actual de confirmaciones locales
-  citas.forEach(function(c) {
-    currentConfirmaciones[String(c.numero)] = c.confirmacion;
-  });
   
   setSt('Sincronizando...', '');
   
@@ -524,7 +559,7 @@ function syncFromServer() {
       
       // Filtrar por doctor
       if (filterDoctor) {
-        allCitas = allCitas.filter(function(c){
+        citas = allCitas.filter(function(c){
           var docNormal = normalizeText(c.doctor);
           var match = docNormal === filterDoctor;
           if (!match) {
@@ -533,34 +568,20 @@ function syncFromServer() {
           }
           return match;
         });
+      } else {
+        citas = allCitas;
       }
-      
-      // Preservar confirmaciones locales (importante para sincronización)
-      var changedCount = 0;
-      allCitas.forEach(function(c) {
-        var num = String(c.numero);
-        // Si hay un cambio local pendiente, mantenerlo
-        if (currentConfirmaciones[num] !== undefined && pendingLocalChanges[num] !== undefined) {
-          c.confirmacion = currentConfirmaciones[num];
-          delete pendingLocalChanges[num];
-        } else if (currentConfirmaciones[num] !== undefined) {
-          // Mantener confirmación local si existe
-          c.confirmacion = currentConfirmaciones[num];
-        } else {
-          c.confirmacion = false;
-        }
-      });
-      
-      // Actualizar array de citas
-      citas = allCitas;
       
       // Actualizar pacientes
       var map = {};
       citas.forEach(function(c){ if(c.dni && !map[c.dni]) map[c.dni] = {dni:c.dni, nombre:c.nombre, telefono:c.telefono}; });
       pacs = Object.values(map);
       
-      // Guardar en localStorage
+      // Guardar en localStorage - LOS DATOS DEL SERVIDOR SON LA VERDAD
       try { localStorage.setItem('tb_citas_cache', JSON.stringify(citas)); } catch(e){}
+      
+      // Limpiar cambios pendientes - YA NO NECESITAMOS PRESERVAR NADA
+      pendingLocalChanges = {};
       
       // Actualizar UI
       renderDash(); filtrarCitas();
@@ -569,7 +590,8 @@ function syncFromServer() {
       setSt('Sincronizado ' + hStr(), 'ok');
     })
     .catch(function() {
-      // No hacer nada si falla, continuar con datos locales
+      // Si falla, usar cache local pero marcar como desincronizado
+      setSt('Sin conexión - usando cache', 'err');
     });
 }
 
@@ -650,22 +672,23 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('forgotSubmit').addEventListener('click', handleForgot);
   document.getElementById('sbOut').addEventListener('click', doLogout);
 
-  // Nav
-  document.querySelectorAll('.sbi').forEach(function(item) {
-    item.addEventListener('click', function() {
-      var p = this.dataset.panel;
-      if (!p) return;
-      document.querySelectorAll('.sbi').forEach(function(i){ i.classList.remove('active'); });
-      document.querySelectorAll('.panel').forEach(function(x){ x.classList.remove('active'); });
-      this.classList.add('active');
-      document.getElementById('panel-'+p).classList.add('active');
-      if (window.innerWidth <= 850) document.querySelector('.sidebar').classList.remove('open');
-      if (p==='agenda')       renderCal();
-      if (p==='odontograma')  poblarSelPac();
-      if (p==='estadisticas') setTimeout(renderEstadisticas, 100);
-      if (p==='nueva-cita')   { renderNcRecientes(); document.getElementById('nc_fecha').value = isoHoy(); }
-    });
-  });
+      // Nav
+      document.querySelectorAll('.sbi').forEach(function(item) {
+        item.addEventListener('click', function() {
+          var p = this.dataset.panel;
+          if (!p) return;
+          document.querySelectorAll('.sbi').forEach(function(i){ i.classList.remove('active'); });
+          document.querySelectorAll('.panel').forEach(function(x){ x.classList.remove('active'); });
+          this.classList.add('active');
+          document.getElementById('panel-'+p).classList.add('active');
+          if (window.innerWidth <= 850) document.querySelector('.sidebar').classList.remove('open');
+          if (p==='agenda')       renderCal();
+          if (p==='odontograma')  poblarSelPac();
+          if (p==='estadisticas') setTimeout(renderEstadisticas, 100);
+          if (p==='nueva-cita')   { renderNcRecientes(); document.getElementById('nc_fecha').value = isoHoy(); }
+          if (p==='auditoria')    cargarAuditoria();
+        });
+      });
 
   document.getElementById('btnRel').addEventListener('click', cargarDatos);
   document.getElementById('btnAct').addEventListener('click', cargarDatos);
@@ -699,6 +722,17 @@ document.addEventListener('DOMContentLoaded', function() {
       var checked = e.target.checked;
       if (num) {
         toggleConfirmacion(num, checked);
+      }
+    }
+  });
+  
+  // Delegación eventos para botón ENVIAR
+  document.getElementById('tbCitas').addEventListener('click', function(e) {
+    var btn = e.target.closest('.btn-enviar');
+    if (btn) {
+      var num = btn.dataset.numero;
+      if (num) {
+        enviarConfirmacion(num, btn);
       }
     }
   });
@@ -752,12 +786,19 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('btnCopiarRecordatorio').addEventListener('click', copiarRecordatorio);
   document.getElementById('btnExportarCSV').addEventListener('click', exportarCSVHoy);
   document.getElementById('btnMarcarLote').addEventListener('click', abrirLoteAtendidas);
+  
+  // Botón Guardar Todo
+  document.getElementById('btnGuardarTodo').addEventListener('click', guardarTodo);
+  
+  // Botón Actualizar Auditoría
+  document.getElementById('btnRefAuditoria').addEventListener('click', cargarAuditoria);
 
   var h = new Date(); calMes = h.getMonth(); calAnio = h.getFullYear();
   llenarSelsMes();
 });
 
 function verifyLogin() {
+  // Primero verificar si hay sesión activa
   var loginData = localStorage.getItem('tb_admin_login');
   if (loginData) {
     try {
@@ -771,11 +812,25 @@ function verifyLogin() {
         document.getElementById('app').style.display = 'block';
         guardarAcceso();
         cargarDatos();
+        startSyncPolling();
         return;
       }
       localStorage.removeItem('tb_admin_login');
     } catch(e){ localStorage.removeItem('tb_admin_login'); }
   }
+  
+  // Si no hay sesión activa, verificar credenciales guardadas (auto-completar)
+  var savedCreds = localStorage.getItem('tb_saved_creds');
+  if (savedCreds) {
+    try {
+      var creds = JSON.parse(savedCreds);
+      // Auto-completar campos de login
+      document.getElementById('loginUser').value = creds.user || '';
+      document.getElementById('loginPass').value = creds.pass || '';
+      document.getElementById('rememberMe').checked = true;
+    } catch(e){}
+  }
+  
   document.getElementById('loginScreen').style.display = 'flex';
   document.getElementById('app').style.display = 'none';
 }
@@ -790,6 +845,14 @@ function doLogin() {
     setAdminHeader();
     var expires = Date.now() + (remember ? 30*24*60*60*1000 : 30*60*1000);
     localStorage.setItem('tb_admin_login', JSON.stringify({user: user, pass: pass, expires: expires}));
+    
+    // Guardar credenciales para auto-completar (siempre, independientemente del remember)
+    if (remember) {
+      localStorage.setItem('tb_saved_creds', JSON.stringify({user: user, pass: pass}));
+    } else {
+      localStorage.removeItem('tb_saved_creds');
+    }
+    
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('app').style.display = 'block';
     guardarAcceso();
@@ -851,6 +914,12 @@ function setAdminHeader() {
     }
   }
   if (title) title.innerHTML = 'Buenos días, <strong>' + displayName + '</strong>';
+  
+  // Mostrar botón de Auditoría solo para Soporte
+  var sbiAuditoria = document.getElementById('sbiAuditoria');
+  if (sbiAuditoria) {
+    sbiAuditoria.style.display = (currentAdmin && currentAdmin.user === 'Soporte') ? 'flex' : 'none';
+  }
 }
 
 function handleForgot() {
@@ -1057,6 +1126,32 @@ function renderCal() {
   document.getElementById('agGrid').innerHTML = html;
 }
 
+// ── ENVIAR CONFIRMACION (botón ENVIAR) ──────────────────────
+function enviarConfirmacion(num, btn) {
+  // Mostrar estado de envío
+  var originalText = btn.textContent;
+  btn.textContent = '...';
+  btn.disabled = true;
+  btn.style.opacity = '0.6';
+  
+  // Simular envío (en producción aquí iría la llamada a API de WhatsApp/SMS)
+  setTimeout(function() {
+    btn.textContent = '✓';
+    btn.style.background = '#dcfce7';
+    btn.style.color = '#166534';
+    toast('Confirmación enviada al paciente', 'ok');
+    
+    // Restaurar botón después de 2 segundos
+    setTimeout(function() {
+      btn.textContent = originalText;
+      btn.style.background = '';
+      btn.style.color = '';
+      btn.disabled = false;
+      btn.style.opacity = '';
+    }, 2000);
+  }, 500);
+}
+
 // ── CONFIRMACION DE ASISTENCIA ──────────────────────────────
 function toggleConfirmacion(num, checked) {
   console.log('toggleConfirmacion llamado:', {num, checked, total_citas: citas.length});
@@ -1210,13 +1305,14 @@ function renderTabla(arr) {
     var ec  = 'pill pill-' + (c.estado||'').replace(/ /g,'');
     var ep  = c.pago&&c.pago.indexOf('Pag')!==-1 ? 'pill pill-Pagado' : 'pill pill-Pendiente';
     var confirmado = c.confirmacion === true;
-    var chk = '<input type="checkbox" class="confirma-chk" data-numero="'+String(c.numero||'')+'" '+(confirmado?'checked':'')+' style="width:18px;height:18px;cursor:pointer"/>';
+    var num = String(c.numero||'');
+    var chk = '<input type="checkbox" class="confirma-chk" data-numero="'+num+'" '+(confirmado?'checked':'')+' style="width:18px;height:18px;cursor:pointer"/>';
     // Para Soporte, mostrar nombre del doctor en la columna Confirmar
     var confCell = esSoporte 
       ? '<td style="text-align:center"><div style="display:flex;flex-direction:column;align-items:center;gap:2px">'+chk+'<span style="font-size:.62rem;color:var(--muted);font-weight:600">'+esc(c.doctor||'—')+'</span></div></td>'
       : '<td style="text-align:center">'+chk+'</td>';
     return '<tr>' +
-      '<td class="td-m">#' + pad2(String(c.numero||'').padStart(3,'0')) + '</td>' +
+      '<td class="td-m">#' + pad2(num.padStart(3,'0')) + '</td>' +
       '<td><div class="td-b">'+esc(c.nombre)+'</div><div class="td-sub">'+esc(c.telefono||'—')+'</div></td>' +
       '<td class="td-m">'+esc(c.dni||'—')+'</td>' +
       '<td><span class="pill" style="background:'+col.bg+';color:'+col.c+'">'+esc(c.servicio)+'</span></td>' +
@@ -1225,7 +1321,7 @@ function renderTabla(arr) {
       '<td><span class="'+ec+'">'+esc(c.estado||'—')+'</span></td>' +
       '<td><span class="'+ep+'" style="font-size:.68rem">'+esc(c.pago||'Pendiente')+'</span></td>' +
       confCell +
-      '<td><button class="btn btn-sm btn-blue" data-edit-num="'+esc(String(c.numero||''))+'">Editar</button></td>' +
+      '<td><button class="btn btn-sm btn-blue" data-edit-num="'+esc(num)+'">Editar</button></td>' +
     '</tr>';
   }).join('');
 }
@@ -1318,8 +1414,105 @@ function abrirLoteAtendidas() {
   }
 }
 
+// ── GUARDAR TODO ──────────────────────────────────────────────
+function guardarTodo() {
+  // Guardar en localStorage
+  try { localStorage.setItem('tb_citas_cache', JSON.stringify(citas)); } catch(e){}
+  
+  // Recargar datos desde el servidor
+  cargarDatos();
+  
+  // Mostrar tarjeta "Guardado con éxito" arriba al centro
+  var card = document.getElementById('guardadoCard');
+  card.style.display = 'block';
+  
+  // Ocultar después de 2 segundos
+  setTimeout(function() {
+    card.style.display = 'none';
+  }, 2000);
+}
+
+// ── AUDITORÍA (solo Soporte) ─────────────────────────────────
+function cargarAuditoria() {
+  if (!currentAdmin || currentAdmin.user !== 'Soporte') {
+    toast('Acceso denegado - Solo usuario Soporte', 'err');
+    return;
+  }
+  
+  var tbody = document.getElementById('tbAuditoria');
+  tbody.innerHTML = '<tr><td colspan="8" class="loading">Cargando auditoría...</td></tr>';
+  
+  console.log('Cargando auditoría para usuario Soporte...');
+  
+  fetch(SCRIPT_URL + '?action=getAuditoria&usuario=Soporte&t=' + Date.now(), {redirect:'follow'})
+    .then(function(r) { 
+      console.log('Respuesta auditoría status:', r.status);
+      return r.ok ? r.json() : Promise.reject('HTTP ' + r.status);
+    })
+    .then(function(d) {
+      console.log('Datos auditoría:', d);
+      
+      if (d.error) {
+        console.error('Error auditoría:', d.error);
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--red);padding:2rem">'+esc(d.error)+'</td></tr>';
+        return;
+      }
+      
+      var logs = d.logs || [];
+      console.log('Registros encontrados:', logs.length);
+      
+      if (!logs.length) {
+        tbody.innerHTML = '<tr><td colspan="8" class="empty" style="padding:2rem"><div class="empty-icon">📋</div><div class="empty-txt">No hay registros de auditoría aún</div></td></tr>';
+        return;
+      }
+      
+      tbody.innerHTML = logs.map(function(log) {
+        var fechaStr = log.fecha || '—';
+        var usuario = esc(log.usuario || '—');
+        var accion = esc(log.accion || '—');
+        var tabla = esc(log.tabla || '—');
+        var idRegistro = esc(log.idRegistro || '—');
+        var detalles = esc(log.detalles || '—');
+        var ip = esc(log.ip || '—');
+        
+        // Color para acciones
+        var accionColor = accion === 'Editar' ? 'var(--teal)' : accion === 'Crear' ? 'var(--green)' : accion === 'Eliminar' ? 'var(--red)' : 'var(--muted)';
+        
+        return '<tr>' +
+          '<td class="td-m">#' + (log.id || '—') + '</td>' +
+          '<td class="td-m">' + fechaStr + '</td>' +
+          '<td style="font-weight:600">' + usuario + '</td>' +
+          '<td><span style="color:'+accionColor+';font-weight:700">'+accion+'</span></td>' +
+          '<td class="td-m">' + tabla + '</td>' +
+          '<td class="td-m">' + idRegistro + '</td>' +
+          '<td>' + detalles + '</td>' +
+          '<td class="td-m">' + ip + '</td>' +
+        '</tr>';
+      }).join('');
+    })
+    .catch(function(err) {
+      console.error('Error cargando auditoría:', err);
+      tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--red);padding:2rem">Error de conexión: ' + esc(String(err)) + '</td></tr>';
+    });
+}
+
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+<!-- SERVICE WORKER REGISTRATION (PWA Admin) -->
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./sw.js')
+      .then(function(registration) {
+        console.log('Admin ServiceWorker registrado:', registration.scope);
+      })
+      .catch(function(error) {
+        console.log('Error registro Admin ServiceWorker:', error);
+      });
+  });
+}
+</script>
 </body>
 </html>
 

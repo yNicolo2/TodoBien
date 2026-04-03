@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8"/>
@@ -6,6 +6,12 @@
 <title>Consultorio Dental Todo Bien | San Juan de Lurigancho, Lima</title>
 <link rel="icon" type="image/png" href="logo.png"/>
 <link rel="apple-touch-icon" href="logo.png"/>
+<link rel="manifest" href="manifest.json"/>
+<meta name="theme-color" content="#1a56c4"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Todo Bien"/>
+<meta name="mobile-web-app-capable" content="yes"/>
 <meta name="description" content="Consultorio Dental Todo Bien en San Juan de Lurigancho, Lima. Limpieza dental, blanqueamiento, ortodoncia, endodoncia, rehabilitacion oral y estetica dental. Agenda tu cita online. Jr. Las Drusas 174A, Urb. Las Flores."/>
 <meta name="keywords" content="dentista San Juan de Lurigancho, clinica dental SJL, dentista Lima, consultorio dental Todo Bien, limpieza dental SJL, brackets Lima, endodoncia SJL, blanqueamiento dental Lima, dentista cerca de mi"/>
 <meta name="robots" content="index, follow"/>
@@ -1600,7 +1606,7 @@ function closeModal(){
 </script>
 
 <script>
-var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx8yQfJl719xo5dOS2qqELezU5iKvA7fa2yB6qHCNgginDkE3auukZeivQXvIRf8HvG/exec";
+var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz4qAHObjeQUGoMRGepkDg6sZIzW4YqDbXoDR075Uz7VX4Na8ZuWBflQD67hk4GsGY3/exec";
 var DURACION = 90;
 var slotOK = false;
 
@@ -1915,6 +1921,19 @@ var adminBuf = '';
 
 // Admin: escribe "admin" en el teclado para abrir el panel
 
+// ─── SERVICE WORKER REGISTRATION (PWA) ───
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./sw.js')
+      .then(function(registration) {
+        console.log('ServiceWorker registrado:', registration.scope);
+      })
+      .catch(function(error) {
+        console.log('Error registro ServiceWorker:', error);
+      });
+  });
+}
+
 }); // end DOMContentLoaded
 </script>
 <button id="backToTop" title="Volver arriba" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
@@ -1997,3 +2016,9 @@ var adminBuf = '';
 
 </body>
 </html>
+
+
+
+
+
+

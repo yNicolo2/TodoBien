@@ -17,6 +17,7 @@ var SH_AGENDA    = "AGENDA";
 var SH_HISTORIA  = "HISTORIA CLINICA";
 var SH_ODONTO    = "ODONTOGRAMA";
 var SH_DASHBOARD = "INICIO";
+var SH_AUDITORIA = "AUDITORIA";
 
 // ── Paleta de colores (misma que el sitio web) ──────────────────────────
 var P = {
@@ -66,6 +67,7 @@ function doGet(e) {
     if (p.action === "reprogramar")      return json(reprogramarCita(p));
     if (p.action === "updateCita")       return json(updateCita(p));
     if (p.action === "updateConfirmacion") return json(updateConfirmacion(p));
+    if (p.action === "getAuditoria")     return json(obtenerAuditoria(p));
     return json({ error:"Accion desconocida: " + p.action });
   } catch(err) {
     Logger.log("doGet error: " + err);
@@ -152,7 +154,7 @@ function guardarCita(p) {
 
 function obtenerCitas() {
   var sheet = abrirHoja(SH_CITAS);
-  if (!sheet || sheet.getLastRow()<=1) return { citas:[] };
+  if (!sheet || sheet.getLastRow()<=1) return { citas:[], timestamp: Date.now() };
   var data = sheet.getRange(2,1,sheet.getLastRow()-1,15).getDisplayValues();
   var citas = data.filter(function(r){ return r[2]; }).map(function(r){
     return {
@@ -174,7 +176,8 @@ function obtenerCitas() {
     };
   });
   citas.sort(function(a,b){ var da=a.fecha+" "+a.hora,db=b.fecha+" "+b.hora; return da<db?-1:da>db?1:0; });
-  return { citas:citas };
+  // Devolver timestamp para sincronización
+  return { citas:citas, timestamp: new Date().getTime() };
 }
 
 function reprogramarCita(p) {
@@ -183,43 +186,158 @@ function reprogramarCita(p) {
     var ss   = SpreadsheetApp.openById(SPREADSHEET_ID);
     var sh   = ss.getSheetByName(SH_CITAS);
     if (!sh||sh.getLastRow()<=1) return {success:false,error:"Sin datos"};
+    
+    // Buscar la fila de manera más robusta
     var rows = sh.getRange(2,1,sh.getLastRow()-1,15).getValues();
+    var targetRow = -1;
+    
     for (var i=0;i<rows.length;i++) {
-      if (String(rows[i][0]).trim()===String(p.numero).trim()) {
-        var fr = i+2;
-        sh.getRange(fr,7).setValue(p.fecha);
-        sh.getRange(fr,8).setValue(p.hora).setNumberFormat("@");
-        sh.getRange(fr,10).setValue("Confirmada");
-        try { actualizarAgenda(); }    catch(e){}
-        try { actualizarDashboard(); } catch(e){}
-        return {success:true};
+      var numCell = String(rows[i][0]).trim();
+      var numParam = String(p.numero).trim();
+      
+      if (numCell && numParam && numCell === numParam) {
+        targetRow = i + 2;
+        break;
       }
     }
-    return {success:false,error:"Cita no encontrada"};
-  } catch(err){ return {success:false,error:err.toString()}; }
+    
+    if (targetRow === -1) {
+      return {success:false,error:"Cita #"+p.numero+" no encontrada"};
+    }
+    
+    // Validar que la fila exista
+    var rowRange = sh.getRange(targetRow, 1, 1, 15);
+    if (!rowRange) {
+      return {success:false,error:"Fila no accesible"};
+    }
+    
+    // Obtener valores actuales para validación
+    var currentValues = rowRange.getValues()[0];
+    var oldFecha = currentValues[6];
+    var oldHora = currentValues[7];
+    
+    // Verificar si hay cambios reales
+    if (oldFecha === p.fecha && oldHora === p.hora) {
+      return {success:true, message:"No hubo cambios en la reprogramación"};
+    }
+    
+    // Escribir actualizaciones
+    try {
+      sh.getRange(targetRow, 7).setValue(p.fecha);
+      sh.getRange(targetRow, 8).setValue(p.hora).setNumberFormat("@");
+      sh.getRange(targetRow, 10).setValue("Confirmada");
+      
+      // Verificar que se haya escrito correctamente
+      var verifyValues = sh.getRange(targetRow, 7, 1, 2).getValues()[0];
+      if (verifyValues[0] !== p.fecha || verifyValues[1] !== p.hora) {
+        return {success:false,error:"Error al escribir los nuevos valores"};
+      }
+      
+      // Actualizar vistas solo si la escritura fue exitosa
+      try { actualizarAgenda(); }    catch(e){ Logger.log("Agenda update error: "+e); }
+      try { actualizarDashboard(); } catch(e){ Logger.log("Dashboard update error: "+e); }
+      
+      return {success:true, oldFecha: oldFecha, oldHora: oldHora, newFecha: p.fecha, newHora: p.hora};
+      
+    } catch(writeErr) {
+      return {success:false,error:"Error de escritura: "+writeErr.toString()};
+    }
+    
+  } catch(err){ 
+    Logger.log("reprogramarCita error: "+err);
+    return {success:false,error:err.toString()}; 
+  }
 }
 
 function updateCita(p) {
-  if (!p.numero) return {success:false,error:"Falta numero"};
+  if (!p.numero) return {success:false,error:"Faltan datos"};
   try {
     var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
     var sh = ss.getSheetByName(SH_CITAS);
     if (!sh || sh.getLastRow()<=1) return {success:false,error:"Sin datos"};
+    
+    // Buscar la fila de manera más robusta
     var rows = sh.getRange(2,1,sh.getLastRow()-1,15).getValues();
+    var targetRow = -1;
+    
     for (var i=0;i<rows.length;i++) {
-      if (String(rows[i][0]).trim()===String(p.numero).trim()) {
-        var fr = i+2;
-        if (p.estado) sh.getRange(fr,10).setValue(p.estado);
-        if (p.pago)   sh.getRange(fr,11).setValue(p.pago);
-        var bgE = ESTADO_COL[p.estado];
-        if (bgE) sh.getRange(fr,10).setBackground(bgE).setFontWeight("bold");
-        try { actualizarAgenda(); }    catch(e){}
-        try { actualizarDashboard(); } catch(e){}
-        return {success:true};
+      var numCell = String(rows[i][0]).trim();
+      var numParam = String(p.numero).trim();
+      
+      if (numCell && numParam && numCell === numParam) {
+        targetRow = i + 2;
+        break;
       }
     }
-    return {success:false,error:"Cita #"+p.numero+" no encontrada"};
-  } catch(err){ return {success:false,error:err.toString()}; }
+    
+    if (targetRow === -1) {
+      return {success:false,error:"Cita #"+p.numero+" no encontrada"};
+    }
+    
+    // Validar que la fila exista
+    var rowRange = sh.getRange(targetRow, 1, 1, 15);
+    if (!rowRange) {
+      return {success:false,error:"Fila no accesible"};
+    }
+    
+    // Obtener valores actuales para validación
+    var currentValues = rowRange.getValues()[0];
+    
+    // Actualizar solo si hay cambios
+    var updates = [];
+    if (p.estado && p.estado !== currentValues[9]) {
+      updates.push({col:10, value:p.estado});
+    }
+    if (p.pago && p.pago !== currentValues[10]) {
+      updates.push({col:11, value:p.pago});
+    }
+    
+    if (updates.length === 0) {
+      return {success:true, message:"No hubo cambios"};
+    }
+    
+    // Escribir actualizaciones
+    try {
+      updates.forEach(function(update) {
+        sh.getRange(targetRow, update.col).setValue(update.value);
+      });
+      
+      // Registrar en auditoría
+      var detalles = [];
+      updates.forEach(function(update) {
+        if (update.col === 10) detalles.push("Estado: " + currentValues[9] + " -> " + p.estado);
+        if (update.col === 11) detalles.push("Pago: " + currentValues[10] + " -> " + p.pago);
+      });
+      
+      registrarAuditoria(
+        p.usuario || 'Admin',
+        'Editar',
+        SH_CITAS,
+        String(p.numero),
+        detalles.join(', '),
+        p.ip || ''
+      );
+      
+      // Aplicar color de fondo si cambió el estado
+      if (p.estado) {
+        var bgE = ESTADO_COL[p.estado];
+        if (bgE) sh.getRange(targetRow,10).setBackground(bgE).setFontWeight("bold");
+      }
+      
+      // Actualizar vistas solo si la escritura fue exitosa
+      try { actualizarAgenda(); }    catch(e){ Logger.log("Agenda update error: "+e); }
+      try { actualizarDashboard(); } catch(e){ Logger.log("Dashboard update error: "+e); }
+      
+      return {success:true, actualizados: updates.length};
+      
+    } catch(writeErr) {
+      return {success:false,error:"Error de escritura: "+writeErr.toString()};
+    }
+    
+  } catch(err){ 
+    Logger.log("updateCita error: "+err);
+    return {success:false,error:err.toString()}; 
+  }
 }
 
 function updateConfirmacion(p) {
@@ -228,19 +346,169 @@ function updateConfirmacion(p) {
     var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
     var sh = ss.getSheetByName(SH_CITAS);
     if (!sh || sh.getLastRow()<=1) return {success:false,error:"Sin datos"};
+    
+    // Buscar la fila de manera más robusta
     var rows = sh.getRange(2,1,sh.getLastRow()-1,15).getValues();
+    var targetRow = -1;
+    
     for (var i=0;i<rows.length;i++) {
-      if (String(rows[i][0]).trim()===String(p.numero).trim()) {
-        var fr = i+2;
-        var confirmVal = (p.confirmacion === "true" || p.confirmacion === true) ? true : false;
-        sh.getRange(fr,15).setValue(confirmVal);
-        try { actualizarAgenda(); }    catch(e){}
-        try { actualizarDashboard(); } catch(e){}
-        return {success:true};
+      var numCell = String(rows[i][0]).trim();
+      var numParam = String(p.numero).trim();
+      
+      // Validar que ambos sean números válidos
+      if (numCell && numParam && numCell === numParam) {
+        targetRow = i + 2; // +2 porque empezamos en la fila 2
+        break;
       }
     }
-    return {success:false,error:"Cita #"+p.numero+" no encontrada"};
-  } catch(err){ return {success:false,error:err.toString()}; }
+    
+    if (targetRow === -1) {
+      return {success:false,error:"Cita #"+p.numero+" no encontrada"};
+    }
+    
+    // Validar que la fila exista y tenga datos
+    var cell = sh.getRange(targetRow, 15);
+    if (!cell) {
+      return {success:false,error:"Celda no accesible"};
+    }
+    
+    // Obtener valor anterior para auditoría
+    var oldValue = cell.getValue();
+    
+    // Convertir confirmación de manera más robusta
+    var confirmVal;
+    if (typeof p.confirmacion === 'boolean') {
+      confirmVal = p.confirmacion;
+    } else if (typeof p.confirmacion === 'string') {
+      confirmVal = p.confirmacion.toLowerCase() === 'true' || p.confirmacion === '1';
+    } else {
+      confirmVal = Boolean(p.confirmacion);
+    }
+    
+    // Escribir con validación de escritura exitosa
+    try {
+      cell.setValue(confirmVal);
+      
+      // Verificar que se haya escrito correctamente
+      var writtenValue = cell.getValue();
+      var isWrittenCorrectly = (confirmVal === true && writtenValue === true) || 
+                              (confirmVal === false && writtenValue === false);
+      
+      if (!isWrittenCorrectly) {
+        return {success:false,error:"Error al escribir en la hoja"};
+      }
+      
+      // Registrar en auditoría
+      var citaRows = sh.getRange(targetRow, 1, 1, 3).getValues()[0];
+      registrarAuditoria(
+        p.usuario || 'Admin',
+        'Editar',
+        SH_CITAS,
+        String(p.numero),
+        'Confirmación: ' + (oldValue ? 'Sí' : 'No') + ' → ' + (confirmVal ? 'Sí' : 'No'),
+        p.ip || ''
+      );
+      
+      // Actualizar vistas solo si la escritura fue exitosa
+      try { actualizarAgenda(); }    catch(e){ Logger.log("Agenda update error: "+e); }
+      try { actualizarDashboard(); } catch(e){ Logger.log("Dashboard update error: "+e); }
+      
+      return {success:true, confirmacion: confirmVal};
+      
+    } catch(writeErr) {
+      return {success:false,error:"Error de escritura: "+writeErr.toString()};
+    }
+    
+  } catch(err){ 
+    Logger.log("updateConfirmacion error: "+err);
+    return {success:false,error:err.toString()}; 
+  }
+}
+
+
+// ═══════════════════════════════════════════════════════════════════════
+//   AUDITORÍA (solo para usuario Soporte)
+// ═══════════════════════════════════════════════════════════════════════
+
+function registrarAuditoria(usuario, accion, tabla, idRegistro, detalles, ip) {
+  try {
+    var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    var sheet = getOrCreate(ss, SH_AUDITORIA, crearHojaAuditoria);
+    var now = new Date();
+    var fechaStr = Utilities.formatDate(now, "America/Lima", "dd/MM/yyyy HH:mm:ss");
+    sheet.appendRow([
+      sheet.getLastRow(), // ID log autoincremental
+      fechaStr,
+      usuario,
+      accion,
+      tabla,
+      idRegistro,
+      detalles,
+      ip || 'Local'
+    ]);
+  } catch(e) {
+    Logger.log("Error en auditoría: " + e);
+  }
+}
+
+function crearHojaAuditoria(sheet) {
+  var cols = ["ID Log", "Fecha y Hora", "Usuario", "Acción", "Tabla Afectada", "ID Registro", "Detalles del Cambio", "IP Usuario"];
+  sheet.appendRow(cols);
+  sheet.getRange(1,1,1,8)
+    .setBackground(P.azulOsc).setFontColor(P.blanco)
+    .setFontWeight("bold").setFontSize(10).setVerticalAlignment("middle");
+  sheet.setFrozenRows(1);
+  [80,150,100,100,120,100,300,120].forEach(function(w,i){ sheet.setColumnWidth(i+1,w); });
+  sheet.setRowHeight(1,28);
+  Logger.log("Hoja AUDITORIA creada.");
+}
+
+function obtenerAuditoria(p) {
+  // Verificar que sea usuario Soporte
+  var usuario = p.usuario || '';
+  if (usuario !== 'Soporte') {
+    return { error: "Acceso denegado. Solo usuario Soporte puede ver auditoría." };
+  }
+  
+  try {
+    var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    var sh = ss.getSheetByName(SH_AUDITORIA);
+    
+    // Si no existe la hoja, crearla
+    if (!sh) {
+      sh = ss.insertSheet(SH_AUDITORIA);
+      crearHojaAuditoria(sh);
+      return { logs: [] };
+    }
+    
+    if (sh.getLastRow() <= 1) return { logs: [] };
+    
+    var rows = sh.getRange(2, 1, sh.getLastRow() - 1, 8).getValues();
+    var logs = rows.map(function(r) {
+      return {
+        id: r[0],
+        fecha: r[1],
+        usuario: r[2],
+        accion: r[3],
+        tabla: r[4],
+        idRegistro: r[5],
+        detalles: r[6],
+        ip: r[7]
+      };
+    });
+    
+    // Ordenar por ID descendente (más reciente primero)
+    logs.sort(function(a, b) { return b.id - a.id; });
+    
+    // Limitar a últimos 100 registros
+    if (logs.length > 100) logs = logs.slice(0, 100);
+    
+    Logger.log("Auditoría: " + logs.length + " registros encontrados");
+    return { logs: logs };
+  } catch(err) {
+    Logger.log("Error en obtenerAuditoria: " + err.toString());
+    return { error: err.toString() };
+  }
 }
 
 // ═══════════════════════════════════════════════════════════════════════
