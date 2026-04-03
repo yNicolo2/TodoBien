@@ -1406,7 +1406,7 @@ document.addEventListener('keydown', function(e){
   if (e.key.length > 1) return;
   _secretBuf += e.key.toLowerCase();
   if (_secretBuf.length > 8) _secretBuf = _secretBuf.slice(-8);
-  if (_secretBuf.includes('admin'))  { _secretBuf=''; window.open('admin.html','_blank'); return; }
+  if (_secretBuf.includes('admin'))  { _secretBuf=''; window.open('admin/index.html','_blank'); return; }
   if (_secretBuf.includes('agenda')) { _secretBuf=''; abrirAgenda(); return; }
   // Konami
   if (e.key === konamiSeq[konamiPos]) {

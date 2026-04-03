@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Todo Bien — Panel Clínico</title>
-<link rel="manifest" href="../manifest-admin.json"/>
+<link rel="manifest" href="manifest.json"/>
 <meta name="theme-color" content="#1a56c4"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
@@ -1503,7 +1503,7 @@ function cargarAuditoria() {
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
-    navigator.serviceWorker.register('./sw.js')
+    navigator.serviceWorker.register('../sw.js')
       .then(function(registration) {
         console.log('Admin ServiceWorker registrado:', registration.scope);
       })
