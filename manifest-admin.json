@@ -49,5 +49,20 @@
   "lang": "es",
   "dir": "ltr",
   "scope": "/",
-  "prefer_related_applications": false
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "shortcuts": [
+    {
+      "name": "Panel de control",
+      "short_name": "Dashboard",
+      "description": "Accede al panel de control",
+      "url": "/admin.html",
+      "icons": [
+        {
+          "src": "logo.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
 }

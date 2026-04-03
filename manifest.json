@@ -49,5 +49,20 @@
   "lang": "es",
   "dir": "ltr",
   "scope": "/",
-  "prefer_related_applications": false
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "shortcuts": [
+    {
+      "name": "Reservar cita",
+      "short_name": "Cita",
+      "description": "Agenda tu cita dental",
+      "url": "/index.html#cita",
+      "icons": [
+        {
+          "src": "logo.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
 }
