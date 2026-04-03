@@ -2,44 +2,44 @@
   "name": "Todo Bien Admin - Panel de Administración",
   "short_name": "Admin Todo Bien",
   "description": "Panel de administración para Clínica Dental Todo Bien",
-  "start_url": "/admin/",
+  "start_url": "/admin/index.html",
   "display": "standalone",
   "background_color": "#0d1f3c",
   "theme_color": "#1a56c4",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "../logo.png",
+      "src": "/logo.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "../logo.png",
+      "src": "/logo.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "../logo.png",
+      "src": "/logo.png",
       "sizes": "144x144",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "../logo.png",
+      "src": "/logo.png",
       "sizes": "96x96",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "../logo.png",
+      "src": "/logo.png",
       "sizes": "72x72",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "../logo.png",
+      "src": "/logo.png",
       "sizes": "48x48",
       "type": "image/png",
       "purpose": "any maskable"
@@ -56,10 +56,10 @@
       "name": "Panel de control",
       "short_name": "Dashboard",
       "description": "Accede al panel de control",
-      "url": "/admin/",
+      "url": "/admin/index.html",
       "icons": [
         {
-          "src": "../logo.png",
+          "src": "/logo.png",
           "sizes": "96x96"
         }
       ]

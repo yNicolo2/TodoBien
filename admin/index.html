@@ -4,12 +4,13 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Todo Bien — Panel Clínico</title>
-<link rel="manifest" href="manifest.json"/>
+<link rel="manifest" href="manifest.json" crossorigin="use-credentials"/>
 <meta name="theme-color" content="#1a56c4"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="Admin Todo Bien"/>
 <meta name="mobile-web-app-capable" content="yes"/>
+<link rel="apple-touch-icon" href="../logo.png"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 :root{
@@ -504,6 +505,19 @@ td{padding:.65rem .9rem;font-size:.82rem;vertical-align:middle}
 <div id="toast"></div>
 
 <script>
+// ========== SERVICE WORKER REGISTRATION ==========
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('sw.js')
+      .then(function(registration) {
+        console.log('SW registered:', registration.scope);
+      })
+      .catch(function(error) {
+        console.log('SW registration failed:', error);
+      });
+  });
+}
+
 // ========== CONFIGURACIÓN ==========
 var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz4qAHObjeQUGoMRGepkDg6sZIzW4YqDbXoDR075Uz7VX4Na8ZuWBflQD67hk4GsGY3/exec";
 var ADMIN_USERS = [
@@ -1499,20 +1513,6 @@ function cargarAuditoria() {
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 
-<!-- SERVICE WORKER REGISTRATION (PWA Admin) -->
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('../sw.js')
-      .then(function(registration) {
-        console.log('Admin ServiceWorker registrado:', registration.scope);
-      })
-      .catch(function(error) {
-        console.log('Error registro Admin ServiceWorker:', error);
-      });
-  });
-}
-</script>
 </body>
 </html>
 
