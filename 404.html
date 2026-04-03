@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Redireccionando...</title>
+<script>
+  // Redirigir a las rutas correctas
+  var path = window.location.pathname;
+  if (path === '/admin' || path === '/admin/') {
+    window.location.href = '/admin/index.html';
+  } else if (path === '/admin/index.html') {
+    // Ya está en la ruta correcta, no hacer nada
+  } else {
+    // Para cualquier otra ruta, redirigir al index principal
+    window.location.href = '/';
+  }
+</script>
+</head>
+<body>
+  <p>Redireccionando...</p>
+</body>
+</html>
