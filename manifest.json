@@ -2,7 +2,7 @@
   "name": "Todo Bien - Clínica Dental",
   "short_name": "Todo Bien",
   "description": "Clínica Dental Todo Bien - Dr. Luján",
-  "start_url": "/index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0d1f3c",
   "theme_color": "#1a56c4",
@@ -56,7 +56,7 @@
       "name": "Reservar cita",
       "short_name": "Cita",
       "description": "Agenda tu cita dental",
-      "url": "/index.html#cita",
+      "url": "./index.html#cita",
       "icons": [
         {
           "src": "logo.png",

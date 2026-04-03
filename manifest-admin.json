@@ -2,7 +2,7 @@
   "name": "Todo Bien Admin - Panel de Administración",
   "short_name": "Admin Todo Bien",
   "description": "Panel de administración para Clínica Dental Todo Bien",
-  "start_url": "/admin.html",
+  "start_url": "./admin/index.html",
   "display": "standalone",
   "background_color": "#0d1f3c",
   "theme_color": "#1a56c4",
@@ -56,7 +56,7 @@
       "name": "Panel de control",
       "short_name": "Dashboard",
       "description": "Accede al panel de control",
-      "url": "/admin.html",
+      "url": "./admin/index.html",
       "icons": [
         {
           "src": "logo.png",

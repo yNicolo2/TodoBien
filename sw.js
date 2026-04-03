@@ -1,23 +1,24 @@
 // Service Worker para Todo Bien
 const CACHE_NAME = 'todo-bien-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/admin.html',
-  '/manifest.json',
-  '/manifest-admin.json',
-  '/logo.png',
-  '/og-image.png',
-  '/sw.js',
-  '/todobien_script.gs',
-  '/espera1.jpg',
-  '/espera2.jpg',
-  '/consu1.jpg',
-  '/consu2.jpg',
-  '/ref1.png',
-  '/ref2.png',
-  '/yape.png',
-  '/plin.png'
+  './',
+  './index.html',
+  './admin/',
+  './admin/index.html',
+  './manifest.json',
+  './manifest-admin.json',
+  './logo.png',
+  './og-image.png',
+  './sw.js',
+  './todobien_script.gs',
+  './espera1.jpg',
+  './espera2.jpg',
+  './consu1.jpg',
+  './consu2.jpg',
+  './ref1.png',
+  './ref2.png',
+  './yape.png',
+  './plin.png'
 ];
 
 // Instalar service worker y cachear archivos
